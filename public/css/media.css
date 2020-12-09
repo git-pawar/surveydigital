@@ -1,0 +1,481 @@
+.maindiv {
+    width: 30%;
+    margin: 0px auto;
+    padding-top: 68px;
+}
+
+.maininnersection {
+    width: 32%;
+    margin: 0px auto;
+    border-top: 1;
+}
+
+.btns {
+    height: 25px;
+    font-size: 10px;
+    padding: 5px 7px;
+    border-radius: 3px;
+    color: white !important;
+    margin: 3px !important;
+    width: 24px;
+}
+
+
+/* The sidepanel menu */
+
+.logosection {
+    width: 45px;
+    height: auto;
+    height: 45px;
+    padding: 0px 0px;
+}
+
+.headerlogo {
+    border-bottom: 1px dashed #ccc;
+    padding: 5px 14px;
+}
+
+.logosection img {
+    width: 100%;
+    height: 100%;
+    padding: 5px 0px;
+}
+
+.maindiv {
+    width: 80%;
+    margin: 0px auto;
+    padding-top: 68px;
+}
+
+.titlesection {
+    font-size: 17px;
+    font-weight: 500;
+    margin-left: -9px;
+    text-align: left;
+}
+
+.maininnersection {
+    padding: 19px 19px;
+    width: 100%;
+}
+
+.labelinput {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.input_section {
+    height: 32px;
+}
+
+.width-50 {
+    width: 50%;
+    /* padding: 0px 13px; */
+}
+
+.submitbtn {
+    width: 50%;
+    margin: 30px auto;
+}
+
+.submitbutton {
+    padding: 8px 1px !important;
+}
+
+.selet {
+    padding: 0px 8px;
+    font-size: 13px;
+}
+
+.btn-warning {
+    color: #fff;
+    background-color: #a78905 !important;
+    width: 100%;
+    padding: 8px 2px;
+    margin-bottom: 19px;
+}
+
+
+/* login page css start */
+
+.headerlogo {
+    border-bottom: 1px dashed #ccc;
+    padding: 0px 27px;
+}
+
+.logosection {
+    width: 144px;
+    height: auto;
+    height: 78px;
+    padding: 0px 16px;
+}
+
+.logosection img {
+    width: 100%;
+    height: 100%;
+    padding: 11px 11px;
+}
+
+.submitbutton {
+    padding: 8px 1px;
+}
+
+.btn-wa {
+    color: #fff !important;
+    width: 100%;
+    font-weight: 600;
+    background-color: #927a0f !important;
+    padding: 11px 0px !important;
+    margin-bottom: 14px !important;
+}
+
+
+/* login page css end */
+
+@media screen and (min-width: 320px) and (max-width: 375px) {
+    .menu {
+        top: -45px !important;
+        right: -35px !important;
+    }
+    .ul-mobile li a {
+        font-size: 14px;
+        padding: 0px 5px!important;
+        font-weight: 400;
+    }
+    .logosection {
+        width: 45px;
+        height: auto;
+        height: 45px;
+        padding: 0px 0px;
+    }
+    .headerlogo {
+        border-bottom: 1px dashed #ccc;
+        padding: 5px 14px;
+    }
+    .logosection img {
+        width: 100%;
+        height: 100%;
+        padding: 5px 0px;
+    }
+    .maindiv {
+        width: 80%;
+        margin: 0px auto;
+        padding-top: 68px;
+    }
+    .titlesection {
+        font-size: 17px;
+        font-weight: 500;
+        margin-left: -9px;
+        text-align: left;
+    }
+    .maininnersection {
+        padding: 19px 19px;
+        width: 100%;
+    }
+    .labelinput {
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+    .input_section {
+        height: 32px;
+    }
+    .width-50 {
+        width: 50%;
+        /* padding: 0px 13px; */
+    }
+    .submitbtn {
+        width: 50%;
+        margin: 30px auto;
+    }
+    .submitbutton {
+        padding: 8px 1px !important;
+    }
+    .selet {
+        padding: 0px 8px;
+        font-size: 13px;
+    }
+    .btn-warning {
+        color: #fff;
+        background-color: #a78905 !important;
+        width: 100%;
+        padding: 8px 2px;
+        margin-bottom: 19px;
+    }
+}
+
+@media screen and (min-width: 375px) and (max-width: 425px) {
+    .logosection {
+        width: 45px;
+        height: auto;
+        height: 45px;
+        padding: 0px 0px;
+    }
+    .headerlogo {
+        border-bottom: 1px dashed #ccc;
+        padding: 5px 14px;
+    }
+    .logosection img {
+        width: 100%;
+        height: 100%;
+        padding: 5px 0px;
+    }
+    .maindiv {
+        width: 80%;
+        margin: 0px auto;
+        padding-top: 68px;
+    }
+    .titlesection {
+        font-size: 17px;
+        font-weight: 500;
+        margin-left: -9px;
+        text-align: left;
+    }
+    .maininnersection {
+        padding: 19px 19px;
+        width: 100%
+    }
+    .labelinput {
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+    .input_section {
+        height: 32px;
+    }
+    .width-50 {
+        width: 50%;
+        /* padding: 0px 13px; */
+    }
+    .submitbtn {
+        width: 50%;
+        margin: 30px auto;
+    }
+    .submitbutton {
+        padding: 8px 1px !important;
+    }
+    .selet {
+        padding: 0px 8px;
+        font-size: 13px;
+    }
+    .btn-warning {
+        color: #fff;
+        background-color: #a78905 !important;
+        width: 100%;
+        padding: 8px 2px;
+        margin-bottom: 19px;
+    }
+}
+
+@media screen and (min-width: 425px) and (max-width: 575px) {
+    .logosection {
+        width: 45px;
+        height: auto;
+        height: 45px;
+        padding: 0px 0px;
+    }
+    .headerlogo {
+        border-bottom: 1px dashed #ccc;
+        padding: 5px 14px;
+    }
+    .logosection img {
+        width: 100%;
+        height: 100%;
+        padding: 5px 0px;
+    }
+    .maindiv {
+        width: 80%;
+        margin: 0px auto;
+        padding-top: 68px;
+    }
+    .titlesection {
+        font-size: 17px;
+        font-weight: 500;
+        margin-left: -9px;
+        text-align: left;
+    }
+    .maininnersection {
+        padding: 19px 19px;
+        width: 100%
+    }
+    .labelinput {
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+    .input_section {
+        height: 32px;
+    }
+    .width-50 {
+        width: 50%;
+        /* padding: 0px 13px; */
+    }
+    .submitbtn {
+        width: 50%;
+        margin: 30px auto;
+    }
+    .submitbutton {
+        padding: 8px 1px !important;
+    }
+    .selet {
+        padding: 0px 8px;
+        font-size: 13px;
+    }
+    .btn-warning {
+        color: #fff !important;
+        width: 82%;
+        font-weight: 600;
+        background-color: #927a0f !important;
+        padding: 11px 0px !important;
+        margin-bottom: 14px !important;
+        margin: 0px auto 14px !important;
+    }
+}
+
+.toggle,
+[id^=drop] {
+    display: none;
+}
+
+.drpdwn ul {
+    float: right;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: relative;
+}
+
+.drpdwn ul li {
+    margin: 0px;
+    display: inline-block;
+    float: left;
+    background-color: #254441;
+}
+
+.drpdwn a {
+    display: block;
+    padding: 0px 20px;
+    color: #FFF;
+    font-size: 15px;
+    line-height: 35px;
+    text-decoration: none;
+}
+
+.drpdwn ul li ul li:hover {
+    background: #000000;
+}
+
+.drpdwn a:hover {
+    background-color: #000000;
+}
+
+.drpdwn ul ul {
+    display: none;
+    position: absolute;
+    top: 34px;
+}
+
+.drpdwn ul li:hover>ul {
+    display: inherit;
+}
+
+.drpdwn ul ul li {
+    width: 150px;
+    float: none;
+    display: list-item;
+    position: relative;
+}
+
+.drpdwn ul ul ul li {
+    position: relative;
+    top: -60px;
+    left: 170px;
+}
+
+li>a:after {
+    content: '';
+}
+
+li>a:only-child:after {
+    content: '';
+}
+
+
+/* Media Queries
+--------------------------------------------- */
+
+@media all and (max-width: 768px) {
+    /* #logo {
+                display: block;
+                padding: 0;
+                width: 100%;
+                text-align: center;
+                float: none;
+            } */
+    .drpdwn {
+        margin: 0;
+    }
+    .toggle+a,
+    .menu {
+        display: block;
+    }
+    .toggle {
+        display: block;
+        background-color: #254441;
+        padding: 0 20px;
+        color: #FFF;
+        font-size: 20px;
+        line-height: 60px;
+        text-decoration: none;
+        border: none;
+    }
+    .toggle:hover {
+        background-color: #000000;
+    }
+    [id^=drop]:checked+ul {
+        display: block;
+    }
+    nav ul li {
+        display: block;
+        width: 100%;
+    }
+    .drpdwn ul ul .toggle,
+    .drpdwn ul ul a {
+        padding: 0 40px;
+    }
+    .drpdwn ul ul ul a {
+        padding: 0 80px;
+    }
+    .drpdwn a:hover,
+    .drpdwn ul ul ul a {
+        background-color: #000000;
+    }
+    .drpdwn ul li ul li .toggle,
+    .drpdwn ul ul a {
+        background-color: #212121;
+    }
+    .drpdwn ul ul {
+        float: none;
+        position: static;
+        color: #ffffff;
+    }
+    .drpdwn ul ul li:hover>ul,
+    .drpdwn ul li:hover>ul {
+        display: none;
+    }
+    .drpdwn ul ul li {
+        display: block;
+        width: 100%;
+    }
+    .drpdwn ul ul ul li {
+        position: static;
+    }
+}
+
+@media all and (max-width: 330px) {
+    .drpdwn ul li {
+        display: block;
+        width: 94%;
+    }
+}
