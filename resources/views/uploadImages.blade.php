@@ -252,7 +252,7 @@
             </div>
 
         </div>
-
+        <input type="text" class="w-100" name="breakPoints" id="breakPoint">
         <div class="container row">
             <!-- Progress bar -->
             <div class="col-sm-3">

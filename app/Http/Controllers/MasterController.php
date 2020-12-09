@@ -262,8 +262,10 @@ class MasterController extends Controller
     function uploadImage(Request $request)
     {
         // return $request->all();
-        $originalImage = $request->file('image');
 
+        $originalImage = $request->file('image');
+        $brackPoints = explode(",", $request->breakPoints);
+        $s_no = 0;
         $originalPath = 'images/';
         $cropPath = 'crop/';
         $cropBlogPath = 'cropBlogs/';
@@ -277,9 +279,10 @@ class MasterController extends Controller
             mkdir($cropBlogPath, 666, true);
         }
         foreach ($originalImage as $index1 => $list) {
-            $mainCropImage1 = Image::make($list);
+
+            $mainCropImage1 = Image::make($originalImage[$index1]);
             $mainCropImage1->crop(1127, 1512, 59, 142);
-            $pathOrg = $originalPath . time() . $list->getClientOriginalName();
+            $pathOrg = $originalPath . time() . $originalImage[$index1]->getClientOriginalName();
             $mainCropImage1->save($pathOrg);
             $data = file_get_contents($pathOrg);
             $initWidth = 377;
@@ -291,19 +294,24 @@ class MasterController extends Controller
             $blank = true;
             for ($i = 1; $i <= 30; $i++) {
                 if ($blank) {
+                    $s_no = $s_no + 1;
                     $mainCropImage = Image::make($data);
                     $mainCropImage->crop($initWidth, $initHeight, $initX, $initY);
-                    $type = $request->file('image')->getClientOriginalExtension();
+                    // $type = $request->file('image')->getClientOriginalExtension();
                     // $data = file_get_contents($mainCropImage->dirname . '/' . $mainCropImage->basename);
 
-                    $paath = $cropBlogPath . time() . '_' . $i . $originalImage->getClientOriginalName();
-                    $mainCropImage->save($paath);
-                    $response2 = (new TesseractOCR($paath))
-                        ->lang('hin', 'eng')
-                        ->executable('C:\Program Files\Tesseract-OCR/tesseract.exe')
-                        ->run();
+                    // $paath = $cropBlogPath . time() . '_' . $i . $originalImage[$index1]->getClientOriginalName();
+                    // $mainCropImage->save($paath);
+                    // $response2 = (new TesseractOCR($paath))
+                    //     ->lang('hin', 'eng')
+                    //     ->executable('C:\Program Files\Tesseract-OCR/tesseract.exe')
+                    //     ->run();
+                    $response2 = true;
+                    if (in_array($s_no, $brackPoints)) {
+                        $blank = false;
+                    }
                     if ($response2) {
-                        $mainCropImage->save($cropPath . time() . '_' . $i . $originalImage->getClientOriginalName());
+                        $mainCropImage->save($cropPath  . str_pad($s_no, 3, 0, STR_PAD_LEFT) . '.' . $originalImage[$index1]->getClientOriginalExtension());
                         $mod = fmod($i, 3);
                         if ($mod == 0) {
                             $rows = $rows + 1;
@@ -390,8 +398,6 @@ class MasterController extends Controller
                                 $initX = $initX + 377;
                             }
                         }
-                    } else {
-                        $blank = false;
                     }
                 }
             }
@@ -399,6 +405,7 @@ class MasterController extends Controller
         return ['success' => true, 'message' => 'Image(s) uploaded'];
         return back()->with('success', 'Saved successfully');
     }
+
 
     /**Get Polling booth */
     function getPolling(Request $request)
