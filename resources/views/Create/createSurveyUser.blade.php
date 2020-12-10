@@ -64,7 +64,7 @@
         <input type="hidden" id="minSNo" value="">
         <input type="hidden" id="maxSNo" value="">
         <div class="submitbtn">
-            <button class="submitbutton btn btn-dark btn-block submit_button" data-id="surveyorStore" type="submit">
+            <button class="submitbutton btn btnblue btn-block submit_button" data-id="surveyorStore" type="submit">
                 Save
             </button>
         </div>

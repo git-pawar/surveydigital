@@ -22,170 +22,134 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet" />
 
     <style>
-        p {
-            text-align: center;
+    p {
+        text-align: center;
+    }
+
+
+
+    @keyframes bugfix {
+        from {
+            padding: 0;
         }
 
+        to {
+            padding: 0;
+        }
+    }
 
-
-        @keyframes bugfix {
-            from {
-                padding: 0;
-            }
-
-            to {
-                padding: 0;
-            }
+    @-webkit-keyframes bugfix {
+        from {
+            padding: 0;
         }
 
-        @-webkit-keyframes bugfix {
-            from {
-                padding: 0;
-            }
-
-            to {
-                padding: 0;
-            }
+        to {
+            padding: 0;
         }
+    }
+    .sidepanel {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #02162b;
+    overflow-x: hidden;
+    padding-top: 80px;
+    transition: 0.5s;
+}
 
-        #overlay-button {
-            position: absolute;
-            right: 2em;
-            top: 3em;
-            padding: 26px 11px;
-            z-index: 5;
-            cursor: pointer;
-            user-select: none;
+/* The sidepanel links */
+.sidepanel a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 14px;
+    color: #ffffff;
+    border-bottom: 1px dashed;
+    display: block;
+    transition: 0.3s;
+}
 
-            span {
-                height: 4px;
-                width: 35px;
-                border-radius: 2px;
-                background-color: white;
-                position: relative;
-                display: block;
-                transition: all .2s ease-in-out;
+/* When you mouse over the navigation links, change their color */
+.sidepanel a:hover {
+  color: #f1f1f1;
+}
 
-                &:before {
-                    top: -10px;
-                    visibility: visible;
-                }
+/* Position and style the close button (top right corner) */
+.sidepanel .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
 
-                &:after {
-                    top: 10px;
-                }
+/* Style the button that is used to open the sidepanel */
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #012954;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    position: absolute;
+    top: -44px;
+    right: 0px;
+}
 
-                &:before,
-                &:after {
-                    height: 4px;
-                    width: 35px;
-                    border-radius: 2px;
-                    background-color: white;
-                    position: absolute;
-                    content: "";
-                    transition: all .2s ease-in-out;
-                }
-            }
-
-            &:hover span,
-            &:hover span:before,
-            &:hover span:after {
-                background: #333332;
-            }
-        }
-
-        input[type=checkbox] {
-            display: none;
-        }
-
-        input[type=checkbox]:checked~#overlay {
-            visibility: visible;
-        }
-
-        input[type=checkbox]:checked~#overlay-button {
-
-            &:hover span,
-            span {
-                background: transparent;
-            }
-
-            span {
-                &:before {
-                    transform: rotate(45deg) translate(7px, 7px);
-                    opacity: 1;
-                }
-
-                &:after {
-                    transform: rotate(-45deg) translate(7px, -7px);
-                }
-            }
-        }
-
-        #overlay {
-            height: 100vh;
-            width: 100vw;
-            background: #ec6451;
-            z-index: 2;
-            visibility: hidden;
-            position: fixed;
-
-            &.active {
-                visibility: visible;
-            }
-
-            ul {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-                text-align: center;
-                height: 100vh;
-                padding-left: 0;
-                list-style-type: none;
-
-                li {
-                    padding: 1em;
-
-                    a {
-                        color: white;
-                        text-decoration: none;
-                        font-size: 1.5em;
-
-                        &:hover {
-                            color: #333332;
-                        }
-                    }
-                }
-            }
-        }
+.openbtn:hover {
+  background-color: #012954;
+  border:0px !important;
+  outline:0px;
+}
+.border-bottom-none
+{
+    border-bottom:none !important;
+}
+ .positionmobile
+ {
+  position: absolute;
+    top: 18px;
+    width: 100%;
+    left: 20px;
+ }
+ .sidepanel a i{
+ font-size: 12px;
+    margin-right: 12px;
+ }
     </style>
-
     <!--Jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script type="text/javascript">
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
     </script>
     <script type="text/javascript" src="{!!url('alerts/notiflix-2.4.0.min.js')!!}"></script>
     <script type="text/javascript" src="{!!url('alerts/confirm.js')!!}"></script>
     <script type="text/javascript" src="{!!url('js/keyvalidation.js')!!}"></script>
     <script type="text/javascript" src="{!!url('js/master.js')!!}"></script>
-
+   <script type="text/javascript" src="{!!url('js/jquery-3.5.1.min.js')!!}"></script>
 </head>
 
 <body>
     <div class="row w-100 headerlogo">
         <div id="" class="col-sm-10 ">
             <div class="logosection">
-                <img src="{{url('img/logo.png')}}" alt="" />
+                <span class="logosection">Election Survey</span>
+                <!-- <img src="{{url('img/logo.png')}}" alt="" /> -->
             </div>
         </div>
-        <div class="col-sm-2 drpdwn desc-menu d-none">
-            <ul class="menu">
+
+        <div class="col-sm-2 drpdwn desc-menu">
+        <button class="openbtn" onclick="openNav()">&#9776;</button>
+<!--
+              <div id="mySidepanel" class="sidepanel"> -->
+            <ul class="menu d-none" >
                 <li>
                     <!-- First Tier Drop Down -->
                     <label for="drop-1" class="toggle"></label>
@@ -210,47 +174,97 @@
                 </li>
                 <li>
             </ul>
+          <!-- </div> -->
+        </div>
+    </div>
+ <div id="mySidepanel" class="sidepanel">
 
-        </div>
-    </div>
-    <div class="mobile-menu">
-        <input type="checkbox" id="overlay-input" />
-        <label for="overlay-input" id="overlay-button"><span></span></label>
-        <div id="overlay">
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </div>
-    </div>
+ <span class="logosection positionmobile">Election Survey</span>
+    <a href="javascript:void(0)" class="closebtn border-bottom-none" onclick="closeNav()">&times;</a>
+  <!-- <ul class="ul-mobile"> -->
+                        @if(Auth::guard('admin')->check())
+                        <a href="{{route('admin.dashboard')}}"><i class="fas fa-home"></i> Dashboard</a>
+                        <a href="{{route('admin.logout')}}"><i class="fas fa-sign-out-alt"></i> Log out</a>
+                        @elseif(Auth::check() && Auth::user()->type == 'surveyor' )
+                        <a href="{{route('surveyor.store.data')}}"><i class="fas fa-plus"></i> Add Survey </a>
+
+                        <a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Log out</a>
+                        @elseif(Auth::check() && Auth::user()->type == 'agent' )
+                        <a href="{{route('agent.store.data')}}"><i class="fas fa-plus"></i> Add Booth Data</a>
+                        <a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Log out</a>
+                        @elseif(Auth::check() && Auth::user()->type == 'parshad' )
+                        <a href="{{route('dashboard')}}"><i class="fas fa-home"></i> Dashboard</a>
+                        <a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Log out</a>
+                        @endif
+                    <!-- </ul> -->
+</div>
     <section>
         @yield('content')
     </section>
-    <script type="text/javascript" src="{!!url('Validation/validation.js')!!}"></script>
+     <script>
+    function openNav() {
+  document.getElementById("mySidepanel").style.width = "250px";
+}
 
+/* Set the width of the sidebar to 0 (hide it) */
+function closeNav() {
+  document.getElementById("mySidepanel").style.width = "0";
+}
+    </script>
+    <script type="text/javascript" src="{!!url('Validation/validation.js')!!}"></script>
     <script type="text/javascript">
-        $(document).ready(function(){
-         Notiflix.Notify.Init({width:'350px',fontSize:'15px',timeout:8000,});
-        @if (session()->has('error'))
-            Notiflix.Notify.Failure("{{ session()->get('error') }}");
+    $(document).ready(function() {
+        Notiflix.Notify.Init({
+            width: '350px',
+            fontSize: '15px',
+            timeout: 8000,
+        });
+        @if(session()-> has('error'))
+        Notiflix.Notify.Failure("{{ session()->get('error')}}");
         @endif
-        @if (session()->has('info'))
-            Notiflix.Notify.Info("{{ session()->get('info') }}");
+        @if(session()-> has('info'))
+        Notiflix.Notify.Info("{{ session()->get('info')}}");
         @endif
-        @if (session()->has('success'))
-            Notiflix.Notify.Success("{{ session()->get('success') }}");
+        @if(session()-> has('success'))
+        Notiflix.Notify.Success("{{ session()->get('success')}}");
         @endif
-        @if (session()->has('warning'))
-            Notiflix.Notify.Warning("{{ session()->get('warning') }}");
+        @if(session()-> has('warning'))
+        Notiflix.Notify.Warning("{{ session()->get('warning')}}");
         @endif
-        @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                Notiflix.Notify.Failure("{{ $error }}");
-            @endforeach
+        @if($errors-> any())
+        @foreach($errors-> all() as $error)
+        Notiflix.Notify.Failure("{{ $error }}");
+        @endforeach
         @endif
     });
     </script>
 </body>
+<!-- <div class="col-sm-2 drpdwn desc-menu">
+        <button class="openbtn" onclick="openNav()">&#9776; Toggle Sidepanel</button>
+            <ul class="menu">
+                <li>
 
+                    <label for="drop-1" class="toggle"></label>
+                    <a href="javascript:void(0);"><i class="fas fa-ellipsis-h"></i></a>
+                    <input type="checkbox" id="drop-1">
+                    <ul class="ul-mobile">
+                        @if(Auth::guard('admin')->check())
+                        <li><a href="{{route('admin.dashboard')}}"><i class="fas fa-home"></i> Dashboard</a></li>
+                        <li><a href="{{route('admin.logout')}}"><i class="fas fa-sign-out-alt"></i> Log out</a></li>
+                        @elseif(Auth::check() && Auth::user()->type == 'surveyor' )
+                        <li><a href="{{route('surveyor.store.data')}}"><i class="fas fa-plus"></i> Add Survey </a>
+                        </li>
+                        <li><a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Log out</a></li>
+                        @elseif(Auth::check() && Auth::user()->type == 'agent' )
+                        <li><a href="{{route('agent.store.data')}}"><i class="fas fa-plus"></i> Add Booth Data</a></li>
+                        <li><a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Log out</a></li>
+                        @elseif(Auth::check() && Auth::user()->type == 'parshad' )
+                        <li><a href="{{route('dashboard')}}"><i class="fas fa-home"></i> Dashboard</a></li>
+                        <li><a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Log out</a></li>
+                        @endif
+                    </ul>
+                </li>
+                <li>
+            </ul>
+        </div> -->
 </html>

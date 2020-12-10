@@ -42,7 +42,7 @@
         </div>
         <input type="hidden" name="id" value="">
         <div class="submitbtn">
-            <button class="submitbutton btn btn-dark btn-block submit_button" data-id="agentStore" type="submit">
+            <button class="submitbutton btn btnblue btn-block submit_button" data-id="agentStore" type="submit">
                 Save
             </button>
         </div>
