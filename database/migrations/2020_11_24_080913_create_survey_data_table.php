@@ -15,8 +15,8 @@ class CreateSurveyDataTable extends Migration
     {
         Schema::create('survey_data', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('parshad_id');
-            $table->unsignedBigInteger('surveyor_id');
+            $table->unsignedBigInteger('parshad_id')->nullable();
+            $table->unsignedBigInteger('surveyor_id')->nullable();
             $table->string('ward_no', 200)->nullable();
             $table->string('part_no', 200)->nullable();
             $table->string('s_no', 200)->nullable();

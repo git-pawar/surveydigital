@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\State;
 use App\Models\City;
+use App\Models\EROData;
+use App\Models\SurveyData;
 use App\Models\NN;
 use App\Models\NNNType;
 use App\Models\Polling;
@@ -261,149 +263,187 @@ class MasterController extends Controller
     }
     function uploadImage(Request $request)
     {
-        // return $request->all();
+        try {
+            // return $request->all();
 
-        $originalImage = $request->file('image');
-        $brackPoints = explode(",", $request->breakPoints);
-        $s_no = 0;
-        $originalPath = 'images/';
-        $cropPath = 'crop/';
-        $cropBlogPath = 'cropBlogs/';
-        if (!file_exists($originalPath)) {
-            mkdir($originalPath, 666, true);
-        }
-        if (!file_exists($cropPath)) {
-            mkdir($cropPath, 666, true);
-        }
-        if (!file_exists($cropBlogPath)) {
-            mkdir($cropBlogPath, 666, true);
-        }
-        foreach ($originalImage as $index1 => $list) {
+            $originalImage = $request->file('image');
+            $brackPoints = explode(",", $request->breakPoints);
+            $city_id = $request->city;
+            $nnn_id = $request->nnn_id;
+            $nn_id = $request->nn_id;
+            $ward_id = $request->ward_id;
+            $part_id = $request->part_id;
+            $s_no = 0;
+            $ward_no = Ward::find($ward_id)->ward_no ?? $ward_id;
+            $part_no = PartNo::find($part_id)->part_no ?? $part_id;
+            $ward_dir = 'W' . str_pad($ward_no, 3, 0, STR_PAD_LEFT);
+            $part_dir = 'P' . str_pad($part_no, 3, 0, STR_PAD_LEFT);
+            if (!file_exists($ward_dir)) {
+                mkdir($ward_dir, 0777, true);
+            }
+            if (!file_exists($ward_dir . '/' . $part_dir)) {
+                mkdir($ward_dir . '/' . $part_dir, 0777, true);
+            }
+            foreach ($originalImage as $index1 => $list) {
+                $main_crop_name = $ward_dir . '/' . str_pad($index1 + 1, 3, 0, STR_PAD_LEFT) . '.' . $originalImage[$index1]->getClientOriginalExtension();
+                if (file_exists($main_crop_name)) {
+                    unlink($main_crop_name);
+                }
+                $mainCropImage1 = Image::make($originalImage[$index1]);
+                $mainCropImage1->crop(1127, 1512, 59, 142);
+                $mainCropImage1->save($main_crop_name);
+                $data = file_get_contents($main_crop_name);
+                $initWidth = 377;
+                $initHeight = 149;
+                $initX = 0;
+                $initY = 0;
+                $rows = 1;
+                $blockNo = 1;
+                $blank = true;
+                for ($i = 1; $i <= 30; $i++) {
+                    if ($blank) {
+                        $s_no = $s_no + 1;
+                        $mainCropImage = Image::make($data);
+                        $mainCropImage->crop($initWidth, $initHeight, $initX, $initY);
+                        // $type = $request->file('image')->getClientOriginalExtension();
+                        // $data = file_get_contents($mainCropImage->dirname . '/' . $mainCropImage->basename);
 
-            $mainCropImage1 = Image::make($originalImage[$index1]);
-            $mainCropImage1->crop(1127, 1512, 59, 142);
-            $pathOrg = $originalPath . time() . $originalImage[$index1]->getClientOriginalName();
-            $mainCropImage1->save($pathOrg);
-            $data = file_get_contents($pathOrg);
-            $initWidth = 377;
-            $initHeight = 149;
-            $initX = 0;
-            $initY = 0;
-            $rows = 1;
-            $blockNo = 1;
-            $blank = true;
-            for ($i = 1; $i <= 30; $i++) {
-                if ($blank) {
-                    $s_no = $s_no + 1;
-                    $mainCropImage = Image::make($data);
-                    $mainCropImage->crop($initWidth, $initHeight, $initX, $initY);
-                    // $type = $request->file('image')->getClientOriginalExtension();
-                    // $data = file_get_contents($mainCropImage->dirname . '/' . $mainCropImage->basename);
+                        // $paath = $cropBlogPath . time() . '_' . $i . $originalImage[$index1]->getClientOriginalName();
+                        // $mainCropImage->save($paath);
+                        // $response2 = (new TesseractOCR($paath))
+                        //     ->lang('hin', 'eng')
+                        //     ->executable('C:\Program Files\Tesseract-OCR/tesseract.exe')
+                        //     ->run();
+                        $response2 = true;
+                        if (in_array($s_no, $brackPoints)) {
+                            $blank = false;
+                        }
+                        if ($response2) {
 
-                    // $paath = $cropBlogPath . time() . '_' . $i . $originalImage[$index1]->getClientOriginalName();
-                    // $mainCropImage->save($paath);
-                    // $response2 = (new TesseractOCR($paath))
-                    //     ->lang('hin', 'eng')
-                    //     ->executable('C:\Program Files\Tesseract-OCR/tesseract.exe')
-                    //     ->run();
-                    $response2 = true;
-                    if (in_array($s_no, $brackPoints)) {
-                        $blank = false;
-                    }
-                    if ($response2) {
-                        $mainCropImage->save($cropPath  . str_pad($s_no, 3, 0, STR_PAD_LEFT) . '.' . $originalImage[$index1]->getClientOriginalExtension());
-                        $mod = fmod($i, 3);
-                        if ($mod == 0) {
-                            $rows = $rows + 1;
-                            $blockNo = 1;
-                        } else {
-                            $blockNo = $blockNo + 1;
-                        }
-                        if ($rows == 1) {
-                            if ($blockNo == 1) {
-                                $initX = 0;
-                            } else {
-                                $initX = $initX + 377;
+                            $save_path = $ward_dir . '/' . $part_dir . '/' . str_pad($s_no, 3, 0, STR_PAD_LEFT) . '.' . $originalImage[$index1]->getClientOriginalExtension();
+                            if (file_exists($save_path)) {
+                                unlink($save_path);
                             }
-                        }
-                        if ($rows == 2) {
-                            if ($blockNo == 1) {
-                                $initX = 0;
-                                $initY = $initY + 151;
+                            $mainCropImage->save($save_path);
+                            $exist = SurveyData::where(['part_id' => $part_id, 'ward_id' => $ward_id, 's_no' => $s_no])->first();
+                            if ($exist) {
+                                $saveData = SurveyData::find($exist->id);
+                                $saveData->nn_id = $nn_id;
+                                $saveData->nnn_id = $nnn_id;
+                                $saveData->city_id = $city_id;
+                                $saveData->ward_id = $ward_id;
+                                $saveData->part_id = $part_id;
+                                $saveData->s_no = $s_no;
+                                $saveData->path = $save_path;
+                                $saveData->save();
                             } else {
-                                $initX = $initX + 377;
+                                $saveData = new SurveyData();
+                                $saveData->nn_id = $nn_id;
+                                $saveData->nnn_id = $nnn_id;
+                                $saveData->city_id = $city_id;
+                                $saveData->ward_id = $ward_id;
+                                $saveData->part_id = $part_id;
+                                $saveData->s_no = $s_no;
+                                $saveData->path = $save_path;
+                                $saveData->save();
                             }
-                        }
-                        if ($rows == 3) {
-                            if ($blockNo == 1) {
-                                $initX = 0;
-                                $initY = $initY + 151;
+
+
+                            $mod = fmod($i, 3);
+                            if ($mod == 0) {
+                                $rows = $rows + 1;
+                                $blockNo = 1;
                             } else {
-                                $initX = $initX + 377;
+                                $blockNo = $blockNo + 1;
                             }
-                        }
-                        if ($rows == 4) {
-                            if ($blockNo == 1) {
-                                $initX = 0;
-                                $initY = $initY + 151;
-                            } else {
-                                $initX = $initX + 377;
+                            if ($rows == 1) {
+                                if ($blockNo == 1) {
+                                    $initX = 0;
+                                } else {
+                                    $initX = $initX + 377;
+                                }
                             }
-                        }
-                        if ($rows == 5) {
-                            if ($blockNo == 1) {
-                                $initX = 0;
-                                $initY = $initY + 152;
-                            } else {
-                                $initX = $initX + 377;
+                            if ($rows == 2) {
+                                if ($blockNo == 1) {
+                                    $initX = 0;
+                                    $initY = $initY + 151;
+                                } else {
+                                    $initX = $initX + 377;
+                                }
                             }
-                        }
-                        if ($rows == 6) {
-                            if ($blockNo == 1) {
-                                $initX = 0;
-                                $initY = $initY + 151;
-                            } else {
-                                $initX = $initX + 377;
+                            if ($rows == 3) {
+                                if ($blockNo == 1) {
+                                    $initX = 0;
+                                    $initY = $initY + 151;
+                                } else {
+                                    $initX = $initX + 377;
+                                }
                             }
-                        }
-                        if ($rows == 7) {
-                            if ($blockNo == 1) {
-                                $initX = 0;
-                                $initY = $initY + 151;
-                            } else {
-                                $initX = $initX + 377;
+                            if ($rows == 4) {
+                                if ($blockNo == 1) {
+                                    $initX = 0;
+                                    $initY = $initY + 151;
+                                } else {
+                                    $initX = $initX + 377;
+                                }
                             }
-                        }
-                        if ($rows == 8) {
-                            if ($blockNo == 1) {
-                                $initX = 0;
-                                $initY = $initY + 150;
-                            } else {
-                                $initX = $initX + 377;
+                            if ($rows == 5) {
+                                if ($blockNo == 1) {
+                                    $initX = 0;
+                                    $initY = $initY + 152;
+                                } else {
+                                    $initX = $initX + 377;
+                                }
                             }
-                        }
-                        if ($rows == 9) {
-                            if ($blockNo == 1) {
-                                $initX = 0;
-                                $initY = $initY + 151;
-                            } else {
-                                $initX = $initX + 377;
+                            if ($rows == 6) {
+                                if ($blockNo == 1) {
+                                    $initX = 0;
+                                    $initY = $initY + 151;
+                                } else {
+                                    $initX = $initX + 377;
+                                }
                             }
-                        }
-                        if ($rows == 10) {
-                            if ($blockNo == 1) {
-                                $initX = 0;
-                                $initY = $initY + 150;
-                            } else {
-                                $initX = $initX + 377;
+                            if ($rows == 7) {
+                                if ($blockNo == 1) {
+                                    $initX = 0;
+                                    $initY = $initY + 151;
+                                } else {
+                                    $initX = $initX + 377;
+                                }
+                            }
+                            if ($rows == 8) {
+                                if ($blockNo == 1) {
+                                    $initX = 0;
+                                    $initY = $initY + 150;
+                                } else {
+                                    $initX = $initX + 377;
+                                }
+                            }
+                            if ($rows == 9) {
+                                if ($blockNo == 1) {
+                                    $initX = 0;
+                                    $initY = $initY + 151;
+                                } else {
+                                    $initX = $initX + 377;
+                                }
+                            }
+                            if ($rows == 10) {
+                                if ($blockNo == 1) {
+                                    $initX = 0;
+                                    $initY = $initY + 150;
+                                } else {
+                                    $initX = $initX + 377;
+                                }
                             }
                         }
                     }
                 }
             }
+            return ['success' => true, 'message' => 'Image(s) uploaded'];
+            return back()->with('success', 'Saved successfully');
+        } catch (\Exception $exception) {
+            return ['success' => false, 'exception' => $exception->getMessage()];
         }
-        return ['success' => true, 'message' => 'Image(s) uploaded'];
-        return back()->with('success', 'Saved successfully');
     }
 
 

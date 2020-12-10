@@ -110,21 +110,31 @@ class UserController extends Controller
             $user = Auth::user();
             $input['parshad_id'] = $user->parshad_id;
             $input['surveyor_id'] = $user->id;
-            $mainData = SurveyData::create($input);
+            $mainData = SurveyData::where(['part_id' => $request->part_no, 'ward_id' => $request->ward_no, 's_no' => $request->s_no])->first();
+            $mainData->mobile = $request->mobile;
+            $mainData->cast = $request->cast;
+            $mainData->ward_no = $request->ward_no;
+            $mainData->part_no = $request->part_no;
+            $mainData->category = $request->category;
+            $mainData->s_no = $request->s_no;
+            $mainData->house_no = $request->house_no;
+            $mainData->name = $request->name;
+            $mainData->retative_to = $mainData->id;
+            $mainData->parshad_id = $user->parshad_id;
+            $mainData->surveyor_id = $user->id;
+            $mainData->red_green_blue = $request->red_green_blue;
+            $mainData->save();
             if (count($request->otherName)) {
                 foreach ($request->otherName as $index => $item) {
-                    if ($request->otherName[$index] || $request->otherMobile[$index]) {
-                        $otherData = new SurveyData();
+                    if ($request->otherSno[$index] && $request->otherMobile[$index]) {
+                        $otherData = SurveyData::where(['part_id' => $request->part_no, 'ward_id' => $request->ward_no, 's_no' => $request->otherSno[$index]])->first();
                         $otherData->mobile = $request->otherMobile[$index];
                         $otherData->cast = $request->cast;
                         $otherData->ward_no = $request->ward_no;
                         $otherData->part_no = $request->part_no;
-                        $otherData->ward_id = $request->ward_no;
-                        $otherData->part_id = $request->part_no;
                         $otherData->category = $request->category;
-                        $otherData->s_no = $request->s_no;
+                        $otherData->s_no = $request->otherSno[$index];
                         $otherData->house_no = $request->house_no;
-                        $otherData->name = $request->otherName[$index];
                         $otherData->retative_to = $mainData->id;
                         $otherData->parshad_id = $user->parshad_id;
                         $otherData->surveyor_id = $user->id;
