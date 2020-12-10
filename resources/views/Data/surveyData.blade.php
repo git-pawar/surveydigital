@@ -2,100 +2,176 @@
 @section('title','Servey Data Entry')
 @section('content')
 <style>
-    .container {
-        display: block;
-        position: relative;
-        padding-left: 35px;
-        margin-bottom: 12px;
-        cursor: pointer;
-        font-size: 22px;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
+.container_radio_button {
+    display: block;
+    position: relative;
+    padding-left: 31px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: left;
+    display: inherit;
+    font-weight: 600;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-right: 22px;
+    margin-top: 17px;
+}
 
-    /* Hide the browser's default radio button */
-    .container input {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-    }
+/* Hide the browser's default radio button */
+.container_radio_button input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
 
-    /* Create a custom radio button */
-    .checkmark {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 25px;
-        width: 25px;
-        background-color: #eee;
-        border-radius: 50%;
-    }
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #eee;
+    border-radius: 50%;
+}
 
-    /* On mouse-over, add a grey background color */
-    .container:hover input~.checkmark {
-        background-color: #ccc;
-    }
+/* On mouse-over, add a grey background color */
+.container_radio_button:hover input~.checkmark {
+    background-color: #ccc;
+}
 
-    /* When the radio button is checked, add a blue background */
-    .container input:checked~.checkmark {
-        background-color: #2196F3;
-    }
+/* When the radio button is checked, add a blue background */
+.container_radio_button input:checked~.checkmark {
+    background-color: #2196F3;
+}
 
-    /* Create the indicator (the dot/circle - hidden when not checked) */
-    .checkmark:after {
-        content: "";
-        position: absolute;
-        display: none;
-    }
+.container_radio_button input:checked~.checkmarkgreen {
+    background-color: #027904 !important;
+}
 
-    /* Show the indicator (dot/circle) when checked */
-    .container input:checked~.checkmark:after {
-        display: block;
-    }
+.container_radio_button input:checked~.checkmarkred {
+    background-color: #79041c !important;
+}
 
-    /* Style the indicator (dot/circle) */
-    .container .checkmark:after {
-        top: 9px;
-        left: 9px;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: white;
-    }
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container_radio_button input:checked~.checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container_radio_button .checkmark:after {
+    top: 5px;
+    left: 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+.width-60{
+    width:55%;
+}
+.width-45{
+    width:45%;
+}
+.sticky {
+  position: sticky;
+    top: 0;
+    background-color: white;
+    /* padding: 50px; */
+    font-size: 20px;
+    /* border: 2px dashed #ccc; */
+    /* padding: 7px 7px; */
+}
+
+.imagesection {
+    height: 140px;
+    width: 100%;
+}
+.z-depth-1 {
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12) !important;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12) !important;
+}
+.greenbox {
+    height: 10px;
+    width: 10px;
+    background: #358404;
+    padding: 2px 17px;
+}
+.redbox
+{
+       height: 10px;
+    width: 10px;
+    background: #921400;
+    padding: 2px 17px;
+}
+.bluebox
+{
+       height: 10px;
+    width: 10px;
+    background: #3456ff;
+    padding: 2px 17px;
+}
 </style>
 <div class="maininnersection">
     <!-- Default form register -->
     <form class="text-center" id="surveyData" action="{{route('survey.data.store')}}" method="POST">
         @csrf
-        <p class="titlesection">Survey Data</p>
+        <div class="row mx-0">
+        <div class="width-45">
+         <p class="titlesection">Survey Data</p>
+        </div>
+        <div class="width-60">
+         <label for="ward_no" class="labelinput">Ward No -<span class="mx-1">{{$user->parshads->wards->ward_no??''}}</span></label>
+         <span class="mx-1">,</span>
+      <label for="part_no" class="labelinput">Part No -<span class="mx-1">{{$user->part_nos->part_no??''}}</span></label>
+         </div>
+         <div class="imagedata">
+
+         </div>
+          </div>
+<div class="sticky z-depth-1">
+<div class="imagesection">
+ <img class="w-100" src="img/dataimg.jpeg"/>
+</div>
+
+</div>
 
         <div class="row mx-0">
             <div class="width-50">
-                <div class="form-row mb-4" data-validate="Ward No required">
-                    <label for="ward_no" class="labelinput">Ward No</label>
-                    <input type="text" id="ward_no" value="{{$user->parshads->wards->ward_no??''}}"
+                <div class="form-row mb-2" data-validate="Ward No required">
+
+
+      <!-- <input type="text" id="ward_no" value="{{$user->parshads->wards->ward_no??''}}"
                         @if(isset($user->parshads->wards->ward_no)) readonly
                     @endif name="ward_no"
-                    class="input_section form-control mb-0 only-num validate_this" />
+                    class="input_section form-control mb-0 only-num validate_this" /> -->
                     <input type="hidden" name="ward_id" value="{{$user->parshads->ward_id}}" />
                 </div>
             </div>
             <div class="width-50">
-                <div class="form-row mb-4" data-validate="Part No required">
-                    <label for="part_no" class="labelinput">Part No</label>
-                    <input type="text" id="part_no" name="part_no" value="{{$user->part_nos->part_no??''}}"
+                <div class="form-row mb-2" data-validate="Part No required">
+
+                    <!-- <input type="text" id="part_no" name="part_no" value="{{$user->part_nos->part_no??''}}"
                         @if(isset($user->part_nos->part_no)) readonly
                     @endif
-                    class="input_section form-control mb-0 only-num validate_this" />
+                    class="input_section form-control mb-0 only-num validate_this" /> -->
                     <input type="hidden" name="part_id" value="{{$user->part_id}}" />
                 </div>
             </div>
             <input type="hidden" id="minNo" value="{{$user->s_no_from}}">
             <input type="hidden" id="maxNo" value="{{$user->s_no_to}}">
             <div class="width-50">
-                <div class="form-row mb-4" data-validate="Section No required">
+                <div class="form-row mb-2" data-validate="Section No required">
                     <label for="s_no" class="labelinput">Serial no</label>
                     <input type="text" id="s_no" value="{{old('s_no')}}" name="s_no"
                         class="input_section form-control mb-0 only-num validate_this" data-min="minNo"
@@ -103,21 +179,21 @@
                 </div>
             </div>
             <div class="width-50">
-                <div class="form-row mb-4" data-validate="House No required">
+                <div class="form-row mb-2" data-validate="House No required">
                     <label for="house_no" class="labelinput">House no</label>
                     <input type="text" id="house_no" value="{{old('house_no')}}" name="house_no"
                         class="input_section form-control mb-0 validate_this" />
                 </div>
             </div>
             <div class="width-50">
-                <div class="form-row mb-4" data-validate="Cast required">
+                <div class="form-row mb-2" data-validate="Cast required">
                     <label for="cast" class="labelinput">Cast</label>
                     <input type="text" id="cast" value="{{old('cast')}}" name="cast"
                         class="input_section form-control mb-0 validate_this" />
                 </div>
             </div>
             <div class="width-50">
-                <div class="form-row mb-4" data-validate="Select any one category">
+                <div class="form-row mb-2" data-validate="Select any one category">
                     <label for="category" class="labelinput">Category</label>
                     <select class="input_section form-control mb-0 validate_this" name="category" id="category">
                         <option value="">Select</option>
@@ -130,31 +206,31 @@
                 </div>
             </div>
             <div class="width-50">
-                <div class="form-row mb-4" data-validate="Name required">
+                <div class="form-row mb-2" data-validate="Name required">
                     <label for="name" class="labelinput">Name</label>
                     <input type="text" id="name" value="{{old('name')}}" name="name"
                         class="validate_this input_section form-control mb-0" />
                 </div>
             </div>
             <div class="width-50">
-                <div class="form-row mb-4" data-validate="Mobile No required">
+                <div class="form-row mb-2" data-validate="Mobile No required">
                     <label for="mobile" class="labelinput">Mobile No. </label>
                     <input type="text" id="mobile" value="{{old('mobile')}}" name="mobile"
-                        class="input_section form-control mb-0 only-num validate_this" data-len="10" />
+                    class="input_section form-control mb-0 only-num validate_this" data-len="10" />
                 </div>
             </div>
             <div class="width-50">
-                <div class="form-row mb-4" data-validate="Voter Count required">
+                <div class="form-row mb-2" data-validate="Voter Count required">
                     <label for="voter_count" class="labelinput">Voter Count </label>
                     <input type="text" id="voter_count" name="voter_count" value="{{old('voter_count')}}"
-                        class="input_section form-control mb-0 only-num" data-len="2" />
+                    class="input_section form-control mb-0 only-num" data-len="2" />
                 </div>
             </div>
             <div class="width-50">
-                <div class="form-row mb-4">
-                    <label for="btn" class="labelinput">Generate </label>
-                    <button type="button" id="btn" class="input_section btn btn-primary btn-sm w-50"
-                        style="margin-top: 20px;" onclick="generateRows(this)"><i class="fas fa-plus"></i></button>
+                <div class="form-row mb-2">
+                    <button type="button" id="btn" class="input_section btn btncom btn-sm w-100"
+                        style="margin-top: 20px;" onclick="generateRows(this)"><i
+                        class="fas fa-plus mx-2"></i>Generate</button>
                 </div>
             </div>
 
@@ -163,23 +239,30 @@
         <div class="row mx-0" id="otheMember">
         </div>
         <div class="row mb-2 d-inline">
-            <label class="container">Green
+
+
+ <label class="container_radio_button">
+ <span class="greenbox"></span>
                 <input type="radio" checked="checked" name="red_green_blue" value="green">
-                <span class="checkmark"></span>
+                <span class="checkmarkgreen checkmark"></span>
             </label>
-            <label class="container">Blue
+
+
+            <label class="container_radio_button">
+                  <span class="bluebox"></span>
                 <input type="radio" name="red_green_blue" value="blue">
                 <span class="checkmark"></span>
             </label>
-            <label class="container">Red
+            <label class="container_radio_button">
+               <span class="redbox"></span>
                 <input type="radio" name="red_green_blue" value="red">
-                <span class="checkmark"></span>
+                <span class="checkmarkred  checkmark"></span>
             </label>
 
         </div>
         <input type="hidden" name="id" value="">
         <div class="submitbtn">
-            <button class="submitbutton btn btn-dark btn-block submit_button" data-id="surveyData" type="submit">
+            <button class="submitbutton btn btnblue btn-block submit_button" data-id="surveyData" type="submit">
                 Save
             </button>
         </div>
@@ -190,31 +273,34 @@
     <!-- Default form register -->
 </div>
 <script>
-    function generateRows(dis){
-        let count = $(`.even`).length+1,
-            voter_count = $(`#voter_count`).val(),
-            elm = '',
-            otherName =[], otherMobile = [];
-            $(`.otherName`).each(function(){
-                otherName.push($(this).val());
-            });
-            $(`.otherMobile`).each(function(){
-                otherMobile.push($(this).val());
-            });
-            $(`#otheMember`).html('');
-            $(`#otheMember`).append('<div class="width-50"><div class="form-row mb-4"><label for="other" class="labelinput">Other Names</label></div></div><div class="width-50"><div class="form-row mb-4"><label for="" class="labelinput">Mobile</label></div></div>');
-            elm = `<div class="width-50"><div class="form-row mb-4" data-validate=""><input type="text" name="otherName[]" value="{{old('')}}"
-                    class="input_section form-control mb-0 otherName validate_this" placeholder="Name"/></div></div><div class="width-50"><div class="form-row mb-4" data-validate="Voter Count required"><input type="text" name="otherMobile" value="{{old('')}}"
+function generateRows(dis) {
+    let count = $(`.even`).length + 1,
+        voter_count = $(`#voter_count`).val(),
+        elm = '',
+        otherName = [],
+        otherMobile = [];
+    $(`.otherName`).each(function() {
+        otherName.push($(this).val());
+    });
+    $(`.otherMobile`).each(function() {
+        otherMobile.push($(this).val());
+    });
+    $(`#otheMember`).html('');
+    $(`#otheMember`).append(
+        // '<div class="width-50"><div class="form-row mb-4"><label for="other" class="labelinput">Other Names</label></div></div><div class="width-50"><div class="form-row mb-4"><label for="" class="labelinput">Mobile</label></div></div>'
+    );
+    elm = `<div class="width-50"><div class="form-row mb-2" data-validate=""><input type="text" name="otherName[]" value="{{old('')}}"
+                    class="input_section form-control mb-0 otherName validate_this" placeholder="S.No"/></div></div><div class="width-50"><div class="form-row mb-4" data-validate="Voter Count required"><input type="text" name="otherMobile" value="{{old('')}}"
                     class="input_section form-control mb-0 otherMobile only-num validate_this" data-len="10"
                     placeholder="Mobile"/></div></div>`;
-            for(i = 0; i<voter_count;i++){
+    for (i = 0; i < voter_count; i++) {
 
-                $(`#otheMember`).append(`<div class="width-50"><div class="form-row mb-4" data-validate=""><input type="text" name="otherName[]" value="${otherName[i]?otherName[i]:''}"
-                    class="input_section form-control mb-0 otherName validate_this" placeholder="Name"/></div></div><div class="width-50"><div class="form-row mb-4" data-validate="Voter Count required"><input type="text" name="otherMobile[]" value="${otherMobile[i]?otherMobile[i]:''}"
+        $(`#otheMember`).append(`<div class="width-50"><div class="form-row mb-2" data-validate=""><input type="text" name="otherName[]" value="${otherName[i]?otherName[i]:''}"
+                    class="input_section form-control mb-0 otherName validate_this" placeholder="S.No"/></div></div><div class="width-50"><div class="form-row mb-2" data-validate="Voter Count required"><input type="text" name="otherMobile[]" value="${otherMobile[i]?otherMobile[i]:''}"
                     class="input_section form-control mb-0 otherMobile only-num validate_this" data-len="10" onkeydown="onlyNum(event,this,10,false);"
                     placeholder="Mobile"/></div></div>`);
-            }
-            console.log(otherName,otherMobile);
     }
+    console.log(otherName, otherMobile);
+}
 </script>
 @stop

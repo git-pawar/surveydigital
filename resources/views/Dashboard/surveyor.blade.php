@@ -1,6 +1,23 @@
 @extends('master')
 @section('title','Surveyor Dashboard')
 @section('content')
+
+<style>
+.width-40 {
+    width: 28%;
+    font-size: 32px;
+    padding: 10px 3px;
+    color: #ffffff;
+    background: #012954;
+}
+.width-60 {
+    width: 72%;
+    padding: 18px 0px;
+    color: #060606;
+    font-size: 17px;
+    font-weight: 500;
+}
+</style>
 <div class="maininnersection">
     <!-- Default form register -->
     <form class="text-center" action="#!">
@@ -8,10 +25,28 @@
 
         <div class="form-row mb-4">
             <!-- E-mail -->
-            <a href="{{route('surveyor.store.data')}}" class="btn btn-wa">Survey Data</a>
-            <a href="{{route('logout')}}" class="btn btn-wa">Logout</a>
+            <a href="{{route('surveyor.store.data')}}" class="serverdashboard">
+            <div class="row mx-0">
+            <div class="width-40">
+            <i class="fas fa-database"></i>
+            </div>
+            <div class="width-60">
+             <div class="titlemenu">
+                   Survey Data
+                </div>
+            </div>
+            </div>
+
+            </a>
+            <!-- <a href="{{route('logout')}}" class="btn btn-wa">Logout</a> -->
 
             <!-- Terms of service -->
+            <div class="serverybox">
+             <div class="row">
+
+             </div>
+            </div>
+        </div>
     </form>
 
     <!-- Default form register -->

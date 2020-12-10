@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="width-50">
-                <div class="form-row mb-4">
+                <div class="form-row mb-2">
                     <label for="house" class="labelinput">Mobile No. </label>
                     <input type="number" id="mobile" class="input_section form-control mb-0" />
                 </div>

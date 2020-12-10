@@ -8,7 +8,7 @@
 </style>
 <div class="maininnersection">
     <div class="table-responsive" id="surveyorList">
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -39,7 +39,7 @@
                     </td>
                     <td>{{$item->s_no_from}} To {{$item->s_no_to}}</td>
                     <td>
-                        <div class="row">
+                        <div class="row mx-0">
                             <a class="btn-primary  btns"
                                 href="{{route('parshad.edit.surveyor',base64_encode($item->id))}}"><i
                                     class="fas fa-edit" aria-hidden="true"></i></a>

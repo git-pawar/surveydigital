@@ -3,7 +3,7 @@
 @section('content')
 <div class="maininnersection">
     <div class="table-responsive" id="parshadList">
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -28,7 +28,7 @@
                     <td>{{$item->email}}</td>
                     <td>{{$item->cities->city_name}}</td>
                     <td>
-                        <div class="row">
+                        <div class="row mx-0">
                             <a class="btn-primary  btns"
                                 href="{{route('admin.edit.parshad',base64_encode($item->id))}}"><i class="fas fa-edit"
                                     aria-hidden="true"></i></a>
