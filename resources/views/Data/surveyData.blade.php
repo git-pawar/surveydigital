@@ -43,10 +43,17 @@
         background-color: #ccc;
     }
 
+<<<<<<< Updated upstream
     /* When the radio button is checked, add a blue background */
     .container_radio_button input:checked~.checkmark {
         background-color: #2196F3;
     }
+=======
+/* When the radio button is checked, add a blue background */
+.container_radio_button input:checked~.checkmark {
+    background-color: #ffb734;
+}
+>>>>>>> Stashed changes
 
     .container_radio_button input:checked~.checkmarkgreen {
         background-color: #027904 !important;
@@ -68,6 +75,7 @@
         display: block;
     }
 
+<<<<<<< Updated upstream
     /* Style the indicator (dot/circle) */
     .container_radio_button .checkmark:after {
         top: 5px;
@@ -126,12 +134,72 @@
         background: #3456ff;
         padding: 2px 17px;
     }
+=======
+/* Style the indicator (dot/circle) */
+.container_radio_button .checkmark:after {
+    top: 5px;
+    left: 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+.width-70{
+    width:70%;
+}
+.width-30{
+    width:30%;
+}
+.sticky {
+  position: sticky;
+    top: 0;
+    background-color: white;
+    /* padding: 50px; */
+    font-size: 20px;
+    /* border: 2px dashed #ccc; */
+    /* padding: 7px 7px; */
+}
+
+.imagesection {
+    height: 140px;
+    width: 100%;
+}
+.serialnobox
+{
+height: 25px !important;
+}
+.z-depth-1 {
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12) !important;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12) !important;
+}
+.greenbox {
+    height: 10px;
+    width: 10px;
+    background: #358404;
+    padding: 2px 17px;
+}
+.redbox
+{
+       height: 10px;
+    width: 10px;
+    background: #921400;
+    padding: 2px 17px;
+}
+.bluebox
+{
+       height: 10px;
+    width: 10px;
+    background: #ffb734;
+    padding: 2px 17px;
+}
+>>>>>>> Stashed changes
 </style>
 <div class="maininnersection">
     <!-- Default form register -->
     <form class="text-center" id="surveyData" action="{{route('survey.data.store')}}" method="POST">
         @csrf
         <div class="row mx-0">
+<<<<<<< Updated upstream
             <div class="width-45">
                 <p class="titlesection">Survey Data</p>
             </div>
@@ -150,6 +218,28 @@
             <div class="imagesection" id="imagesection">
                 <img class="w-100" id="imgPreview" src="img/dataimg.jpeg" />
             </div>
+=======
+            <div class="width-70 text-left">
+         <label for="ward_no" class="labelinput">Ward No -<span class="mx-1">{{$user->parshads->wards->ward_no??''}}</span></label>
+         <span class="mx-1">,</span>
+          <label for="part_no" class="labelinput">Part No -<span class="mx-1">{{$user->part_nos->part_no??''}}</span></label>
+       </div>
+        <div class="width-30">
+       <div class="form-row mb-2" data-validate="Section No required">
+                    <!-- <label for="s_no" class="labelinput">Serial no</label> -->
+                    <input type="text" id="s_no" value="{{old('s_no')}}" name="s_no" placeholder="S.no"
+                        class="input_section serialnobox form-control mb-0 only-num validate_this" data-min="minNo"
+                        data-max="maxNo" />
+                </div>
+        </div>
+
+
+          </div>
+<div class="sticky z-depth-1">
+<div class="imagesection">
+ <img class="w-100" src="img/dataimg.jpeg"/>
+</div>
+>>>>>>> Stashed changes
 
         </div>
 
@@ -292,7 +382,7 @@
         <input type="hidden" name="id" value="">
         <div class="submitbtn">
             <button class="submitbutton btn btnblue btn-block submit_button" data-id="surveyData" type="submit">
-                Save
+             <i class="fas fa-save mr-1"></i>   Save
             </button>
         </div>
 

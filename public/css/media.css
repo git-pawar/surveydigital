@@ -3,6 +3,53 @@
     margin: 0px auto;
     padding-top: 68px;
 }
+.width-33 {
+    width: 33.33%;
+    position: relative;
+}
+.listimg {
+    height: 54px;
+}
+.green_box {
+    background: #0c7112 !important;
+    height: 27px;
+    width: 25px;
+    position: absolute;
+    top: 10px;
+    right: 4px;
+}
+.red_box {
+    background:#bb1a00!important;
+    height: 27px;
+    width: 25px;
+    position: absolute;
+    top: 10px;
+    right: 4px;
+}
+.yellow_box
+{
+     background: #deb51f !important;
+    height: 27px;
+    width: 25px;
+    position: absolute;
+    top: 10px;
+    right: 4px;
+}
+.topsection {
+    font-size: 13px;
+    font-weight: 500;
+    text-align: right;
+    position: absolute;
+    top: 0px;
+}
+.topsection {
+    font-size: 13px;
+    font-weight: 500;
+    text-align: right;
+    position: absolute;
+    top: 20px;
+    right: 6px;
+}
 .imagesection {
     height: 140px;
     width: 100%;
@@ -248,8 +295,9 @@ background: #003a77;
         width: 50%;
         /* padding: 0px 13px; */
     }
+
     .submitbtn {
-        width: 50%;
+        width: 30%;
         margin: 30px auto;
     }
     .submitbutton {
@@ -314,7 +362,7 @@ background: #003a77;
         /* padding: 0px 13px; */
     }
     .submitbtn {
-        width: 50%;
+        width: 30%;
         margin: 30px auto;
     }
     .submitbutton {
@@ -379,7 +427,7 @@ background: #003a77;
         /* padding: 0px 13px; */
     }
     .submitbtn {
-        width: 50%;
+        width: 25%;
         margin: 30px auto;
     }
     .submitbutton {
@@ -546,3 +594,8 @@ li>a:only-child:after {
         width: 94%;
     }
 }
+   @media screen and (min-width: 525px) and (max-width: 2200px) {
+   body{
+      display: none;
+     }
+    }

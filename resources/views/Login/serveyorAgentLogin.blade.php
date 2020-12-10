@@ -1,6 +1,12 @@
 @extends('master')
 @section('title','Login')
 @section('content')
+<style>
+.btn-dark {
+    color: #fff;
+    background-color: #012954 !important;
+}
+</style>
 <div class="maindiv">
     <!-- Default form register -->
     <form class="text-center" id="userLogin" method="POST" action="{{route('login.process')}}">

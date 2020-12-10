@@ -64,7 +64,7 @@
             <a href="{{route('parshad.create.booth.agent')}}" class="w-100 serverdashboard" >
                <div class="row mx-0">
             <div class="width-40">
-          <i class="fas fa-vote-yea"></i>
+            <i class="fas fa-database"></i>
             </div>
             <div class="width-60">
              <div class="titlemenu">
@@ -77,7 +77,7 @@
             <a href="{{route('parshad.list.booth.agent')}}"  class="w-100 serverdashboard" >
               <div class="row mx-0">
             <div class="width-40">
-               <i class="fas fa-list"></i>
+            <i class="fas fa-database"></i>
             </div>
             <div class="width-60">
              <div class="titlemenu">
@@ -87,7 +87,20 @@
             </div>
 
              </a>
-            <a href="" class="btn btn-wa">Reports</a>
+               <a href="{{route('report.index')}}"  class="w-100 serverdashboard" >
+              <div class="row mx-0">
+            <div class="width-40">
+<i class="fas fa-paste"></i>
+            </div>
+            <div class="width-60">
+             <div class="titlemenu">
+                Report
+                </div>
+            </div>
+            </div>
+
+             </a>
+
             <!-- <a href="{{route('logout')}}" class="btn btn-wa">Logout</a> -->
 
 
