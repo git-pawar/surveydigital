@@ -285,7 +285,7 @@ class MasterController extends Controller
                 mkdir($ward_dir . '/' . $part_dir, 0777, true);
             }
             foreach ($originalImage as $index1 => $list) {
-                $main_crop_name = $ward_dir . '/' . str_pad($index1 + 1, 3, 0, STR_PAD_LEFT) . '.' . $originalImage[$index1]->getClientOriginalExtension();
+                $main_crop_name = $ward_dir . '/' . $ward_dir . str_pad($index1 + 1, 3, 0, STR_PAD_LEFT) . '.' . $originalImage[$index1]->getClientOriginalExtension();
                 if (file_exists($main_crop_name)) {
                     unlink($main_crop_name);
                 }
@@ -320,24 +320,15 @@ class MasterController extends Controller
                         }
                         if ($response2) {
 
-                            $save_path = $ward_dir . '/' . $part_dir . '/' . str_pad($s_no, 3, 0, STR_PAD_LEFT) . '.' . $originalImage[$index1]->getClientOriginalExtension();
+                            $save_path = $ward_dir . '/' . $part_dir . '/' . $ward_dir . $part_dir . str_pad($s_no, 3, 0, STR_PAD_LEFT) . '.' . $originalImage[$index1]->getClientOriginalExtension();
                             if (file_exists($save_path)) {
                                 unlink($save_path);
                             }
                             $mainCropImage->save($save_path);
-                            $exist = SurveyData::where(['part_id' => $part_id, 'ward_id' => $ward_id, 's_no' => $s_no])->first();
-                            if ($exist) {
-                                $saveData = SurveyData::find($exist->id);
-                                $saveData->nn_id = $nn_id;
-                                $saveData->nnn_id = $nnn_id;
-                                $saveData->city_id = $city_id;
-                                $saveData->ward_id = $ward_id;
-                                $saveData->part_id = $part_id;
-                                $saveData->s_no = $s_no;
-                                $saveData->path = $save_path;
-                                $saveData->save();
-                            } else {
-                                $saveData = new SurveyData();
+                            $saveData = EROData::where(['part_id' => $part_id, 'ward_id' => $ward_id, 's_no' => $s_no])->first();
+                            if (!$saveData) {
+                                $saveData = new EROData();
+                            }
                                 $saveData->nn_id = $nn_id;
                                 $saveData->nnn_id = $nnn_id;
                                 $saveData->city_id = $city_id;

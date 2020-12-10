@@ -59,6 +59,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::post('parshad/delete-agent/{id}', [ParshadController::class, 'boothAgentDelete'])->name('parshad.delete.booth.agent');
 
     Route::get('dashboard', [UserController::class, 'surveyorAgentDashboard'])->name('dashboard');
+    Route::get('survey-image', [UserController::class, 'surveyImageGet'])->name('survey.image.get');
     Route::get('survey-data', [UserController::class, 'insertData'])->name('surveyor.store.data');
     Route::post('survey-data-store', [UserController::class, 'surveyStoreData'])->name('survey.data.store');
     Route::get('booth-data', [UserController::class, 'insertData'])->name('agent.store.data');

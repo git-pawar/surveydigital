@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BoothData;
+use App\Models\EROData;
 use App\Models\SurveyData;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -71,6 +72,22 @@ class UserController extends Controller
             return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
         }
     }
+    function surveyImageGet(Request $request)
+    {
+        try {
+            $s_no = $request->s_no;
+            $ward = $request->ward;
+            $part = $request->part;
+            $imageData = EROData::where(['s_no' => $s_no, 'ward_id' => $ward, 'part_id' => $part])->first();
+            if ($imageData) {
+                return ['success' => true, 'url' => $imageData->url, 'imageData' => $imageData];
+            } else {
+                return ['success' => false, 'message' => 'No image found regarding this serial no'];
+            }
+        } catch (\Exception $exception) {
+            return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
+        }
+    }
     function insertData(Request $request)
     {
         try {
@@ -88,13 +105,14 @@ class UserController extends Controller
     }
     function surveyStoreData(Request $request)
     {
+        // return $request->all();
         DB::beginTransaction();
         try {
             $validation = Validator::make($request->all(), [
                 'mobile' => ['required', 'digits:10'],
                 'cast' => ['required'],
-                'ward_no' => ['required'],
-                'part_no' => ['required'],
+                'ward_id' => ['required'],
+                'part_id' => ['required'],
                 'category' => ['required'],
                 's_no' => ['required'],
                 'house_no' => ['required'],
@@ -110,34 +128,47 @@ class UserController extends Controller
             $user = Auth::user();
             $input['parshad_id'] = $user->parshad_id;
             $input['surveyor_id'] = $user->id;
-            $mainData = SurveyData::where(['part_id' => $request->part_no, 'ward_id' => $request->ward_no, 's_no' => $request->s_no])->first();
+            $eroData = EROData::where(['part_id' => $request->part_id, 'ward_id' => $request->ward_id, 's_no' => $request->s_no])->first();
+            $mainData = SurveyData::where(['parshad_id' => $user->parshad_id, 'surveyor_id' => $user->id, 'part_id' => $request->part_id, 'ward_id' => $request->ward_id, 's_no' => $request->s_no])->first();
+            if (!$mainData) {
+                $mainData = new SurveyData();
+            }
             $mainData->mobile = $request->mobile;
             $mainData->cast = $request->cast;
-            $mainData->ward_no = $request->ward_no;
-            $mainData->part_no = $request->part_no;
+            $mainData->ward_no = $request->ward_id;
+            $mainData->part_no = $request->part_id;
+            $mainData->ward_id = $request->ward_id;
+            $mainData->part_id = $request->part_id;
             $mainData->category = $request->category;
             $mainData->s_no = $request->s_no;
             $mainData->house_no = $request->house_no;
             $mainData->name = $request->name;
-            $mainData->retative_to = $mainData->id;
             $mainData->parshad_id = $user->parshad_id;
             $mainData->surveyor_id = $user->id;
+            $mainData->ero_id = $eroData->id ?? '';
             $mainData->red_green_blue = $request->red_green_blue;
             $mainData->save();
-            if (count($request->otherName)) {
-                foreach ($request->otherName as $index => $item) {
+            if (count($request->otherSno)) {
+                foreach ($request->otherSno as $index => $item) {
                     if ($request->otherSno[$index] && $request->otherMobile[$index]) {
-                        $otherData = SurveyData::where(['part_id' => $request->part_no, 'ward_id' => $request->ward_no, 's_no' => $request->otherSno[$index]])->first();
+                        $eroData1 = EROData::where(['part_id' => $request->part_id, 'ward_id' => $request->ward_id, 's_no' => $request->otherSno[$index]])->first();
+                        $otherData = SurveyData::where(['parshad_id' => $user->parshad_id, 'surveyor_id' => $user->id, 'part_id' => $request->part_id, 'ward_id' => $request->ward_id, 's_no' => $request->otherSno[$index]])->first();
+                        if (!$otherData) {
+                            $otherData = new SurveyData();
+                        }
                         $otherData->mobile = $request->otherMobile[$index];
                         $otherData->cast = $request->cast;
-                        $otherData->ward_no = $request->ward_no;
-                        $otherData->part_no = $request->part_no;
+                        $otherData->ward_no = $request->ward_id;
+                        $otherData->part_no = $request->part_id;
+                        $otherData->ward_id = $request->ward_id;
+                        $otherData->part_id = $request->part_id;
                         $otherData->category = $request->category;
                         $otherData->s_no = $request->otherSno[$index];
                         $otherData->house_no = $request->house_no;
                         $otherData->retative_to = $mainData->id;
                         $otherData->parshad_id = $user->parshad_id;
                         $otherData->surveyor_id = $user->id;
+                        $otherData->ero_id = $eroData1->id ?? '';
                         $otherData->red_green_blue = $request->red_green_blue;
                         $otherData->save();
                     }
@@ -147,6 +178,7 @@ class UserController extends Controller
             return back()->with('success', 'Survey saved successfully');
         } catch (\Exception $exception) {
             DB::rollback();
+            return back()->with('error', $exception->getMessage())->withInput();
             return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
         }
     }

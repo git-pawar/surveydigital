@@ -1,3 +1,13 @@
+$(document).ready(function() {
+    $(`.getImage`).focusout(function() {
+        const url = $(this).data('url'),
+            previw = $(this).data('previw'),
+            ward = $(this).data('ward'),
+            part = $(this).data('part');
+        getImage($(this), url, previw, ward, part);
+    });
+});
+
 function getCity(dis, url, elm, oldCity) {
     const state_id = $(dis).val();
     $.ajax({
@@ -133,6 +143,34 @@ function getSectionData(dis, url, elm, oldId) {
             Notiflix.Report.Failure('Server error', `Code: ${xhr.status}, Exception: ${xhr.statusText}`, 'OK');
         }
     });
+}
+
+function getImage(dis, url, elm, ward, part) {
+    const s_no = $(dis).val();
+    if (s_no) {
+        $.ajax({
+            url: url,
+            type: 'get',
+            data: {
+                s_no,
+                ward,
+                part
+            },
+            beforeSend: function() {
+                Notiflix.Block.Circle(`#${elm}`, '');
+            },
+            success: function(response) {
+                if (response.success === true) {
+                    $(`#${elm}`).html(`<img class="w-100" id="imgPreview" src="${response.url}" />`);
+                } else {
+                    Notiflix.Notify.Failure(response.message);
+                }
+            },
+            error: function(xhr) {
+                Notiflix.Report.Failure('Server error', `Code: ${xhr.status}, Exception: ${xhr.statusText}`, 'OK');
+            }
+        });
+    }
 }
 
 function getPolling(dis, url, elm, oldId) {
