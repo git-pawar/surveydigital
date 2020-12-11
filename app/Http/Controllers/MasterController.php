@@ -329,17 +329,14 @@ class MasterController extends Controller
                             if (!$saveData) {
                                 $saveData = new EROData();
                             }
-                                $saveData->nn_id = $nn_id;
-                                $saveData->nnn_id = $nnn_id;
-                                $saveData->city_id = $city_id;
-                                $saveData->ward_id = $ward_id;
-                                $saveData->part_id = $part_id;
-                                $saveData->s_no = $s_no;
-                                $saveData->path = $save_path;
-                                $saveData->save();
-                            }
-
-
+                            $saveData->nn_id = $nn_id;
+                            $saveData->nnn_id = $nnn_id;
+                            $saveData->city_id = $city_id;
+                            $saveData->ward_id = $ward_id;
+                            $saveData->part_id = $part_id;
+                            $saveData->s_no = $s_no;
+                            $saveData->path = $save_path;
+                            $saveData->save();
                             $mod = fmod($i, 3);
                             if ($mod == 0) {
                                 $rows = $rows + 1;

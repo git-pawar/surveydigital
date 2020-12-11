@@ -151,118 +151,102 @@
     <p class="titlesection">Upload Images</p>
     {{-- <div class="card-header">{{ __('Optical Character Recognition | Image annotation') }}
 </div> --}}
-<form role="form" method="POST" action="{{route('admin.image.upload')}}" enctype="multipart/form-data">
-    @csrf
-
-</form>
-</div>
 
 <form id="uploadDocumentForm" enctype="multipart/form-data">
-
     @csrf
-    <div class="card">
-
-        <div class="card-header ">
-            <h4 class="card-title pb-sm-2">Upload Certificate/KYC
-                Document
-            </h4>
+    <div class="">
+        <div class="form-row mb-2" data-validate="Select a state">
+            <label for="state" class="labelinput">State</label>
+            <select class="browser-default custom-select input_section selet validate_this"
+                onchange="getCity(this,'{{route('getCity')}}','city','');" id="state" name="state">
+                <option value="" selected>Select</option>
+                @if(count($state))
+                @foreach ($state as $item)
+                <option value="{{$item->id}}" @if ($item->id == old('state'))
+                    selected
+                    @endif>{{$item->state_name}}</option>
+                @endforeach
+                @endif
+            </select>
         </div>
-
-        <div class="card-body">
-            <div class="form-row mb-2" data-validate="Select a state">
-                <label for="state" class="labelinput">State</label>
-                <select class="browser-default custom-select input_section selet validate_this"
-                    onchange="getCity(this,'{{route('getCity')}}','city','');" id="state" name="state">
-                    <option value="" selected>Select</option>
-                    @if(count($state))
-                    @foreach ($state as $item)
-                    <option value="{{$item->id}}" @if ($item->id == old('state'))
-                        selected
-                        @endif>{{$item->state_name}}</option>
-                    @endforeach
-                    @endif
-                </select>
-            </div>
-            <div class="form-row mb-2" data-validate="Select a city">
-                <label for="city" class="labelinput">City</label>
-                <select class="browser-default custom-select input_section selet validate_this" id="city" name="city"
-                    onchange="getNN(this,'{{route('getNN')}}','nn_id','nnn_id','city','');">
-                    <option value="" selected>Select state first</option>
-                </select>
-            </div>
-            <div class="form-row mb-2" data-validate="Select a NNN Type">
-                <label for="nnn_id" class="labelinput">NNN Type</label>
-                <select class="browser-default custom-select input_section selet validate_this" id="nnn_id"
-                    name="nnn_id" onchange="getNN(this,'{{route('getNN')}}','nn_id','nnn_id','city','');">
-                    <option value="" selected>Select</option>
-                    @if(count($nnn_type))
-                    @foreach ($nnn_type as $item)
-                    <option value="{{$item->id}}" @if ($item->id == old('nnn_id'))
-                        selected
-                        @endif>{{$item->name}}</option>
-                    @endforeach
-                    @endif
-                </select>
-            </div>
-            <div class="form-row mb-2" data-validate="Select a NN Type">
-                <label for="nn_id" class="labelinput">NN Type</label>
-                <select class="browser-default custom-select input_section selet validate_this" id="nn_id" name="nn_id"
-                    onchange="getWard(this,'{{route('getWard')}}','ward_id','');">
-                    <option value="" selected>Select NNN type first</option>
-                </select>
-            </div>
-            <div class="form-row mb-2" data-validate="Select a Ward">
-                <label for="ward_id" class="labelinput">Ward</label>
-                <select class="browser-default custom-select input_section selet validate_this" id="ward_id"
-                    name="ward_id" onchange="getPart(this,'{{route('getPart')}}','part_id','');">
-                    <option value="" selected>Select NN type first</option>
-                </select>
-            </div>
-            <div class="form-row mb-2" data-validate="Select a Part no">
-                <label for="part_id" class="labelinput">Part No</label>
-                <select class="browser-default custom-select input_section selet validate_this" id="part_id"
-                    name="part_id">
-                    <option value="" selected>Select ward no first</option>
-                </select>
-            </div>
-            <div class="form-row mb-2" data-validate="Enter break point">
-                <label for="part_id" class="labelinput">Break point(seprate by ,)</label>
-                <input type="text" class="input_section form-control" placeholder="ex. 120,150,226" name="breakPoints"
-                    id="breakPoint">
-            </div>
-            <div class="">
-                <div class="form-group files color">
-                    <label> </label>
-                    <input type="file" class="w-100" multiple="true" name="image[]" id="documents">
-                </div>
-
+        <div class="form-row mb-2" data-validate="Select a city">
+            <label for="city" class="labelinput">City</label>
+            <select class="browser-default custom-select input_section selet validate_this" id="city" name="city"
+                onchange="getNN(this,'{{route('getNN')}}','nn_id','nnn_id','city','');">
+                <option value="" selected>Select state first</option>
+            </select>
+        </div>
+        <div class="form-row mb-2" data-validate="Select a NNN Type">
+            <label for="nnn_id" class="labelinput">NNN Type</label>
+            <select class="browser-default custom-select input_section selet validate_this" id="nnn_id" name="nnn_id"
+                onchange="getNN(this,'{{route('getNN')}}','nn_id','nnn_id','city','');">
+                <option value="" selected>Select</option>
+                @if(count($nnn_type))
+                @foreach ($nnn_type as $item)
+                <option value="{{$item->id}}" @if ($item->id == old('nnn_id'))
+                    selected
+                    @endif>{{$item->name}}</option>
+                @endforeach
+                @endif
+            </select>
+        </div>
+        <div class="form-row mb-2" data-validate="Select a NN Type">
+            <label for="nn_id" class="labelinput">NN Type</label>
+            <select class="browser-default custom-select input_section selet validate_this" id="nn_id" name="nn_id"
+                onchange="getWard(this,'{{route('getWard')}}','ward_id','');">
+                <option value="" selected>Select NNN type first</option>
+            </select>
+        </div>
+        <div class="form-row mb-2" data-validate="Select a Ward">
+            <label for="ward_id" class="labelinput">Ward</label>
+            <select class="browser-default custom-select input_section selet validate_this" id="ward_id" name="ward_id"
+                onchange="getPart(this,'{{route('getPart')}}','part_id','');">
+                <option value="" selected>Select NN type first</option>
+            </select>
+        </div>
+        <div class="form-row mb-2" data-validate="Select a Part no">
+            <label for="part_id" class="labelinput">Part No</label>
+            <select class="browser-default custom-select input_section selet validate_this" id="part_id" name="part_id">
+                <option value="" selected>Select ward no first</option>
+            </select>
+        </div>
+        <div class="form-row mb-2" data-validate="Enter break point">
+            <label for="part_id" class="labelinput">Break point(seprate by ,)</label>
+            <input type="text" class="input_section form-control" placeholder="ex. 120,150,226" name="breakPoints"
+                id="breakPoint">
+        </div>
+        <div class="">
+            <div class="form-group files color">
+                <label> </label>
+                <input type="file" class="w-100" multiple="true" name="image[]" id="documents">
             </div>
 
         </div>
 
-        <div class="container row">
-            <!-- Progress bar -->
-            <div class="col-sm-3">
-                <button type="submit" class="btn btn-danger waves-effect waves-light" id="submit_btn"
-                    data-name="Document">Upload
-                </button>
+    </div>
+    <div class="container row">
+        <!-- Progress bar -->
+        <div class="col-sm-3">
+            <button type="submit" class="btn btn-danger waves-effect waves-light" id="submit_btn"
+                data-name="Document">Upload
+            </button>
+        </div>
+
+
+        <div class="col-sm-6 progressContainerDocument d-none">
+            <div class="progress mt-1">
+                <div class="progress-bar-document"></div>
             </div>
+        </div>
+        <div class="col-sm-3 progressContainerDocument d-none">
+            <!-- Display upload status -->
+            <div id="uploadStatusDocument">
 
-
-            <div class="col-sm-6 progressContainerDocument d-none">
-                <div class="progress mt-1">
-                    <div class="progress-bar-document"></div>
-                </div>
-            </div>
-            <div class="col-sm-3 progressContainerDocument d-none">
-                <!-- Display upload status -->
-                <div id="uploadStatusDocument">
-
-                </div>
             </div>
         </div>
     </div>
 </form>
+</div>
 <script>
     @if ($errors->any() || session()->has('error'))
     $(document).ready(function(){

@@ -66,3 +66,22 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::post('booth-data-store', [UserController::class, 'boothStoreData'])->name('agent.data.store');
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
 });
+Route::get('/route-cache', function () {
+    $exitCode = Artisan::call('route:cache');
+    return 'Routes cache cleared';
+});
+
+//Clear config cache:
+Route::get('/config-cache', function () {
+    $exitCode = Artisan::call('config:cache');
+    return 'Config cache cleared';
+});
+// Clear view cache:
+Route::get('/view-clear', function () {
+    $exitCode = Artisan::call('view:clear');
+    return 'View cache cleared';
+});
+Route::get('/storage-link', function () {
+    $exitCode = Artisan::call('storage:link');
+    return 'Storage linked';
+});
