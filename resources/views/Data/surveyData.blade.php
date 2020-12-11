@@ -47,10 +47,11 @@
     .container_radio_button input:checked~.checkmark {
         background-color: #2196F3;
     }
-/* When the radio button is checked, add a blue background */
-.container_radio_button input:checked~.checkmark {
-    background-color: #ffb734;
-}
+
+    /* When the radio button is checked, add a blue background */
+    .container_radio_button input:checked~.checkmark {
+        background-color: #ffb734;
+    }
 
     .container_radio_button input:checked~.checkmarkgreen {
         background-color: #027904 !important;
@@ -124,10 +125,10 @@
         padding: 2px 17px;
     }
 
-    .bluebox {
+    .yellowbox {
         height: 10px;
         width: 10px;
-        background: #3456ff;
+        background: #fb3;
         padding: 2px 17px;
     }
 </style>
@@ -144,7 +145,7 @@
                 <label for="part_no" class="labelinput">Part No -<span
                         class="mx-1">{{$user->part_nos->part_no??''}}</span></label>
             </div>
-      <div class="width-45">
+            <div class="width-45">
 
             </div>
         </div>
@@ -280,7 +281,7 @@
 
 
             <label class="container_radio_button">
-                <span class="bluebox"></span>
+                <span class="yellowbox"></span>
                 <input type="radio" name="red_green_blue" value="blue">
                 <span class="checkmark"></span>
             </label>
@@ -294,7 +295,7 @@
         <input type="hidden" name="id" value="">
         <div class="submitbtn">
             <button class="submitbutton btn btnblue btn-block submit_button" data-id="surveyData" type="submit">
-             <i class="fas fa-save mr-1"></i>   Save
+                <i class="fas fa-save mr-1"></i> Save
             </button>
         </div>
 

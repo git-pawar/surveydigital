@@ -99,12 +99,12 @@ function getPart(dis, url, elm, oldId) {
     });
 }
 
-function getSection(dis, url, elm, oldId) {
+function getSection(dis, url, elm, ward_id, oldId) {
     const id = $(dis).val();
     $.ajax({
         url: url,
         type: 'get',
-        data: { id, oldId },
+        data: { id, oldId, ward_id },
         beforeSend: function() {
 
         },

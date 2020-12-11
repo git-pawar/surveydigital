@@ -28,13 +28,13 @@
                     <td>{{$item->name}}</td>
                     <td>{{$item->mobile}}</td>
                     <td class="">
-                        <p class="text-left mb-0"><b>Name :</b> {{$item->part_nos->part_name}}</p>
-                        <p class="text-left mb-0"><b>No. :</b> {{$item->part_nos->part_no}}</p>
+                        <p class="text-left mb-0"><b>Name :</b> {{$item->part_nos->part_name??''}}</p>
+                        <p class="text-left mb-0"><b>No. :</b> {{$item->part_nos->part_no??''}}</p>
                         {{-- <p class="text-left mb-0"><b>Tot. Voter :</b> {{$item->part_nos->total_voter}}</p> --}}
                     </td>
                     <td>
-                        <p class="text-left mb-0"><b>Name :</b> {{$item->sections->section_name}}</p>
-                        <p class="text-left mb-0"><b>No. :</b> {{$item->sections->section_no}}</p>
+                        <p class="text-left mb-0"><b>Name :</b> {{$item->sections->section_name??''}}</p>
+                        <p class="text-left mb-0"><b>No. :</b> {{$item->sections->section_no??''}}</p>
                         {{-- <p class="text-left mb-0"><b>Tot. Voter :</b> {{$item->sections->total_voter}}</p> --}}
                     </td>
                     <td>{{$item->s_no_from}} To {{$item->s_no_to}}</td>

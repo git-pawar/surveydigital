@@ -23,6 +23,11 @@
             <input type="text" id="email" name="email" value="{{old('email')}}"
                 class="input_section form-control mb-0 validate_this" />
         </div>
+        <div class="form-row mb-2" data-validate="Password is required">
+            <label for="password" class="labelinput">Password</label>
+            <input type="text" id="password" name="password" value="{{old('password')}}"
+                class="input_section form-control mb-0 validate_this" />
+        </div>
         <div class="form-row mb-2" data-validate="Select a state">
             <label for="state" class="labelinput">State</label>
             <select class="browser-default custom-select input_section selet validate_this"

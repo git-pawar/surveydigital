@@ -120,12 +120,14 @@ class MasterController extends Controller
             if ($ifExistEmail) {
                 return back()->with('error', 'Email already exist')->withInput();
             }
+            $input['password'] = Hash::make($request->password);
+            $input['password2'] = $request->password;
             $input['type'] = 'parshad';
             if ($input['id']) {
                 User::find($input['id'])->update($input);
                 return redirect()->route('admin.list.parshad')->with('success', 'Update successfully');
             } else {
-                $input['password'] = '123456789';
+
                 User::create($input);
                 return back()->with('success', 'Saved successfully');
             }
@@ -210,9 +212,10 @@ class MasterController extends Controller
     function getSection(Request $request)
     {
         try {
-            $id = $request->id;
+            $id = explode(",", $request->id)[0];
+            $ward_id = $request->ward_id;
             $oldId = $request->oldId;
-            $sections = Section::where('part_id', $id)->orderBy('section_no', 'asc')->get();
+            $sections = Section::where(['ward_id' => $ward_id, 'part_id' => $id])->orderBy('section_no', 'asc')->get();
             $view = view('Component.sections', compact('sections', 'oldId'))->render();
             return ['success' => true, 'view' => $view];
         } catch (\Exception $exception) {
@@ -290,11 +293,12 @@ class MasterController extends Controller
                     unlink($main_crop_name);
                 }
                 $mainCropImage1 = Image::make($originalImage[$index1]);
-                $mainCropImage1->crop(1127, 1512, 59, 142);
+                // $mainCropImage1->crop(1127, 1512, 59, 142);
+                $mainCropImage1->crop(1507, 2015, 79, 189);
                 $mainCropImage1->save($main_crop_name);
                 $data = file_get_contents($main_crop_name);
-                $initWidth = 377;
-                $initHeight = 149;
+                $initWidth = 480;
+                $initHeight = 200;
                 $initX = 0;
                 $initY = 0;
                 $rows = 1;
@@ -348,79 +352,79 @@ class MasterController extends Controller
                                 if ($blockNo == 1) {
                                     $initX = 0;
                                 } else {
-                                    $initX = $initX + 377;
+                                    $initX = $initX + 500;
                                 }
                             }
                             if ($rows == 2) {
                                 if ($blockNo == 1) {
                                     $initX = 0;
-                                    $initY = $initY + 151;
+                                    $initY = $initY + 200;
                                 } else {
-                                    $initX = $initX + 377;
+                                    $initX = $initX + 500;
                                 }
                             }
                             if ($rows == 3) {
                                 if ($blockNo == 1) {
                                     $initX = 0;
-                                    $initY = $initY + 151;
+                                    $initY = $initY + 205;
                                 } else {
-                                    $initX = $initX + 377;
+                                    $initX = $initX + 500;
                                 }
                             }
                             if ($rows == 4) {
                                 if ($blockNo == 1) {
                                     $initX = 0;
-                                    $initY = $initY + 151;
+                                    $initY = $initY + 200;
                                 } else {
-                                    $initX = $initX + 377;
+                                    $initX = $initX + 500;
                                 }
                             }
                             if ($rows == 5) {
                                 if ($blockNo == 1) {
                                     $initX = 0;
-                                    $initY = $initY + 152;
+                                    $initY = $initY + 200;
                                 } else {
-                                    $initX = $initX + 377;
+                                    $initX = $initX + 500;
                                 }
                             }
                             if ($rows == 6) {
                                 if ($blockNo == 1) {
                                     $initX = 0;
-                                    $initY = $initY + 151;
+                                    $initY = $initY + 200;
                                 } else {
-                                    $initX = $initX + 377;
+                                    $initX = $initX + 500;
                                 }
                             }
                             if ($rows == 7) {
                                 if ($blockNo == 1) {
                                     $initX = 0;
-                                    $initY = $initY + 151;
+                                    $initY = $initY + 205;
                                 } else {
-                                    $initX = $initX + 377;
+                                    $initX = $initX + 500;
                                 }
                             }
                             if ($rows == 8) {
                                 if ($blockNo == 1) {
                                     $initX = 0;
-                                    $initY = $initY + 150;
+                                    $initY = $initY + 200;
                                 } else {
-                                    $initX = $initX + 377;
+                                    $initX = $initX + 500;
                                 }
                             }
                             if ($rows == 9) {
                                 if ($blockNo == 1) {
                                     $initX = 0;
-                                    $initY = $initY + 151;
+                                    $initY = $initY + 200;
                                 } else {
-                                    $initX = $initX + 377;
+                                    $initX = $initX + 500;
                                 }
                             }
                             if ($rows == 10) {
                                 if ($blockNo == 1) {
                                     $initX = 0;
-                                    $initY = $initY + 150;
+                                    $initY = $initY + 200;
                                 } else {
-                                    $initX = $initX + 377;
+                                    $initX = $initX + 500;
                                 }
                             }
                         }

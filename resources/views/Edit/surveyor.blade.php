@@ -18,6 +18,11 @@
             <input type="text" id="mobile" name="mobile" value="{{$editSurveyor->mobile}}"
                 class="input_section form-control mb-0 validate_this only-num" data-len="10" />
         </div>
+        <div class="form-row mb-2" data-validate="Password is required">
+            <label for="password" class="labelinput">Password</label>
+            <input type="text" id="password" name="password" value="{{$editSurveyor->password2}}"
+                class="input_section form-control mb-0 validate_this " />
+        </div>
         <div class="form-row mb-2" data-validate="Bhag Kramank / Part is required">
             <label for="part_no" class="labelinput">Bhag Kramank / Part.</label>
             <input type="text" id="part_no" name="part_no" value="{{$editSurveyor->part_no}}"

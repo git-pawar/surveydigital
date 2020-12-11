@@ -18,14 +18,19 @@
             <input type="text" id="mobile" name="mobile" value="{{old('mobile')}}"
                 class="input_section form-control mb-0 validate_this only-num" data-len="10" />
         </div>
+        <div class="form-row mb-2" data-validate="Password is required">
+            <label for="password" class="labelinput">Password</label>
+            <input type="text" id="password" name="password" value="{{old('password')}}"
+                class="input_section form-control mb-0 validate_this" />
+        </div>
         <div class="form-row mb-2" data-validate="Select Bhag Kramank / Part.">
             <label for="part_id" class="labelinput">Bhag Kramank / Part.</label>
             <select class="browser-default custom-select input_section selet validate_this" id="part_id" name="part_id"
-                onchange="getSection(this,'{{route('getSection')}}','section_id','');">
+                onchange="getSection(this,'{{route('getSection')}}','section_id','{{$ward_id??''}}','');">
                 <option value="" selected>Select</option>
                 @if (count($part_no))
                 @foreach ($part_no as $item)
-                <option value="{{$item->id}}" @if (old('part_id')==$item->id)
+                <option value="{{$item->part_no.','.$item->id}}" @if (old('part_id')==$item->part_no.','.$item->id)
                     selected
                     @endif>{{$item->part_name??''}}({{$item->part_no??''}})</option>
                 @endforeach
@@ -35,8 +40,8 @@
         </div>
         <div class="form-row mb-2" data-validate="Section is required">
             <label for="section_id" class="labelinput">Section</label>
-            <select class="browser-default custom-select input_section selet validate_this" id="section_id"
-                name="section_id" onchange="getSectionData(this,'{{route('getSectionData')}}','sectionData','');">
+            <select class="browser-default custom-select input_section selet" id="section_id" name="section_id"
+                onchange="getSectionData(this,'{{route('getSectionData')}}','sectionData','');">
                 <option value="" selected>Select</option>
             </select>
         </div>

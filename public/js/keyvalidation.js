@@ -77,7 +77,7 @@ function convertFloat(dis) {
 }
 
 function minMax(dis, minElm, maxElm) {
-    debugger;
+
     let el = $(dis);
     let min = $(`#${minElm}`).val() ? parseInt($(`#${minElm}`).val()) : '';
     let max = $(`#${maxElm}`).val() ? parseInt($(`#${maxElm}`).val()) : '';

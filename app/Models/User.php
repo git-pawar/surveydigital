@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'password2',
         'mobile',
         's_no_to',
         's_no_from',
@@ -57,10 +58,10 @@ class User extends Authenticatable
         'deleted_at' => 'datetime',
     ];
 
-    function setPasswordAttribute($value)
-    {
-        return $this->attributes['password'] = Hash::make($value);
-    }
+    // function setPasswordAttribute($value)
+    // {
+    //     return $this->attributes['password'] = Hash::make($value);
+    // }
     function setNameAttribute($value)
     {
         return $this->attributes['name'] = ucwords($value);

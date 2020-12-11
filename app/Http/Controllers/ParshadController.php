@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ParshadController extends Controller
 {
@@ -18,7 +19,7 @@ class ParshadController extends Controller
             $user = Auth::user();
             $ward_id  = $user->ward_id;
             $part_no = PartNo::where('ward_id', $ward_id)->orderBy('part_no', 'asc')->get();
-            return view('Create.createSurveyUser', compact('part_no'));
+            return view('Create.createSurveyUser', compact('part_no', 'ward_id'));
         } catch (\Exception $exception) {
             return back()->with('error', 'Something went wrong');
         }
@@ -35,6 +36,7 @@ class ParshadController extends Controller
                 's_no_from' => ['required'],
                 'section_id' => ['required'],
                 'part_id' => ['required'],
+                'password' => ['required'],
 
             ]);
             if ($validation->fails()) {
@@ -46,19 +48,20 @@ class ParshadController extends Controller
             if ($ifExistMobile) {
                 return back()->with('error', 'Mobile number allready exist')->withInput();
             }
-
+            $input['password'] = Hash::make($request->password);
+            $input['password2'] = $request->password;
+            $input['part_id'] = explode(",", $request->part_id)[1];
             if ($input['id']) {
                 User::find($input['id'])->update($input);
                 return redirect()->route('parshad.list.surveyor')->with('success', 'Update successfully');
             } else {
-                $input['password'] = '123456789';
                 $input['parshad_id'] = Auth::id();
                 $input['type'] = 'surveyor';
                 User::create($input);
                 return back()->with('success', 'Saved successfully');
             }
         } catch (\Exception $exception) {
-            return $exception->getMessage();
+            // return $exception->getMessage();
             return back()->with('error', 'Something went wrong')->withInput();
         }
     }
@@ -66,7 +69,8 @@ class ParshadController extends Controller
     function surveyorList(Request $request)
     {
         try {
-            $surveyor = User::where(['type' => 'surveyor'])->whereNull('deleted_at')->orderBy('part_id', 'asc')->paginate(25);
+            $id = Auth::id();
+            $surveyor = User::where(['parshad_id' => $id, 'type' => 'surveyor'])->whereNull('deleted_at')->orderBy('part_id', 'asc')->paginate(25);
             return view('List.surveyor', compact('surveyor'));
         } catch (\Exception $exception) {
             return back()->with('error', 'Somethinge went wrong');
@@ -150,7 +154,8 @@ class ParshadController extends Controller
     function boothAgentList(Request $request)
     {
         try {
-            $boothAgent = User::where(['type' => 'agent'])->whereNull('deleted_at')->orderBy('id', 'desc')->paginate(25);
+            $id = Auth::id();
+            $boothAgent = User::where(['parshad_id' => $id, 'type' => 'agent'])->whereNull('deleted_at')->orderBy('id', 'desc')->paginate(25);
             return view('List.polingBoothAgent', compact('boothAgent'));
         } catch (\Exception $exception) {
             return back()->with('error', 'Something went wrong');
