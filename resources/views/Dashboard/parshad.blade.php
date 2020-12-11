@@ -34,8 +34,36 @@
         </p>
 
         <div class="form-row mb-4">
-            <!-- E-mail -->
-            <a href="{{route('parshad.create.surveyor')}}" class="w-100 serverdashboard"  class="">
+      <details class="mb-3 mt-3">
+    <summary> <i class="fas fa-user-friends mr-3"></i> Survey</summary>
+    <div class="faq__content">
+      <div class="submenu">
+      <a href="{{route('parshad.create.surveyor')}}"> Create  User </a>
+       <a href="{{route('parshad.list.surveyor')}}">User List </a>
+
+      </div>
+    </div>
+  </details>
+    <details >
+    <summary>
+
+    <i class="fas fa-vote-yea mr-3"></i> Poling Booth</summary>
+    <div class="faq__content">
+      <div class="submenu">
+      <a href="{{route('parshad.list.booth.agent')}}"> Create Agent  </a>
+       <a href="{{route('parshad.list.booth.agent')}}">Agent List </a>
+
+      </div>
+    </div>
+  </details>
+   <a href="{{route('report.index')}}"  class="w-100 serverdashboard" >
+
+    <summary>
+     <i class="fas fa-user-friends mr-3"></i> Report</summary>
+
+
+   </a>
+         <!-- <a href="{{route('parshad.create.surveyor')}}" class="w-100 serverdashboard"  class="">
 
              <div class="row mx-0">
             <div class="width-40">
@@ -47,8 +75,8 @@
                 </div>
             </div>
             </div>
-             </a>
-            <a href="{{route('parshad.list.surveyor')}}"  class="w-100 serverdashboard" >
+         </a> -->
+            <!-- <a href=""  class="w-100 serverdashboard" >
 
               <div class="row mx-0">
             <div class="width-40">
@@ -60,8 +88,8 @@
                 </div>
             </div>
             </div>
-             </a>
-            <a href="{{route('parshad.create.booth.agent')}}" class="w-100 serverdashboard" >
+             </a> -->
+            <!-- <a href="{{route('parshad.create.booth.agent')}}" class="w-100 serverdashboard" >
                <div class="row mx-0">
             <div class="width-40">
             <i class="fas fa-database"></i>
@@ -73,8 +101,8 @@
             </div>
             </div>
 
-            </a>
-            <a href="{{route('parshad.list.booth.agent')}}"  class="w-100 serverdashboard" >
+            </a> -->
+            <!-- <a href="{{route('parshad.list.booth.agent')}}"  class="w-100 serverdashboard" >
               <div class="row mx-0">
             <div class="width-40">
             <i class="fas fa-database"></i>
@@ -86,8 +114,8 @@
             </div>
             </div>
 
-             </a>
-               <a href="{{route('report.index')}}"  class="w-100 serverdashboard" >
+             </a> -->
+               <!-- <a href="{{route('report.index')}}"  class="w-100 serverdashboard" >
               <div class="row mx-0">
             <div class="width-40">
 <i class="fas fa-paste"></i>
@@ -99,7 +127,7 @@
             </div>
             </div>
 
-             </a>
+             </a> -->
 
             <!-- <a href="{{route('logout')}}" class="btn btn-wa">Logout</a> -->
 
