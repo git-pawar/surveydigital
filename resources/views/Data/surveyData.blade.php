@@ -47,6 +47,10 @@
     .container_radio_button input:checked~.checkmark {
         background-color: #2196F3;
     }
+/* When the radio button is checked, add a blue background */
+.container_radio_button input:checked~.checkmark {
+    background-color: #ffb734;
+}
 
     .container_radio_button input:checked~.checkmarkgreen {
         background-color: #027904 !important;
@@ -132,17 +136,15 @@
     <form class="text-center" id="surveyData" action="{{route('survey.data.store')}}" method="POST">
         @csrf
         <div class="row mx-0">
-            <div class="width-45">
-                <p class="titlesection">Survey Data</p>
-            </div>
-            <div class="width-60">
+
+            <div class="width-60 mb-2">
                 <label for="ward_no" class="labelinput">Ward No -<span
                         class="mx-1">{{$user->parshads->wards->ward_no??''}}</span></label>
                 <span class="mx-1">,</span>
                 <label for="part_no" class="labelinput">Part No -<span
                         class="mx-1">{{$user->part_nos->part_no??''}}</span></label>
             </div>
-            <div class="imagedata">
+      <div class="width-45">
 
             </div>
         </div>
@@ -292,7 +294,7 @@
         <input type="hidden" name="id" value="">
         <div class="submitbtn">
             <button class="submitbutton btn btnblue btn-block submit_button" data-id="surveyData" type="submit">
-                Save
+             <i class="fas fa-save mr-1"></i>   Save
             </button>
         </div>
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\ParshadController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +15,7 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
-
+ */
 
 Route::get('create-admin', [MasterController::class, 'createAdmin'])->name('create.admin');
 Route::get('get-city', [MasterController::class, 'getCity'])->name('getCity');
@@ -65,6 +65,13 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('booth-data', [UserController::class, 'insertData'])->name('agent.store.data');
     Route::post('booth-data-store', [UserController::class, 'boothStoreData'])->name('agent.data.store');
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
+    // report
+    Route::get('report', [ReportController::class, 'reportIndex'])->name('report.index');
+    Route::get('report/partwise', [ReportController::class, 'reportpartview'])->name('report.partwise');
+    Route::get('report/voterlist', [ReportController::class, 'reportvoterlist'])->name('report.voterlist');
+    Route::get('report/voterlist/done', [ReportController::class, 'reportvoterlistdone'])->name('report.voterlist.done');
+    Route::get('report/voterlist/pending', [ReportController::class, 'reportvoterlistpending'])->name('report.voterlist.pending');
+    Route::get('report/voterlist/all', [ReportController::class, 'reportvoterlistall'])->name('report.voterlist.all');
 });
 Route::get('/route-cache', function () {
     $exitCode = Artisan::call('route:cache');

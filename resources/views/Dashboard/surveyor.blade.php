@@ -16,6 +16,8 @@
     color: #060606;
     font-size: 17px;
     font-weight: 500;
+    text-align: left;
+    padding-left: 15px;
 }
 </style>
 <div class="maininnersection">
@@ -39,7 +41,6 @@
 
             </a>
             <!-- <a href="{{route('logout')}}" class="btn btn-wa">Logout</a> -->
-
             <!-- Terms of service -->
             <div class="serverybox">
              <div class="row">

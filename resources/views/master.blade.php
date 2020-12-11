@@ -142,6 +142,7 @@
     <div class="row w-100 headerlogo">
         <div id="" class="col-sm-10 ">
             <div class="logosection">
+
                 <span class="logosection">Election Survey</span>
                 <!-- <img src="{{url('img/logo.png')}}" alt="" /> -->
             </div>
