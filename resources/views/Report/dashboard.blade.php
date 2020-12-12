@@ -83,10 +83,10 @@
                 <a href="{{route('report.typewise',['type'=>'partwise'])}}">Part wise </a>
                 <a href="{{route('report.typewise',['type'=>'namewise'])}}">Name wise </a>
                 <a href="{{route('report.typewise',['type'=>'housewise'])}}">House no wise </a>
-                <a href="{{route('report.typewise',['type'=>'categorywise'])}}">category wisee </a>
-                <a href="{{route('report.typewise',['type'=>'colorwise'])}}">Red/Green/Yellow search </a>
-                <a href="{{route('report.typewise',['type'=>'mobilewise'])}}">Mobile Number Search </a>
-                <a href="{{route('report.voterlist')}}">Voter list view </a>
+                <a href="{{route('report.typewise',['type'=>'categorywise'])}}">category wise </a>
+                <a href="{{route('report.typewise',['type'=>'colorwise'])}}">Color wise </a>
+                <a href="{{route('report.typewise',['type'=>'mobilewise'])}}">Mobile no wise </a>
+                <a href="{{route('report.voterlist')}}">Voter list </a>
             </div>
         </div>
     </details>
