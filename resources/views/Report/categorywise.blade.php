@@ -1,5 +1,5 @@
 @extends('master')
-@section('title','Part wise report')
+@section('title','Category wise report')
 @section('content')
 
 <style>
@@ -10,16 +10,20 @@
         <label for="ward_no" class="labelinput">Ward No - <span
                 class="mx-1">{{str_pad($user->wards->ward_no,2,0,STR_PAD_LEFT)}}</span></label>
 
-        <form method="get" action="{{route('report.typewise',['type'=>'partwise'])}}">
+        <form method="get" action="{{route('report.typewise',['type'=>'categorywise'])}}">
             <select class="form-control selectinput" name="searchq" onchange="this.form.submit()">
-                <option value="">Select Part No </option>
-                @if (count($parts))
-                @foreach ($parts as $item)
-                <option value="{{$item->id}}" @if (isset($searchq)) @if ($searchq==$item->id) selected @endif
-                    @endif>{{$item->part_no}}</option>
-                @endforeach
-                @endif
-
+                <option value="">All</option>
+                <option value="General" @if (isset($searchq)) @if ($searchq=='General' ) selected @endif @endif>General
+                </option>
+                <option value="OBC" @if (isset($searchq)) @if ($searchq=='OBC' ) selected @endif @endif>OBC
+                </option>
+                <option value="ST" @if (isset($searchq)) @if ($searchq=='ST' ) selected @endif @endif>ST
+                </option>
+                <option value="SC" @if (isset($searchq)) @if ($searchq=='SC' ) selected @endif @endif>SC
+                </option>
+                <option value="Minority" @if (isset($searchq)) @if ($searchq=='Minority' ) selected @endif @endif>
+                    Minority
+                </option>
             </select>
         </form>
     </div>

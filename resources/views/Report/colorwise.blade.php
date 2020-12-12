@@ -1,5 +1,5 @@
 @extends('master')
-@section('title','Part wise report')
+@section('title','Color wise report')
 @section('content')
 
 <style>
@@ -10,16 +10,13 @@
         <label for="ward_no" class="labelinput">Ward No - <span
                 class="mx-1">{{str_pad($user->wards->ward_no,2,0,STR_PAD_LEFT)}}</span></label>
 
-        <form method="get" action="{{route('report.typewise',['type'=>'partwise'])}}">
+        <form method="get" action="{{route('report.typewise',['type'=>'colorwise'])}}">
             <select class="form-control selectinput" name="searchq" onchange="this.form.submit()">
-                <option value="">Select Part No </option>
-                @if (count($parts))
-                @foreach ($parts as $item)
-                <option value="{{$item->id}}" @if (isset($searchq)) @if ($searchq==$item->id) selected @endif
-                    @endif>{{$item->part_no}}</option>
-                @endforeach
-                @endif
-
+                <option value="">All</option>
+                <option value="green" @if (isset($searchq)) @if ($searchq=='green' ) selected @endif @endif>Green
+                <option value="blue" @if (isset($searchq)) @if ($searchq=='blue' ) selected @endif @endif>Yellow
+                <option value="red" @if (isset($searchq)) @if ($searchq=='red' ) selected @endif @endif>Red
+                </option>
             </select>
         </form>
     </div>

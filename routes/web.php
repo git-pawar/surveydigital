@@ -67,8 +67,9 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
     // report
     Route::get('report', [ReportController::class, 'reportIndex'])->name('report.index');
-    Route::get('report/partwise', [ReportController::class, 'reportpartview'])->name('report.partwise');
-    Route::get('report/voterlist', [ReportController::class, 'reportvoterlist'])->name('report.voterlist');
+    Route::get('report/{type}', [ReportController::class, 'reportpartview'])->name('report.typewise');
+    Route::get('report/namewise', [ReportController::class, 'reportnameview'])->name('report.report.namewise');
+    Route::get('report/voter/list', [ReportController::class, 'reportvoterlist'])->name('report.voterlist');
     Route::get('report/voterlist/done', [ReportController::class, 'reportvoterlistdone'])->name('report.voterlist.done');
     Route::get('report/voterlist/pending', [ReportController::class, 'reportvoterlistpending'])->name('report.voterlist.pending');
     Route::get('report/voterlist/all', [ReportController::class, 'reportvoterlistall'])->name('report.voterlist.all');

@@ -3,13 +3,6 @@
 @section('content')
 
 <style>
-.width-80 {
-    width: 80%;
-    padding-left: 8px;
-}
-.searchbtn{
-
-}
 </style>
 <div class="maininnersection px-2 position-relative">
   <p class="titlesection px-2">Part Wise
@@ -24,7 +17,7 @@
                         class="input_section form-control mb-0 validate_this" />
                 </div>
             </div>
-              <div class="width-20">
+              <div class="width-20 px">
       <button class="btn_search "><i class="fas fa-search"></i></button>
   </div>
   </div>

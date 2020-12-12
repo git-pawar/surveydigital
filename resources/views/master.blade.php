@@ -149,7 +149,9 @@
         </div>
 
         <div class="col-sm-2 drpdwn desc-menu">
+            @if(Auth::guard('admin')->check() || Auth::check())
             <button class="openbtn" onclick="openNav()">&#9776;</button>
+            @endif
             <!--
               <div id="mySidepanel" class="sidepanel"> -->
             <ul class="menu d-none">
@@ -205,6 +207,10 @@
         @yield('content')
     </section>
     <script>
+        Notiflix.Loading.Circle();
+        $(document).ready(function(){
+            Notiflix.Loading.Remove();
+        });
         function openNav() {
   document.getElementById("mySidepanel").style.width = "250px";
 }

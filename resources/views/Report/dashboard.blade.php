@@ -80,13 +80,13 @@
         <summary>Survey</summary>
         <div class="faq__content">
             <div class="submenu">
-                <a href="{{route('report.partwise.list')}}">Part wise </a>
-                <a href="">Name wise </a>
-                <a href="">House no wise </a>
-                <a href="">category wisee </a>
-                <a href="">Red/Green/Yellow search </a>
-                <a href="">Mobile Number Search </a>
-                <a href="">Voter list view </a>
+                <a href="{{route('report.typewise',['type'=>'partwise'])}}">Part wise </a>
+                <a href="{{route('report.typewise',['type'=>'namewise'])}}">Name wise </a>
+                <a href="{{route('report.typewise',['type'=>'housewise'])}}">House no wise </a>
+                <a href="{{route('report.typewise',['type'=>'categorywise'])}}">category wisee </a>
+                <a href="{{route('report.typewise',['type'=>'colorwise'])}}">Red/Green/Yellow search </a>
+                <a href="{{route('report.typewise',['type'=>'mobilewise'])}}">Mobile Number Search </a>
+                <a href="{{route('report.voterlist')}}">Voter list view </a>
             </div>
         </div>
     </details>

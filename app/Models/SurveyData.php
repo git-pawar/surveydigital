@@ -25,4 +25,8 @@ class SurveyData extends Model
         'voter_count',
         'red_green_blue',
     ];
+    function part_nos()
+    {
+        return $this->belongsTo(PartNo::class, 'part_id');
+    }
 }

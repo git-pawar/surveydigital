@@ -1,28 +1,29 @@
 @extends('master')
-@section('title','Part wise report')
+@section('title','House wise report')
 @section('content')
-
 <style>
 
 </style>
 <div class="maininnersection">
-    <div class="w-100 mb-2 row mx-0">
-        <label for="ward_no" class="labelinput">Ward No - <span
-                class="mx-1">{{str_pad($user->wards->ward_no,2,0,STR_PAD_LEFT)}}</span></label>
 
-        <form method="get" action="{{route('report.typewise',['type'=>'partwise'])}}">
-            <select class="form-control selectinput" name="searchq" onchange="this.form.submit()">
-                <option value="">Select Part No </option>
-                @if (count($parts))
-                @foreach ($parts as $item)
-                <option value="{{$item->id}}" @if (isset($searchq)) @if ($searchq==$item->id) selected @endif
-                    @endif>{{$item->part_no}}</option>
-                @endforeach
-                @endif
+    <label for="ward_no" class="labelinput">Ward No - <span
+            class="mx-1">{{str_pad($user->wards->ward_no,2,0,STR_PAD_LEFT)}}</span></label>
 
-            </select>
-        </form>
-    </div>
+    <form method="get" action="{{route('report.typewise',['type'=>'housewise'])}}" id="searchinput">
+        <div class="w-100 row mx-0 mt-3">
+            <div class="width-80">
+                <div class="form-row mb-2" data-validate="House no required">
+
+                    <input type="search" id="search1" value="{{$searchq??''}}" placeholder="Enter house no" name="searchq"
+                        class="input_section form-control mb-0 validate_this" />
+                </div>
+            </div>
+            <div class="width-20 py-0 margin-1">
+                <button type="submit" class="btn_search submit_button" data-id="searchinput"><i
+                        class="fas fa-search"></i></button>
+            </div>
+    </form>
+
     <div class="table-responsive" id="surveyorList">
         <table class="table table-bordered">
             <thead>
@@ -66,7 +67,7 @@
                 </tr>
                 @endforeach
                 @else
-                <td class="text-center" colspan="10">No data</td>
+                <td class="text-center" colspan="11">No data</td>
                 @endif
             </tbody>
         </table>
