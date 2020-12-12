@@ -24,6 +24,7 @@ class AddMoreColumnToSurveyDataTable extends Migration
             $table->string('father_name', 100)->nullable()->after('relation');
             $table->string('gender', 100)->nullable()->after('father_name');
             $table->integer('age')->nullable()->after('gender');
+            $table->string('remark', 191)->nullable()->after('age');
             $table->string('path', 191)->nullable()->after('age');
             $table->index(['path', 'part_id']);
             $table->index(['ward_id', 's_no']);
@@ -38,7 +39,7 @@ class AddMoreColumnToSurveyDataTable extends Migration
     public function down()
     {
         Schema::table('survey_data', function (Blueprint $table) {
-            $table->dropColumn(['nn_id', 'nnn_id', 'city_id', 'ward_id', 'part_id', 'section', 'surname', 'relation', 'father_name', 'gender', 'age', 'path']);
+            $table->dropColumn(['nn_id', 'nnn_id', 'city_id', 'ward_id', 'part_id', 'section', 'surname', 'relation', 'father_name', 'gender', 'age', 'path','remark']);
         });
     }
 }

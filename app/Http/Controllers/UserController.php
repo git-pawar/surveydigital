@@ -143,6 +143,7 @@ class UserController extends Controller
             $mainData->s_no = $request->s_no;
             $mainData->house_no = $request->house_no;
             $mainData->name = $request->name;
+            $mainData->remark = $request->remark;
             $mainData->parshad_id = $user->parshad_id;
             $mainData->surveyor_id = $user->id;
             $mainData->ero_id = $eroData->id ?? null;

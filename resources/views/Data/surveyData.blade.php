@@ -84,16 +84,18 @@
     }
 
     .width-60 {
-    width: 75%;
-    text-align: left;
+        width: 75%;
+        text-align: left;
     }
 
     .width-25 {
         width: 25%;
     }
-  .h-25{
-    height:25px;
-  }
+
+    .h-25 {
+        height: 25px;
+    }
+
     .sticky {
         position: sticky;
         top: 0;
@@ -156,9 +158,9 @@
                         class="h-25 form-control mb-0 only-num validate_this getImage "
                         data-url="{{route('survey.image.get')}}" data-previw="imagesection" data-ero="ero_id"
                         data-ward="{{$user->parshads->ward_id}}" data-part="{{$user->part_id}}" data-min="minNo"
-                        data-max="maxNo" placeholder="s.no"/>
+                        data-max="maxNo" placeholder="s.no" />
 
-            </div>
+                </div>
             </div>
         </div>
         <div class="sticky z-depth-1">
@@ -231,19 +233,15 @@
             <div class="width-50">
                 <div class="form-row mb-2" data-validate="Mobile No required">
                     <label for="mobile" class="labelinput">Mobile No. </label>
-<<<<<<< Updated upstream
                     <input type="number" id="mobile" value="{{old('mobile')}}" name="mobile"
                         class="input_section form-control mb-0 only-num validate_this" data-len="10" />
                 </div>
             </div>
-             <div class="width-50">
-                <div class="form-row mb-2" data-validate="Mobile No required">
-                    <label for="mobile" class="labelinput">Remark </label>
-                    <input type="text" id="" value="" name="Remark"
-=======
-                    <input type="text" id="mobile" value="{{old('mobile')}}" name="mobile" pattern="\d*"
->>>>>>> Stashed changes
-                        class="input_section form-control mb-0 only-num validate_this" data-len="10" />
+            <div class="width-50">
+                <div class="form-row mb-2" data-validate="Remark is required">
+                    <label for="remark" class="labelinput">Remark </label>
+                    <input type="text" id="remark" value="{{old('remark')}}" name="remark"
+                        class="input_section form-control mb-0 " />
                 </div>
             </div>
             <div class="width-50">
