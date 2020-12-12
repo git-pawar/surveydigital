@@ -6,6 +6,16 @@
 
 </style>
 <div class="maininnersection">
+<div class="w-100 mb-2 row mx-0">
+                <label for="ward_no" class="labelinput">Ward No -<span
+                        class="mx-1">1</span></label>
+
+
+          <select class="form-control selectinput">
+          <option>Select Part No </option>
+          </select>
+
+            </div>
   <div class="table-responsive" id="surveyorList">
     <table class="table table-bordered">
             <thead>
