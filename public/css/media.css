@@ -10,6 +10,11 @@
 .listimg {
     height: 54px;
 }
+.imagesection img{
+    width: 100%!important;
+    height: 100%;
+    object-fit: contain;
+}
 .green_box {
     background: #0c7112 !important;
     height: 27px;
@@ -109,7 +114,7 @@ details
     right: 6px;
 }
 .imagesection {
-    height: 140px;
+    height: 124px;
     width: 100%;
 }
 .btnblue {
@@ -235,7 +240,7 @@ background: #003a77;
 
 .width-50 {
     width: 50%;
-    /* padding: 0px 13px; */
+    padding: 0px 8px;
 }
 
 .submitbtn {
@@ -387,6 +392,16 @@ background: #003a77;
         /* border-bottom: 1px dashed #ccc; */
         padding: 5px 14px;
     }
+    .imagesection {
+    height: 140px;
+    width: 100%;
+}
+.imagesection img{
+    width: 100%!important;
+    height: 100%;
+    object-fit: contain;
+}
+
     .logosection img {
         width: 100%;
         height: 100%;
@@ -657,3 +672,16 @@ li>a:only-child:after {
       display: none;
      }
     }
+    button.btn_search {
+    background: #012954;
+    border: 1px solid #ccc;
+    width: 100%;
+    padding: 4px 0px;
+    color: white;
+    border-radius: 0px 5px 5px 0px;
+}
+.width-20 {
+    width: 20%;
+    margin: 0px auto;
+    padding: 19px 0px;
+}

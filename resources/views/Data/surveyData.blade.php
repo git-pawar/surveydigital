@@ -84,13 +84,16 @@
     }
 
     .width-60 {
-        width: 55%;
+    width: 75%;
+    text-align: left;
     }
 
-    .width-45 {
-        width: 45%;
+    .width-25 {
+        width: 25%;
     }
-
+  .h-25{
+    height:25px;
+  }
     .sticky {
         position: sticky;
         top: 0;
@@ -102,7 +105,7 @@
     }
 
     .imagesection {
-        height: 140px;
+        height: 124px;
         width: 100%;
     }
 
@@ -145,8 +148,17 @@
                 <label for="part_no" class="labelinput">Part No -<span
                         class="mx-1">{{$user->part_nos->part_no??''}}</span></label>
             </div>
-            <div class="width-45">
+            <div class="width-25">
 
+                <div class="form-row mb-2" data-validate="Section No required">
+
+                    <input type="text" id="s_no" value="{{old('s_no')}}" name="s_no"
+                        class="h-25 form-control mb-0 only-num validate_this getImage "
+                        data-url="{{route('survey.image.get')}}" data-previw="imagesection" data-ero="ero_id"
+                        data-ward="{{$user->parshads->ward_id}}" data-part="{{$user->part_id}}" data-min="minNo"
+                        data-max="maxNo" placeholder="s.no"/>
+
+            </div>
             </div>
         </div>
         <div class="sticky z-depth-1">
@@ -181,16 +193,7 @@
             </div>
             <input type="hidden" id="minNo" value="{{$user->s_no_from}}">
             <input type="hidden" id="maxNo" value="{{$user->s_no_to}}">
-            <div class="width-50">
-                <div class="form-row mb-2" data-validate="Section No required">
-                    <label for="s_no" class="labelinput">Serial no</label>
-                    <input type="text" id="s_no" value="{{old('s_no')}}" name="s_no"
-                        class="input_section form-control mb-0 only-num validate_this getImage"
-                        data-url="{{route('survey.image.get')}}" data-previw="imagesection" data-ero="ero_id"
-                        data-ward="{{$user->parshads->ward_id}}" data-part="{{$user->part_id}}" data-min="minNo"
-                        data-max="maxNo" />
-                </div>
-            </div>
+
             <div class="width-50">
                 <div class="form-row mb-2" data-validate="House No required">
                     <label for="house_no" class="labelinput">House no</label>
@@ -228,7 +231,14 @@
             <div class="width-50">
                 <div class="form-row mb-2" data-validate="Mobile No required">
                     <label for="mobile" class="labelinput">Mobile No. </label>
-                    <input type="text" id="mobile" value="{{old('mobile')}}" name="mobile"
+                    <input type="number" id="mobile" value="{{old('mobile')}}" name="mobile"
+                        class="input_section form-control mb-0 only-num validate_this" data-len="10" />
+                </div>
+            </div>
+             <div class="width-50">
+                <div class="form-row mb-2" data-validate="Mobile No required">
+                    <label for="mobile" class="labelinput">Remark </label>
+                    <input type="text" id="" value="" name="Remark"
                         class="input_section form-control mb-0 only-num validate_this" data-len="10" />
                 </div>
             </div>
@@ -241,9 +251,9 @@
             </div>
             <div class="width-50">
                 <div class="form-row mb-2">
-                    <button type="button" id="btn" class="input_section btn btncom btn-sm w-100"
+                    <button type="button" id="btn" class="input_section btn btncom btn-sm w-100 px-2"
                         style="margin-top: 20px;" onclick="generateRows(this)"><i
-                            class="fas fa-plus mx-2"></i>Generate</button>
+                            class="fas fa-plus mx-1"></i>Generate</button>
                 </div>
             </div>
 

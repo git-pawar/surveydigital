@@ -54,5 +54,13 @@ class ReportController extends Controller
             return $exception->getMessage();
         }
     }
+    public function reportpartwiselist(Request $request)
+    {
+        try {
+            return view('Report.partwiselist');
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
+    }
 
 }

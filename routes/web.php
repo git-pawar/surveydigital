@@ -72,6 +72,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('report/voterlist/done', [ReportController::class, 'reportvoterlistdone'])->name('report.voterlist.done');
     Route::get('report/voterlist/pending', [ReportController::class, 'reportvoterlistpending'])->name('report.voterlist.pending');
     Route::get('report/voterlist/all', [ReportController::class, 'reportvoterlistall'])->name('report.voterlist.all');
+    Route::get('report/partwise/list', [ReportController::class, 'reportpartwiselist'])->name('report.partwise.list');
 });
 Route::get('/route-cache', function () {
     $exitCode = Artisan::call('route:cache');
