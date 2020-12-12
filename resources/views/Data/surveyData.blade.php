@@ -231,6 +231,7 @@
             <div class="width-50">
                 <div class="form-row mb-2" data-validate="Mobile No required">
                     <label for="mobile" class="labelinput">Mobile No. </label>
+<<<<<<< Updated upstream
                     <input type="number" id="mobile" value="{{old('mobile')}}" name="mobile"
                         class="input_section form-control mb-0 only-num validate_this" data-len="10" />
                 </div>
@@ -239,6 +240,9 @@
                 <div class="form-row mb-2" data-validate="Mobile No required">
                     <label for="mobile" class="labelinput">Remark </label>
                     <input type="text" id="" value="" name="Remark"
+=======
+                    <input type="text" id="mobile" value="{{old('mobile')}}" name="mobile" pattern="\d*"
+>>>>>>> Stashed changes
                         class="input_section form-control mb-0 only-num validate_this" data-len="10" />
                 </div>
             </div>
@@ -304,7 +308,7 @@
         </div>
         <input type="hidden" name="id" value="">
         <div class="submitbtn">
-            <button class="submitbutton btn btnblue btn-block submit_button" data-id="surveyData" type="submit">
+            <button class="submitbutton btn btnblue btn-block survey_submit" data-id="surveyData" type="submit">
                 <i class="fas fa-save mr-1"></i> Save
             </button>
         </div>

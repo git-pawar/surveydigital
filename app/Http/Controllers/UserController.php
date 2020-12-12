@@ -50,8 +50,8 @@ class UserController extends Controller
                 return back()->with('error', 'No user found with mobile ' . $mobile)->withInput();
             }
         } catch (\Exception $exception) {
-            // return back()->with('error', 'No user found with mobile ' . $mobile)->withInput();
-            return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
+            return back()->with('error', 'No user found with mobile ' . $mobile)->withInput();
+            // return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
         }
     }
     function surveyorAgentDashboard(Request $request)
@@ -117,7 +117,7 @@ class UserController extends Controller
                 's_no' => ['required'],
                 'house_no' => ['required'],
                 'name' => ['required'],
-                'voter_count' => ['required'],
+                // 'voter_count' => ['required'],
                 'red_green_blue' => ['required']
             ]);
 
@@ -145,8 +145,8 @@ class UserController extends Controller
             $mainData->name = $request->name;
             $mainData->parshad_id = $user->parshad_id;
             $mainData->surveyor_id = $user->id;
-            $mainData->ero_id = $eroData->id ?? '';
-            $mainData->voter_count = $request->voter_count ?? '';
+            $mainData->ero_id = $eroData->id ?? null;
+            $mainData->voter_count = $request->voter_count ?? null;
             $mainData->red_green_blue = $request->red_green_blue;
             $mainData->save();
             if (count($request->otherSno)) {
@@ -169,7 +169,8 @@ class UserController extends Controller
                         $otherData->retative_to = $mainData->id;
                         $otherData->parshad_id = $user->parshad_id;
                         $otherData->surveyor_id = $user->id;
-                        $otherData->ero_id = $eroData1->id ?? '';
+                        $otherData->ero_id = $eroData1->id ?? null;
+                        $mainData->voter_count = $request->voter_count ?? null;
                         $otherData->red_green_blue = $request->red_green_blue;
                         $otherData->save();
                     }
@@ -179,7 +180,7 @@ class UserController extends Controller
             return back()->with('success', 'Survey saved successfully');
         } catch (\Exception $exception) {
             DB::rollback();
-            return back()->with('error', $exception->getMessage())->withInput();
+            // return back()->with('error', $exception->getMessage())->withInput();
             return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
         }
     }

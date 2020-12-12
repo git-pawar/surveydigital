@@ -14,6 +14,7 @@ $(`.submit_button`).on("click", (function(e) {
             showAlert(input);
             check = false;
         } else {
+            input.css('border', '1px solid #ccc');
             input.parent().removeClass('validation-alert');
         }
     });
@@ -55,7 +56,7 @@ $(`.submit_btn2`).on("click", (function(e) {
         $(dis).attr('disabled', false);
     }
 }));
-$(`.submit_btn3`).on("click", (function(e) {
+$(`.survey_submit`).on("click", (function(e) {
 
     e.preventDefault();
     let dis = $(this);
@@ -64,21 +65,22 @@ $(`.submit_btn3`).on("click", (function(e) {
     let thisHtml = $(dis).html();
     $(dis).html(`<i class="fas fa-spinner fa-pulse"></i>`);
     $(dis).attr('disabled', true);
-    $(`.validate_this_edit`).each(function() {
+    $(`.validate_this`).each(function() {
         let input = $(this);
         if (validate(input) === false) {
             showAlert2(input);
             check = false;
         } else {
-            input.parent().removeClass('validation-alert2');
+            input.css('border', '1px solid #ccc');
+            input.parent().removeClass('validation-alert');
         }
     });
 
     if (check) {
-        $(`#${idName}`).submit();
-        $(dis).attr('disabled', true);
+        otherCheck(dis, idName, thisHtml);
+        // $(`#${idName}`).submit();
+
     } else {
-        debugger
         $(dis).html(thisHtml);
         $(dis).attr('disabled', false);
     }
@@ -156,11 +158,32 @@ function validate(input) {
 }
 
 function showAlert(input) {
+    input.css('border', '1px solid red');
     let thisAlert = input.parent();
     $(thisAlert).addClass('validation-alert');
 }
 
 function showAlert2(input) {
+    input.css('border', '1px solid red');
     let thisAlert = input.parent();
     $(thisAlert).addClass('validation-alert2');
+}
+
+function otherCheck(dis, idName, thisHtml) {
+    let voter_count = $(`#voter_count`).val() ? $(`#voter_count`).val() : 0,
+        voter_length = $(`.otherSno`).length;
+    if (voter_count) {
+        if (voter_count == voter_length) {
+            $(`#${idName}`).submit();
+            $(dis).attr('disabled', true);
+        } else {
+            $(dis).html(thisHtml);
+            $(dis).attr('disabled', false);
+            Notiflix.Notify.Failure(`Please genrate ${voter_count} other voter count field to fill info`);
+        }
+    } else {
+        $(`#${idName}`).submit();
+        $(dis).attr('disabled', true);
+    }
+
 }
