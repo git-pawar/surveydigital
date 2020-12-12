@@ -151,7 +151,7 @@
         </div>
         <div class="sticky z-depth-1">
             <div class="imagesection" id="imagesection">
-                <img class="w-100" id="imgPreview" src="img/dataimg.jpeg" />
+                <img class="w-100" id="imgPreview" src="{{url('img/dataimg.jpg')}}" />
             </div>
 
         </div>

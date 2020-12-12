@@ -146,6 +146,7 @@ class UserController extends Controller
             $mainData->parshad_id = $user->parshad_id;
             $mainData->surveyor_id = $user->id;
             $mainData->ero_id = $eroData->id ?? '';
+            $mainData->voter_count = $request->voter_count ?? '';
             $mainData->red_green_blue = $request->red_green_blue;
             $mainData->save();
             if (count($request->otherSno)) {

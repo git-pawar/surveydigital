@@ -164,9 +164,11 @@ function getImage(dis, url, elm, ward, part) {
                     $(`#${elm}`).html(`<img class="w-100" id="imgPreview" src="${response.url}" />`);
                 } else {
                     Notiflix.Notify.Failure(response.message);
+                    Notiflix.Block.Remove(`#${elm}`);
                 }
             },
             error: function(xhr) {
+                Notiflix.Block.Remove(`#${elm}`);
                 Notiflix.Report.Failure('Server error', `Code: ${xhr.status}, Exception: ${xhr.statusText}`, 'OK');
             }
         });
