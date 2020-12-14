@@ -31,12 +31,17 @@ Route::group(['middleware' => 'auth.admin'], function () {
     Route::get('login', [MasterController::class, 'indexLoginAdminParshad'])->name('admin.login');
     Route::get('admin/dashboard', [MasterController::class, 'adminDashboard'])->name('admin.dashboard');
     Route::get('admin/create-parshad', [MasterController::class, 'createParshad'])->name('admin.create.parshad');
+    Route::get('admin/create-warduser', [MasterController::class, 'createWardUser'])->name('admin.create.ward.user');
     Route::post('admin/store-parshad', [MasterController::class, 'storeParshad'])->name('admin.create.parshad.process');
+    Route::post('admin/store-warduser', [MasterController::class, 'storeWardUser'])->name('admin.create.ward.user.process');
     Route::get('admin/list-parshad', [MasterController::class, 'parshadList'])->name('admin.list.parshad');
+    Route::get('admin/list-warduser', [MasterController::class, 'wardUserList'])->name('admin.list.warduser');
+    Route::get('admin/edit-warduser/{id}', [MasterController::class, 'wardUserEdit'])->name('admin.edit.warduser');
     Route::get('admin/edit-parshad/{id}', [MasterController::class, 'parshadEdit'])->name('admin.edit.parshad');
     Route::get('admin/image/upload', [MasterController::class, 'uploadImageIndex'])->name('admin.image.upload.index');
     Route::post('admin/image/upload', [MasterController::class, 'uploadImage'])->name('admin.image.upload');
     Route::post('admin/delete-parshad/{id}', [MasterController::class, 'parshadDelete'])->name('admin.delete.parshad');
+    Route::post('admin/delete-warduser/{id}', [MasterController::class, 'wardUserDelete'])->name('admin.delete.warduser');
     Route::get('admin/logout', [MasterController::class, 'adminLogout'])->name('admin.logout');
 });
 

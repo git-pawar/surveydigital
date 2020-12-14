@@ -92,6 +92,16 @@ class MasterController extends Controller
             return $exception->getMessage();
         }
     }
+    function createWardUser(Request $request)
+    {
+        try {
+            $state = State::orderBy('state_name', 'asc')->get();
+            $nnn_type = NNNType::orderBy('name', 'asc')->get();
+            return view('Create.wardUser', compact('state', 'nnn_type'));
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
+    }
     /**Store parshad */
     function storeParshad(Request $request)
     {
@@ -137,12 +147,66 @@ class MasterController extends Controller
             return $exception->getMessage();
         }
     }
+    function storeWardUser(Request $request)
+    {
+        try {
+
+            $validation = Validator::make($request->all(), [
+
+                'name' => ['required'],
+                'mobile' => ['required', 'digits:10'],
+                // 'email' => ['', 'email'],
+                'city' => ['required'],
+                'nnn_id' => ['required'],
+                'nn_id' => ['required'],
+                'ward_id' => ['required'],
+
+            ]);
+            if ($validation->fails()) {
+                return back()->withErrors($validation)->withInput();
+            }
+            $input = $request->all();
+            $ifExistMobile = User::where('mobile', $input['mobile'])->where('id', '!=', $input['id'])->whereNull('deleted_at')->first();
+            $ifExistEmail = User::where('email', $input['email'])->where('id', '!=', $input['id'])->whereNull('deleted_at')->first();
+            if ($ifExistMobile) {
+                return back()->with('error', 'Mobile number allready exist')->withInput();
+            }
+            if ($ifExistEmail) {
+                return back()->with('error', 'Email already exist')->withInput();
+            }
+            $input['password'] = Hash::make($request->password);
+            $input['password2'] = $request->password;
+            $input['type'] = 'warduser';
+            if ($input['id']) {
+                User::find($input['id'])->update($input);
+                return redirect()->route('admin.list.warduser')->with('success', 'Update successfully');
+            } else {
+
+                User::create($input);
+                return back()->with('success', 'Saved successfully');
+            }
+
+            // return view('parshadRegister', compact('state'));
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
+    }
     /**List parshad */
     function parshadList(Request $request)
     {
         try {
             $parshad = User::where(['type' => 'parshad'])->whereNull('deleted_at')->orderBy('id', 'desc')->get();
             return view('List.parshad', compact('parshad'));
+        } catch (\Exception $exception) {
+            return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
+        }
+    }
+    /**List parshad */
+    function wardUserList(Request $request)
+    {
+        try {
+            $parshad = User::where(['type' => 'warduser'])->whereNull('deleted_at')->orderBy('id', 'desc')->get();
+            return view('List.wardUser', compact('parshad'));
         } catch (\Exception $exception) {
             return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
         }
@@ -158,8 +222,29 @@ class MasterController extends Controller
             return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
         }
     }
+    /**Edit Ward user */
+    function wardUserEdit(Request $request, $id)
+    {
+        try {
+            $state = State::orderBy('state_name', 'asc')->get();
+            $editWardUser = User::find(base64_decode($id));
+            return view('Edit.wardUser', compact('editWardUser', 'state'));
+        } catch (\Exception $exception) {
+            return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
+        }
+    }
     /**Delete parshad */
     function parshadDelete(Request $request, $id)
+    {
+        try {
+            User::find(base64_decode($id))->update(['deleted_at' => Carbon::now()]);
+            return ['success' => true, 'message' => "Deleted successfully"];
+        } catch (\Exception $exception) {
+            return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
+        }
+    }
+    /**Delete parshad */
+    function wardUserDelete(Request $request, $id)
     {
         try {
             User::find(base64_decode($id))->update(['deleted_at' => Carbon::now()]);
