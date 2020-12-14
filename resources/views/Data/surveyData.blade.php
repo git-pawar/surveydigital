@@ -154,7 +154,7 @@
 
                 <div class="form-row mb-2" data-validate="Section No required">
 
-                    <input type="text" id="s_no" value="{{old('s_no')}}" name="s_no"
+                    <input type="number" id="s_no" value="{{old('s_no')}}" name="s_no"
                         class="h-25 form-control mb-0 only-num validate_this getImage "
                         data-url="{{route('survey.image.get')}}" data-previw="imagesection" data-ero="ero_id"
                         data-ward="{{$user->parshads->ward_id}}" data-part="{{$user->part_id}}" data-min="minNo"
@@ -247,8 +247,8 @@
             <div class="width-50">
                 <div class="form-row mb-2" data-validate="Voter Count required">
                     <label for="voter_count" class="labelinput">Voter Count </label>
-                    <input type="text" id="voter_count" name="voter_count" value="{{old('voter_count')}}"
-                        class="input_section form-control mb-0 only-num" data-len="2" />
+                    <input type="number" id="voter_count" name="voter_count" value="{{old('voter_count')??0}}"
+                        class="input_section form-control mb-0 only-num validate_this" data-len="2" />
                 </div>
             </div>
             <div class="width-50">
@@ -266,14 +266,14 @@
             @if (count(old('otherSno')))
             @foreach (old('otherSno') as $index=> $item)
             <div class="width-50">
-                <div class="form-row mb-2" data-validate=""><input type="text" name="otherSno[]"
+                <div class="form-row mb-2" data-validate=""><input type="number" name="otherSno[]"
                         value="{{old('otherSno')[$index]}}"
                         class="input_section form-control mb-0 otherSno validate_this only-num" placeholder="S.No" />
                 </div>
             </div>
             <div class="width-50">
-                <div class="form-row mb-2" data-validate="Voter Count required"><input type="text" name="otherMobile[]"
-                        value="{{old('otherMobile')[$index]}}"
+                <div class="form-row mb-2" data-validate="Voter Count required"><input type="number"
+                        name="otherMobile[]" value="{{old('otherMobile')[$index]}}"
                         class="input_section form-control mb-0 otherMobile only-num validate_this" data-len="10"
                         onkeydown="onlyNum(event,this,10,false);" placeholder="Mobile" /></div>
             </div>
@@ -342,8 +342,8 @@
                     placeholder="Mobile"/></div></div>`;
     for (i = 0; i < voter_count; i++) {
 
-        $(`#otheMember`).append(`<div class="width-50"><div class="form-row mb-2" data-validate=""><input type="text" name="otherSno[]" value="${otherSno[i]?otherSno[i]:''}"
-                    class="input_section form-control mb-0 otherSno validate_this only-num" placeholder="S.No"/></div></div><div class="width-50"><div class="form-row mb-2" data-validate="Voter Count required"><input type="text" name="otherMobile[]" value="${otherMobile[i]?otherMobile[i]:''}"
+        $(`#otheMember`).append(`<div class="width-50"><div class="form-row mb-2" data-validate=""><input type="number" name="otherSno[]" value="${otherSno[i]?otherSno[i]:''}"
+                    class="input_section form-control mb-0 otherSno validate_this only-num" placeholder="S.No"/></div></div><div class="width-50"><div class="form-row mb-2" data-validate="Voter Count required"><input type="number" name="otherMobile[]" value="${otherMobile[i]?otherMobile[i]:''}"
                     class="input_section form-control mb-0 otherMobile only-num validate_this" data-len="10" onkeydown="onlyNum(event,this,10,false);"
                     placeholder="Mobile"/></div></div>`);
     }

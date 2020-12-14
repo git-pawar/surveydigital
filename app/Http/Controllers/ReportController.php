@@ -12,7 +12,17 @@ class ReportController extends Controller
     public function reportIndex(Request $request)
     {
         try {
-            return view('Report.dashboard');
+            $mainTitle = 'Report';
+            return view('Report.dashboard', compact('mainTitle'));
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
+    }
+    public function reportSurvey(Request $request)
+    {
+        try {
+            $mainTitle = 'Report';
+            return view('Report.surveyDataReport', compact('mainTitle'));
         } catch (\Exception $exception) {
             return $exception->getMessage();
         }

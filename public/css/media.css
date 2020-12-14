@@ -717,9 +717,9 @@ li>a:only-child:after {
 }
 
 @media screen and (min-width: 525px) and (max-width: 2200px) {
-    body {
+    /* body {
         display: none;
-    }
+    } */
 }
 
 button.btn_search {

@@ -66,7 +66,8 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::post('booth-data-store', [UserController::class, 'boothStoreData'])->name('agent.data.store');
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
     // report
-    Route::get('report', [ReportController::class, 'reportIndex'])->name('report.index');
+    Route::get('report-polingbooth', [ReportController::class, 'reportIndex'])->name('report.polingbooth');
+    Route::get('report-survey', [ReportController::class, 'reportSurvey'])->name('report.survey');
     Route::get('report/{type}', [ReportController::class, 'reportpartview'])->name('report.typewise');
     Route::get('report/namewise', [ReportController::class, 'reportnameview'])->name('report.report.namewise');
     Route::get('report/voter/list', [ReportController::class, 'reportvoterlist'])->name('report.voterlist');

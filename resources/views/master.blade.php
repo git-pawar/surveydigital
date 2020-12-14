@@ -143,7 +143,7 @@
         <div id="" class="col-sm-10 ">
             <div class="logosection">
 
-                <span class="logosection">Election Survey</span>
+                <span class="logosection">{{isset($mainTitle)?$mainTitle:'Survey'}}</span>
                 <!-- <img src="{{url('img/logo.png')}}" alt="" /> -->
             </div>
         </div>

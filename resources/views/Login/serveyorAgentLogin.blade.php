@@ -15,7 +15,7 @@
 
         <div class="form-row mb-4">
             <!-- E-mail -->
-            <input type="text" pattern="[0-9]" id="mobile" name="mobile" value="{{old('mobile')}}"
+            <input type="number" pattern="[0-9]" id="mobile" name="mobile" value="{{old('mobile')}}"
                 class="form-control mb-4 only-num validate_this" data-len="10" placeholder="Mobile number" />
 
             <!-- Password -->

@@ -150,7 +150,7 @@ class UserController extends Controller
             $mainData->voter_count = $request->voter_count ?? null;
             $mainData->red_green_blue = $request->red_green_blue;
             $mainData->save();
-            if (count($request->otherSno)) {
+            if (isset($request->otherSno) && count($request->otherSno)) {
                 foreach ($request->otherSno as $index => $item) {
                     if ($request->otherSno[$index] && $request->otherMobile[$index]) {
                         $eroData1 = EROData::where(['part_id' => $request->part_id, 'ward_id' => $request->ward_id, 's_no' => $request->otherSno[$index]])->first();
@@ -171,7 +171,7 @@ class UserController extends Controller
                         $otherData->parshad_id = $user->parshad_id;
                         $otherData->surveyor_id = $user->id;
                         $otherData->ero_id = $eroData1->id ?? null;
-                        $mainData->voter_count = $request->voter_count ?? null;
+                        $mainData->voter_count = $request->voter_count ?? 0;
                         $otherData->red_green_blue = $request->red_green_blue;
                         $otherData->save();
                     }
