@@ -19,9 +19,8 @@
     padding: 3px 6px !important;
     font-size: 12px;
     margin-top: -3px;
-    margin-left: 10px;
-    width: 93px !important;
-    height: 25px !important;
+    width: 100% !important;
+    height: 26px !important;
 }
 
 .width-33 {
@@ -722,17 +721,32 @@ li>a:only-child:after {
     } */
 }
 
-button.btn_search {
+.btn_search {
     background: #012954;
     border: 1px solid #ccc;
     width: 100%;
-    padding: 4px 0px;
+    padding: 1px 0px 1px;
     color: white;
     border-radius: 0px 5px 5px 0px;
 }
-
+.btn_search i{
+    font-size: 10px;
+}
 .width-20 {
     width: 20%;
     margin: 0px auto;
     padding: 19px 0px;
+}
+.partwise
+{
+    height: 27px;
+    font-size: 13px;
+}
+.padding_10 {
+    padding: 0px 5px !important;
+}
+.m-t-5
+{
+margin-top: -4px !important;
+    margin-left: -3px;
 }
