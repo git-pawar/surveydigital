@@ -85,7 +85,7 @@ function minMax(dis, minElm, maxElm) {
     if (v) {
         if ($.isNumeric(v)) {
             if (min && max) {
-                if (v > min && v <= max) {
+                if (v >= min && v <= max) {
                     $(el.css('border', '1px solid #ccc'));
                     $(`.submit_button`).attr('disabled', false);
                 } else {

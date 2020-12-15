@@ -224,4 +224,31 @@ class UserController extends Controller
             return back()->with('error', 'Something went wrong');
         }
     }
+    function shortSurveyStor(Request $request)
+    {
+        try {
+            $user = Auth::user();
+            $parshad_id = $user->parshad_id;
+        } catch (\Exception $exception) {
+            return $exception;
+        }
+    }
+    function updateColor(Request $request)
+    {
+        try {
+            // return $request->all();
+            $user = Auth::user();
+            $ward_id = intval($request->ward_id);
+            $part_id = intval($request->part_id);
+            $s_no = intval($request->s_no);
+            $color = $request->color;
+            $surveyData = SurveyData::where(['parshad_id' => $user->id, 'part_id' => $part_id, 'ward_id' => $ward_id, 's_no' => $s_no])->first();
+            $surveyData->red_green_blue = $color;
+            $surveyData->save();
+            return ['success' => true, 'message' => 'Color updated'];
+        } catch (\Exception $exception) {
+            // return $exception;
+            return ['success' => false, 'message' => $exception->getMessage()];
+        }
+    }
 }

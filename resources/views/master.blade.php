@@ -205,6 +205,7 @@
     </div>
     <section>
         @yield('content')
+
     </section>
     <script>
         Notiflix.Loading.Circle();

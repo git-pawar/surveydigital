@@ -15,7 +15,7 @@
 
         <div class="form-row mb-2" data-validate="Mobile no is not valid">
             <label for="mobile" class="labelinput">Mobile</label>
-            <input type="text" id="mobile" name="mobile" value="{{old('mobile')}}"
+            <input type="number" id="mobile" name="mobile" value="{{old('mobile')}}"
                 class="input_section form-control mb-0 validate_this only-num" data-len="10" />
         </div>
         <div class="form-row mb-2" data-validate="Password is required">
@@ -51,7 +51,7 @@
             <div class="width-50">
                 <div class="form-row mb-4" data-validate="S.no.from is required">
                     <label for="s_no_from" class="labelinput">S.no.from</label>
-                    <input type="text" id="s_no_from" name="s_no_from" value="{{old('s_no_from')}}"
+                    <input type="number" id="s_no_from" name="s_no_from" value="{{old('s_no_from')}}"
                         class="input_section form-control mb-0 validate_this only-num minMax" data-min="minSNo"
                         data-max="maxSNo" />
                 </div>
@@ -59,7 +59,7 @@
             <div class="width-50">
                 <div class="form-row mb-4" data-validate="S.no.to is required">
                     <label for="s_no_to" class="labelinput">S.no.to</label>
-                    <input type="text" id="s_no_to" name="s_no_to" value="{{old('s_no_to')}}"
+                    <input type="number" id="s_no_to" name="s_no_to" value="{{old('s_no_to')}}"
                         class="input_section form-control mb-0 validate_this only-num minMax" data-min="s_no_from"
                         data-max="maxSNo" />
                 </div>

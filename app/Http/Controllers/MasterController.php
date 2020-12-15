@@ -328,6 +328,9 @@ class MasterController extends Controller
             $oldId = $request->oldId;
             $totalAllotted = 0;
             $sectionData = Section::find($id);
+            $totalVoter = Section::where(['ward_id' => $sectionData->ward_id, 'part_id' => $sectionData->part_id, ['section_no', '<', $sectionData->section_no]])->sum('total_voter');
+            $startingVoter = $totalVoter + 1;
+            $lastVoter = $totalVoter  + $sectionData->total_voter;
             $allotted = User::where('section_id', $id)->get();
             if (count($allotted)) {
                 foreach ($allotted as $key => $value) {
@@ -335,7 +338,7 @@ class MasterController extends Controller
                     $totalAllotted = $totalAllotted + $currentCount;
                 }
             }
-            return ['success' => true, 'data' => $sectionData, 'totalAllotted' => $totalAllotted];
+            return ['success' => true, 'data' => $sectionData, 'totalAllotted' => $totalAllotted, 'startingVoter' => $startingVoter, 'lastVoter' => $lastVoter];
         } catch (\Exception $exception) {
             return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
         }

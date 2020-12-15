@@ -76,6 +76,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('report/{type}', [ReportController::class, 'reportpartview'])->name('report.typewise');
     Route::get('report/namewise', [ReportController::class, 'reportnameview'])->name('report.report.namewise');
     Route::get('report/voter/list', [ReportController::class, 'reportvoterlist'])->name('report.voterlist');
+    Route::get('parshad/update/color', [UserController::class, 'updateColor'])->name('parshad.update.color');
     Route::get('report/voterlist/done', [ReportController::class, 'reportvoterlistdone'])->name('report.voterlist.done');
     Route::get('report/voterlist/pending', [ReportController::class, 'reportvoterlistpending'])->name('report.voterlist.pending');
     Route::get('report/voterlist/all', [ReportController::class, 'reportvoterlistall'])->name('report.voterlist.all');

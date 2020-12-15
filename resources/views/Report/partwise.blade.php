@@ -3,7 +3,128 @@
 @section('content')
 
 <style>
+    .border_box {
+        background: #ccc !important;
+        height: 27px;
+        width: 25px;
+        position: absolute;
+        top: 10px;
+        right: 4px;
+    }
 
+    .modal-window {
+        position: fixed;
+        background-color: rgb(9 33 82 / 39%);
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 999;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+
+    .modal-window-open {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .modal-window>div {
+        width: 300px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        padding: 14px 12px;
+        background: #ffffff;
+    }
+
+    .titlemodel {
+        font-size: 13px !important;
+
+        border-bottom: 1px solid #CCC;
+        padding: 0px 0px 9px;
+        color: #3e3e3e;
+        font-weight: 500;
+    }
+
+    .modal-window header {
+        font-weight: bold;
+    }
+
+    .modal-window h1 {
+        font-size: 150%;
+        margin: 0 0 15px;
+    }
+
+    .modal-close {
+        color: #aaa;
+        line-height: 25px;
+        font-size: 17px;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        top: -16px;
+        width: 20px;
+        border-radius: 3px;
+        text-decoration: none;
+        background: #003165
+    }
+
+    .modal-close:hover {
+        color: black;
+    }
+
+    /* Demo Styles */
+
+
+
+    .modal-window div:not(:last-of-type) {
+        margin-bottom: 15px;
+    }
+
+    small {
+        color: #aaa;
+    }
+
+    .btn {
+        background-color: #fff;
+        padding: 1em 1.5em;
+        border-radius: 3px;
+        text-decoration: none;
+    }
+
+    .btn i {
+        padding-right: 0.3em;
+    }
+
+    .cancel {
+        color: white;
+        background: #9a0000;
+        border: 1px solid #9a0000;
+        font-size: 12px;
+        padding: 2px 7px;
+        border-radius: 3px;
+    }
+
+    .savebtn {
+        color: white;
+        background: #003165;
+        border: 1px solid #003165;
+        font-size: 12px;
+        padding: 2px 7px;
+        border-radius: 3px;
+    }
+
+    .footerbtn {
+        padding: 30px 2px 0px;
+        float: right;
+    }
 </style>
 <div class="maininnersection">
     <div class="w-100 mb-2 row mx-0">
@@ -113,7 +234,7 @@
             </div>
         </form>
     </div>
-    <div class="table-responsive" id="surveyorList">
+    <div class="table-responsive" id="refreshList">
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -144,11 +265,20 @@
                     <td class="text-center">{{$item->cast??''}}</td>
                     <td class="text-center">{{$item->category??''}}</td>
                     <td class="text-center">@if ($item->red_green_blue == 'green')
-                        <div class="" style="width:30px; height:15px; background-color:green"></div>
+                        <div class="" style="width:30px; height:15px; background-color:green"
+                            onclick="toggleColorModal(this);" data-wardid="{{$item->ward_id}}"
+                            data-partid="{{$item->part_id}}" data-sno="{{$item->s_no}}" data-parshad="{{$user->id}}"
+                            data-url="{{route('parshad.update.color')}}" data-color="green"></div>
                         @elseif($item->red_green_blue == 'blue')
-                        <div class="" style="width:30px; height:15px; background-color:yellow"></div>
+                        <div class="" style="width:30px; height:15px; background-color:yellow"
+                            onclick="toggleColorModal(this);" data-wardid="{{$item->ward_id}}"
+                            data-partid="{{$item->part_id}}" data-sno="{{$item->s_no}}" data-parshad="{{$user->id}}"
+                            data-url="{{route('parshad.update.color')}}" data-color="blue"></div>
                         @elseif($item->red_green_blue == 'red')
-                        <div class="" style="width:30px; height:15px; background-color:red"></div>
+                        <div class="" style="width:30px; height:15px; background-color:red"
+                            onclick="toggleColorModal(this);" data-wardid="{{$item->ward_id}}"
+                            data-partid="{{$item->part_id}}" data-sno="{{$item->s_no}}" data-parshad="{{$user->id}}"
+                            data-url="{{route('parshad.update.color')}}" data-color="red"></div>
                         @endif</td>
                     <td class="text-center">{{str_pad($item->voter_count,2,0,STR_PAD_LEFT)??0}}</td>
                     <td class="text-center">{{$item->mobile??'N/A'}}</td>
@@ -161,6 +291,46 @@
             </tbody>
         </table>
     </div>
+</div>
+<div id="open-modal" class="modal-window">
+    <div>
+        <a href="#" title="Close" class="modal-close" onclick="toggleColorModal(this)">x</a>
+        <h1 class="titlemodel">Choose Color </h1>
+        <div class="row mb-2 d-inline mx-0">
+            <input type="hidden" id="wardid" value="" />
+            <input type="hidden" id="partid" value="" />
+            <input type="hidden" id="sno" value="" />
+            <input type="hidden" id="parshadid" value="" />
+            <input type="hidden" id="current_color" value="" />
+            <input type="hidden" id="url_this" value="" />
+            <label class="container_radio_button">
+                <span class="greenbox"></span>
+                <input type="radio" id="green" class="checkedColor" name="red_green_blue" value="green">
+                <span class="checkmarkgreen checkmark"></span>
+            </label>
+
+            <label class="container_radio_button">
+                <span class="yellowbox"></span>
+                <input type="radio" id="blue" class="checkedColor" name="red_green_blue" value="blue">
+                <span class="checkmark"></span>
+            </label>
+            <label class="container_radio_button">
+                <span class="redbox"></span>
+                <input type="radio" id="red" class="checkedColor" name="red_green_blue" value="red">
+                <span class="checkmarkred  checkmark"></span>
+            </label>
+            <div class="footerbtn">
+
+                <button class="savebtn" onclick="updateColor(this);">OK</button>
+                <button class="cancel" onclick="toggleColorModal(this);">Cancel</button>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
 </div>
 <script type="text/javascript">
     function filterIt(dis){
@@ -179,5 +349,28 @@
             $(`#categorySearch`).css('display','none');
         }
     }
+
+    function toggleColorModal(dis) {
+
+    if ($(`.modal-window`).hasClass("modal-window-open")) {
+        $(`.modal-window`).removeClass('modal-window-open');
+    } else {
+        let wardid = $(dis).data('wardid'),
+            partid = $(dis).data('partid'),
+            sno = $(dis).data('sno'),
+            parshad = $(dis).data('parshad'),
+            url = $(dis).data('url'),
+            color = $(dis).data('color');
+        $(`.modal-window`).addClass('modal-window-open');
+        $(`#wardid`).val(wardid);
+        $(`#partid`).val(partid);
+        $(`#sno`).val(sno);
+        $(`#parshadid`).val(parshad);
+        $(`#current_color`).val(color);
+        $(`#url_this`).val(url);
+        $(`#${color}`).prop('checked', true);
+
+    }
+}
 </script>
 @endsection
