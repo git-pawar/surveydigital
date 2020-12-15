@@ -34,28 +34,33 @@ class ReportController extends Controller
 
             $user = Auth::user();
             $searchq = $request->searchq ?? '';
+            $filterBy = $request->filterBy ?? '';
+            $partno = $request->partno ?? '';
             $parts = $user->wards->part_nos;
+            $inputSearch = $request->inputSearch ?? '';
+            $categorySearch = $request->categorySearch ?? '';
+            $colorSearch = $request->colorSearch ?? '';
             $surveyData = SurveyData::where(['parshad_id' => $user->id])
-                ->when($type == 'partwise' && request('searchq'), function ($q) {
-                    return $q->where('part_id', request('searchq'));
+                ->when($type == 'partwise' && request('partno'), function ($q) {
+                    return $q->where('part_id', request('partno'));
                 })
-                ->when($type == 'namewise' && request('searchq'), function ($q) {
-                    return $q->where('name', 'like', '%' . request('searchq') . '%');
+                ->when($filterBy == 'Name' && request('inputSearch'), function ($q) {
+                    return $q->where('name', 'like', '%' . request('inputSearch') . '%');
                 })
-                ->when($type == 'housewise' && request('searchq'), function ($q) {
-                    return $q->where('house_no', request('searchq'));
+                ->when($filterBy == 'House' && request('inputSearch'), function ($q) {
+                    return $q->where('house_no', 'like', '%' . request('inputSearch') . '%');
                 })
-                ->when($type == 'categorywise' && request('searchq'), function ($q) {
-                    return $q->where('category', request('searchq'));
+                ->when($filterBy == 'Mobile' && request('inputSearch'), function ($q) {
+                    return $q->where('mobile', 'like', '%' . request('inputSearch') . '%');
                 })
-                ->when($type == 'colorwise' && request('searchq'), function ($q) {
+                ->when($filterBy == 'Category' && request('categorySearch'), function ($q) {
+                    return $q->where('category', request('categorySearch'));
+                })
+                ->when($filterBy == 'Color' && request('colorSearch'), function ($q) {
                     return $q->where('red_green_blue', request('searchq'));
                 })
-                ->when($type == 'mobilewise' && request('searchq'), function ($q) {
-                    return $q->where('mobile', 'like', '%' . request('searchq') . '%');
-                })
                 ->orderBy('part_id', 'asc')->get();
-            return view('Report.' . $type, compact('surveyData', 'user', 'parts', 'searchq'));
+            return view('Report.' . $type, compact('surveyData', 'user', 'parts', 'searchq', 'filterBy', 'partno', 'inputSearch', 'categorySearch', 'colorSearch'));
         } catch (\Exception $exception) {
             return $exception->getMessage();
         }
