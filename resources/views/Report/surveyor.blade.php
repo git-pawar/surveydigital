@@ -14,7 +14,7 @@
             <label for="part_no" class="labelinput">Part No -<span
                     class="mx-0">{{$user->part_nos->part_no??''}}</span></label>
         </div>
-        <div class="width-40 mb-2">
+        <div class="width-25 mb-2">
             <form method="get" action="{{route('surveyor.report')}}">
                 <select class="form-control selectinput" name="filterBy" onchange="this.form.submit()">
                     <option value="all" @if (isset($filterBy)) @if ($filterBy=='all' ) selected @endif @endif>All
@@ -45,8 +45,8 @@
                 @if (count($surveyDataAll))
                 @foreach ($surveyDataAll as $index => $item)
                 <?php
-                    $surveyData = App\Models\SurveyData::where(['parshad_id' => $user->parshad_id, 'surveyor_id' => $user->id, 'ward_id' => $user->parshads->ward_id, 'part_id' => $user->part_id,'s_no'=>$item->s_no])->first();
-                ?>
+$surveyData = App\Models\SurveyData::where(['parshad_id' => $user->parshad_id, 'surveyor_id' => $user->id, 'ward_id' => $user->parshads->ward_id, 'part_id' => $user->part_id, 's_no' => $item->s_no])->first();
+?>
                 <tr>
                     {{-- <td class="text-center">{{str_pad($index+1,2,0,STR_PAD_LEFT)}}</td> --}}
                     {{-- <td class="text-center">1</td> --}}
