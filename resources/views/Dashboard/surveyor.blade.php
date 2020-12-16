@@ -41,7 +41,7 @@
                 </div>
 
             </a>
-            <a href="{{route('surveyor.store.data')}}" class="serverdashboard">
+            <a href="{{route('surveyor.short.survey')}}" class="serverdashboard">
                 <div class="row mx-0">
                     <div class="width-40">
                         <i class="fas fa-database"></i>

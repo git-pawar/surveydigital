@@ -66,7 +66,9 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('dashboard', [UserController::class, 'surveyorAgentDashboard'])->name('dashboard');
     Route::get('survey-image', [UserController::class, 'surveyImageGet'])->name('survey.image.get');
     Route::get('survey-data', [UserController::class, 'insertData'])->name('surveyor.store.data');
+    Route::get('short-survey', [UserController::class, 'shortSurvey'])->name('surveyor.short.survey');
     Route::post('survey-data-store', [UserController::class, 'surveyStoreData'])->name('survey.data.store');
+    Route::get('survey-short-data-store', [UserController::class, 'surveyStoreShortData'])->name('survey.data.short.store');
     Route::get('booth-data', [UserController::class, 'insertData'])->name('agent.store.data');
     Route::post('booth-data-store', [UserController::class, 'boothStoreData'])->name('agent.data.store');
     Route::get('logout', [UserController::class, 'logout'])->name('logout');

@@ -103,6 +103,22 @@ class UserController extends Controller
             return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
         }
     }
+    function shortSurvey(Request $request)
+    {
+        try {
+            $user = User::find(Auth::id());
+            $ward_id = $user->parshads->wards->id;
+            $part_id = $user->part_id;
+            if ($user->type == 'surveyor') {
+                $eroDataWithoutC = EROData::where(['ward_id' => $ward_id, 'part_id' => $part_id])->orderBy('s_no', 'asc')->get();
+                return view('Data.shortSurvey', compact('user', 'eroDataWithoutC', 'ward_id', 'part_id'));
+            } else {
+                return redirect()->route('login')->with('error', 'Sorry you are not authorized');
+            }
+        } catch (\Exception $exception) {
+            return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
+        }
+    }
     function surveyStoreData(Request $request)
     {
         // return $request->all();
@@ -129,7 +145,7 @@ class UserController extends Controller
             $input['parshad_id'] = $user->parshad_id;
             $input['surveyor_id'] = $user->id;
             $eroData = EROData::where(['part_id' => $request->part_id, 'ward_id' => $request->ward_id, 's_no' => $request->s_no])->first();
-            $mainData = SurveyData::where(['parshad_id' => $user->parshad_id, 'surveyor_id' => $user->id, 'part_id' => $request->part_id, 'ward_id' => $request->ward_id, 's_no' => $request->s_no])->first();
+            $mainData = SurveyData::where(['parshad_id' => $user->parshad_id, 'part_id' => $request->part_id, 'ward_id' => $request->ward_id, 's_no' => $request->s_no])->first();
             if (!$mainData) {
                 $mainData = new SurveyData();
             }
@@ -154,7 +170,7 @@ class UserController extends Controller
                 foreach ($request->otherSno as $index => $item) {
                     if ($request->otherSno[$index] && $request->otherMobile[$index]) {
                         $eroData1 = EROData::where(['part_id' => $request->part_id, 'ward_id' => $request->ward_id, 's_no' => $request->otherSno[$index]])->first();
-                        $otherData = SurveyData::where(['parshad_id' => $user->parshad_id, 'surveyor_id' => $user->id, 'part_id' => $request->part_id, 'ward_id' => $request->ward_id, 's_no' => $request->otherSno[$index]])->first();
+                        $otherData = SurveyData::where(['parshad_id' => $user->parshad_id, 'part_id' => $request->part_id, 'ward_id' => $request->ward_id, 's_no' => $request->otherSno[$index]])->first();
                         if (!$otherData) {
                             $otherData = new SurveyData();
                         }
@@ -185,6 +201,62 @@ class UserController extends Controller
             return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
         }
     }
+    function surveyStoreShortData(Request $request)
+    {
+        // return $request->all();
+        DB::beginTransaction();
+        try {
+            $validation = Validator::make($request->all(), [
+                // 'mobile' => ['required', 'digits:10'],
+                // 'cast' => ['required'],
+                'ward_id' => ['required'],
+                'part_id' => ['required'],
+                'category' => ['required'],
+                's_no' => ['required'],
+                // 'house_no' => ['required'],
+                // 'name' => ['required'],
+                // 'voter_count' => ['required'],
+                'color' => ['required']
+            ]);
+
+            if ($validation->fails()) {
+                return ['sucsess' => false, 'validation' => false, 'message' => 'Validation error', 'error' => $validation->errors()];
+                // back()->withErrors($validation)->withInput();
+            }
+            $input = $request->all();
+            $user = Auth::user();
+            $input['parshad_id'] = $user->parshad_id;
+            $input['surveyor_id'] = $user->id;
+            $eroData = EROData::where(['part_id' => $request->part_id, 'ward_id' => $request->ward_id, 's_no' => $request->s_no])->first();
+            $mainData = SurveyData::where(['parshad_id' => $user->parshad_id, 'part_id' => $request->part_id, 'ward_id' => $request->ward_id, 's_no' => $request->s_no])->first();
+            if (!$mainData) {
+                $mainData = new SurveyData();
+            }
+            $mainData->type = 'short';
+            $mainData->part_no = $request->part_id;
+            $mainData->ward_id = $request->ward_id;
+            $mainData->part_id = $request->part_id;
+            $mainData->category = $request->category;
+            $mainData->s_no = $request->s_no;
+            // $mainData->house_no = $request->house_no;
+            // $mainData->name = $request->name;
+            // $mainData->remark = $request->remark;
+            $mainData->parshad_id = $user->parshad_id;
+            $mainData->surveyor_id = $user->id;
+            $mainData->ero_id = $eroData->id ?? null;
+            // $mainData->voter_count = $request->voter_count ?? null;
+            $mainData->red_green_blue = $request->color;
+            $mainData->save();
+            DB::commit();
+
+            return ['success' => true, 'message' => 'Survey saved successfully'];
+        } catch (\Exception $exception) {
+            DB::rollback();
+            // return back()->with('error', $exception->getMessage())->withInput();
+            return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
+        }
+    }
+
     function boothStoreData(Request $request)
     {
         try {
