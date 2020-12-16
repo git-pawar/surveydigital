@@ -191,7 +191,9 @@
         <a href="{{route('admin.dashboard')}}"><i class="fas fa-home"></i> Dashboard</a>
         <a href="{{route('admin.logout')}}"><i class="fas fa-sign-out-alt"></i> Log out</a>
         @elseif(Auth::check() && Auth::user()->type == 'surveyor' )
-        <a href="{{route('surveyor.store.data')}}"><i class="fas fa-plus"></i> Add Survey </a>
+        <a href="{{route('surveyor.store.data')}}"><i class="fas fa-plus"></i> Detail Survey </a>
+        <a href="{{route('surveyor.short.survey')}}"><i class="fas fa-plus"></i> Short Survey </a>
+        <a href="{{route('surveyor.report')}}"> <i class="far fa-file-alt"></i> Report </a>
 
         <a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Log out</a>
         @elseif(Auth::check() && Auth::user()->type == 'agent' )

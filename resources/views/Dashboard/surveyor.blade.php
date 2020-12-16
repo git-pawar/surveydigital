@@ -31,7 +31,7 @@
             <a href="{{route('surveyor.store.data')}}" class="serverdashboard">
                 <div class="row mx-0">
                     <div class="width-40">
-                        <i class="fas fa-database"></i>
+                        <i class="fas fa-poll"></i>
                     </div>
                     <div class="width-60">
                         <div class="titlemenu">
@@ -57,7 +57,7 @@
             <a href="{{route('surveyor.report')}}" class="serverdashboard">
                 <div class="row mx-0">
                     <div class="width-40">
-                        <i class="fas fa-database"></i>
+                        <i class="far fa-file-alt"></i>
                     </div>
                     <div class="width-60">
                         <div class="titlemenu">
