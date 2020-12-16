@@ -120,6 +120,37 @@
             font-size: 12px;
             margin-right: 12px;
         }
+        .menulist {
+           border-bottom: 1px dashed #fff;
+            margin-bottom: 0px;
+}
+    .submenutitle{
+     background: #02162b;
+    font-weight: 300 !important;
+    margin-left: 17px;
+        border: 0px !important;
+     }
+     .sidepanel a{
+            font-weight: 300 !important;
+     }
+.menulist {
+    border-bottom: 1px dashed #fff !important;
+    margin-bottom: 0px;
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    border-radius: 0px;
+}
+.side_menu a {
+    color: #2b2b2b;
+    font-weight: 500 !important;
+}
+.side_menu a:last-child{
+border-bottom:none;
+}
+.side_menu {
+    background: white;
+}
     </style>
     <!--Jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -195,12 +226,23 @@
         <a href="{{route('surveyor.short.survey')}}"><i class="fas fa-plus"></i> Short Survey </a>
         <a href="{{route('surveyor.report')}}"> <i class="far fa-file-alt"></i> Report </a>
 
+        <a href="{{route('surveyor.store.data')}}"><i class="fas fa-plus"></i> Add Survey </a>
         <a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Log out</a>
         @elseif(Auth::check() && Auth::user()->type == 'agent' )
         <a href="{{route('agent.store.data')}}"><i class="fas fa-plus"></i> Add Booth Data</a>
         <a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Log out</a>
         @elseif(Auth::check() && Auth::user()->type == 'parshad' )
         <a href="{{route('dashboard')}}"><i class="fas fa-home"></i> Dashboard</a>
+        <details class="menulist">
+                <summary class="submenutitle"> <i class="fas fa-user-friends mr-3"></i> Survey</summary>
+                <div class="faq__content">
+                    <div class="side_menu">
+                        <a href="{{route('parshad.create.surveyor')}}"> Create User </a>
+                        <a href="{{route('parshad.list.surveyor')}}">User List </a>
+                        <a href="{{route('report.survey')}}">Report </a>
+                    </div>
+                </div>
+            </details>
         <a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Log out</a>
         @endif
         <!-- </ul> -->
