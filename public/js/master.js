@@ -1,3 +1,5 @@
+// const { countBy } = require("lodash");
+
 $(document).ready(function() {
     $(`.getImage`).focusout(function() {
         const url = $(this).data('url'),
@@ -163,7 +165,37 @@ function getImage(dis, url, elm, ward, part) {
             },
             success: function(response) {
                 if (response.success === true) {
+                    const existData = response.existData;
                     $(`#${elm}`).html(`<img class="w-100" id="imgPreview" src="${response.url}" />`);
+                    if (existData) {
+                        $(`#house_no`).val(existData.house_no);
+                        $(`#cast`).val(existData.cast);
+                        $(`#category`).val(existData.category);
+                        $(`#name`).val(existData.name);
+                        $(`#mobile`).val(existData.mobile);
+                        $(`#remark`).val(existData.remark);
+                        $(`#voter_count`).val(existData.voter_count);
+                        $(`.color-checked`).each(function() {
+                            let disCheck = $(this),
+                                checkedColor = existData.red_green_blue;
+
+                            if (disCheck.val() == checkedColor) {
+                                disCheck.prop('checked', true);
+                            }
+                        });
+                        if (response.voterCount.length > 0) {
+                            response.voterCount.map(function(val) {
+                                $(`#otheMember`).append(`<div class="width-50"><div class="form-row mb-2" data-validate=""><input type="number" name="otherSno[]" value="${val.s_no?val.s_no:''}"
+                            class="input_section form-control mb-0 otherSno validate_this only-num" placeholder="S.No"/></div></div><div class="width-50"><div class="form-row mb-2" data-validate="Voter Count required"><input type="number" name="otherMobile[]" value="${val.mobile?val.mobile:''}"
+                            class="input_section form-control mb-0 otherMobile only-num validate_this" data-len="10" onkeydown="onlyNum(event,this,10,false);"
+                            placeholder="Mobile"/></div></div>`);
+                            });
+                        } else {
+                            $(`#otheMember`).html('');
+                        }
+                    }
+
+
                 } else {
                     Notiflix.Notify.Failure(response.message);
                     Notiflix.Block.Remove(`#${elm}`);

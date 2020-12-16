@@ -278,7 +278,7 @@ function storeShortSurvey(dis) {
         },
         success: function(response) {
             if (response.success === true) {
-                // $(`#refreshList`).load(window.location.href + " #refreshList");
+                $(`#refreshList`).load(window.location.href + " #refreshList");
                 toggleColorModal(dis);
                 Notiflix.Notify.Success(response.message);
             } else {

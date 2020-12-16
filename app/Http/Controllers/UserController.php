@@ -75,12 +75,19 @@ class UserController extends Controller
     function surveyImageGet(Request $request)
     {
         try {
+            $user = Auth::user();
             $s_no = $request->s_no;
             $ward = $request->ward;
             $part = $request->part;
+
             $imageData = EROData::where(['s_no' => $s_no, 'ward_id' => $ward, 'part_id' => $part])->first();
+            $existData = SurveyData::where(['surveyor_id' => $user->id, 's_no' => $s_no, 'ward_id' => $ward, 'part_id' => $part])->first();
+            $voterCount = [];
+            if ($existData) {
+                $voterCount = SurveyData::where(['retative_to' => $existData->id, 'surveyor_id' => $user->id,])->get();
+            }
             if ($imageData) {
-                return ['success' => true, 'url' => $imageData->url, 'imageData' => $imageData];
+                return ['success' => true, 'url' => $imageData->url, 'imageData' => $imageData, 'existData' => $existData, 'voterCount' => $voterCount];
             } else {
                 return ['success' => false, 'message' => 'No image found regarding this serial no'];
             }
@@ -125,14 +132,14 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
             $validation = Validator::make($request->all(), [
-                'mobile' => ['required', 'digits:10'],
-                'cast' => ['required'],
+                'mobile' => ['nullable', 'digits:10'],
+                // 'cast' => ['required'],
                 'ward_id' => ['required'],
                 'part_id' => ['required'],
-                'category' => ['required'],
+                // 'category' => ['required'],
                 's_no' => ['required'],
-                'house_no' => ['required'],
-                'name' => ['required'],
+                // 'house_no' => ['required'],
+                // 'name' => ['required'],
                 // 'voter_count' => ['required'],
                 'red_green_blue' => ['required']
             ]);

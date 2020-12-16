@@ -2,7 +2,7 @@
 @section('title','Servey Data Entry')
 @section('content')
 <style>
-  
+
 </style>
 <div class="maininnersection">
     <!-- Default form register -->
@@ -67,20 +67,20 @@
                 <div class="form-row mb-2" data-validate="House No required">
                     <label for="house_no" class="labelinput">House no</label>
                     <input type="text" id="house_no" value="{{old('house_no')}}" name="house_no"
-                        class="input_section form-control mb-0 validate_this" />
+                        class="input_section form-control mb-0 " />
                 </div>
             </div>
             <div class="width-50">
                 <div class="form-row mb-2" data-validate="Cast required">
                     <label for="cast" class="labelinput">Cast</label>
                     <input type="text" id="cast" value="{{old('cast')}}" name="cast"
-                        class="input_section form-control mb-0 validate_this" />
+                        class="input_section form-control mb-0 " />
                 </div>
             </div>
             <div class="width-50">
                 <div class="form-row mb-2" data-validate="Select any one category">
                     <label for="category" class="labelinput">Category</label>
-                    <select class="input_section form-control mb-0 validate_this" name="category" id="category">
+                    <select class="input_section form-control mb-0 " name="category" id="category">
                         <option value="">Select</option>
                         <option value="General" @if(old('category')=='General' ) selected @endif>General</option>
                         <option value="OBC" @if(old('category')=='OBC' ) selected @endif>OBC</option>
@@ -94,14 +94,14 @@
                 <div class="form-row mb-2" data-validate="Name required">
                     <label for="name" class="labelinput">Name</label>
                     <input type="text" id="name" value="{{old('name')}}" name="name"
-                        class="validate_this input_section form-control mb-0" />
+                        class=" input_section form-control mb-0" />
                 </div>
             </div>
             <div class="width-50">
                 <div class="form-row mb-2" data-validate="Mobile No required">
                     <label for="mobile" class="labelinput">Mobile No. </label>
                     <input type="number" id="mobile" value="{{old('mobile')}}" name="mobile"
-                        class="input_section form-control mb-0 only-num validate_this" data-len="10" />
+                        class="input_section form-control mb-0 only-num " data-len="10" />
                 </div>
             </div>
             <div class="width-50">
@@ -115,7 +115,7 @@
                 <div class="form-row mb-2" data-validate="Voter Count required">
                     <label for="voter_count" class="labelinput">Voter Count </label>
                     <input type="number" id="voter_count" name="voter_count" value="{{old('voter_count')??0}}"
-                        class="input_section form-control mb-0 only-num validate_this" data-len="2" />
+                        class="input_section form-control mb-0 only-num " data-len="2" />
                 </div>
             </div>
             <div class="width-50">
@@ -154,19 +154,19 @@
 
             <label class="container_radio_button">
                 <span class="greenbox"></span>
-                <input type="radio" checked="checked" name="red_green_blue" value="green">
+                <input type="radio" class="color-checked" checked="checked" name="red_green_blue" value="green">
                 <span class="checkmarkgreen checkmark"></span>
             </label>
 
 
             <label class="container_radio_button">
                 <span class="yellowbox"></span>
-                <input type="radio" name="red_green_blue" value="blue">
+                <input type="radio" class="color-checked" name="red_green_blue" value="blue">
                 <span class="checkmark"></span>
             </label>
             <label class="container_radio_button">
                 <span class="redbox"></span>
-                <input type="radio" name="red_green_blue" value="red">
+                <input type="radio" class="color-checked" name="red_green_blue" value="red">
                 <span class="checkmarkred  checkmark"></span>
             </label>
 
