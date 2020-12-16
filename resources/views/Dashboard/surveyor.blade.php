@@ -54,6 +54,19 @@
                 </div>
 
             </a>
+            <a href="{{route('surveyor.report')}}" class="serverdashboard">
+                <div class="row mx-0">
+                    <div class="width-40">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="width-60">
+                        <div class="titlemenu">
+                            Report
+                        </div>
+                    </div>
+                </div>
+
+            </a>
             <!-- <a href="{{route('logout')}}" class="btn btn-wa">Logout</a> -->
             <!-- Terms of service -->
             <div class="serverybox">

@@ -27,6 +27,36 @@ class ReportController extends Controller
             return $exception->getMessage();
         }
     }
+    public function surveyorReport(Request $request)
+    {
+        try {
+            $mainTitle = 'Report';
+            // return $request->all();
+
+            $user = Auth::user();
+            $part = $user->part_nos->part_no;
+            $part = $user->parshads->wards->ward_no;
+            $filterBy = $request->filterBy ?? 'all';
+            // $inputSearch = $request->inputSearch ?? '';
+            // $categorySearch = $request->categorySearch ?? '';
+            // $colorSearch = $request->colorSearch ?? '';
+            $surveyDataAll = [];
+            $surveyDataDone = [];
+            $surveyDataPending = [];
+            if ($filterBy == 'all') {
+                $surveyDataAll = EROData::where(['ward_id' => $user->parshads->ward_id, 'part_id' => $user->part_id])->orderBy('s_no', 'asc')->get();
+            } elseif ($filterBy == 'done') {
+                $surveyDataDone = SurveyData::where(['parshad_id' => $user->parshad_id, 'surveyor_id' => $user->id, 'ward_id' => $user->parshads->ward_id, 'part_id' => $user->part_id])->orderBy('s_no', 'asc')->get();
+            } elseif ($filterBy == 'pending') {
+                $doneId = SurveyData::where(['parshad_id' => $user->parshad_id, 'surveyor_id' => $user->id, 'ward_id' => $user->parshads->ward_id, 'part_id' => $user->part_id])->pluck('ero_id');
+                $surveyDataPending = EROData::where(['ward_id' => $user->parshads->ward_id, 'part_id' => $user->part_id])->whereNotIn('id', $doneId)->orderBy('s_no', 'asc')->get();
+            }
+            return view('Report.surveyor', compact('surveyDataAll', 'surveyDataDone', 'surveyDataPending', 'user', 'filterBy', 'mainTitle'));
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+            return back()->with('error', $exception->getMessage());
+        }
+    }
     public function reportpartview(Request $request, $type)
     {
         try {
