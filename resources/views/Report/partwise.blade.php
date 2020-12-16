@@ -127,12 +127,12 @@
     }
 </style>
 <div class="maininnersection">
-    <div class="w-100 mb-2 row mx-0">
+    <div class="">
         <!-- <label for="ward_no" class="labelinput">Ward No - <span
                 class="mx-1">{{str_pad($user->wards->ward_no,2,0,STR_PAD_LEFT)}}</span></label> -->
 
         <form method="get" action="{{route('report.typewise',['type'=>'partwise'])}}" id="searchData">
-            <div class="row mx-0">
+            <div class="row mx-0 mb-2">
                 <div class="width-50">
                     <select class="form-control selectinput mb-1" name="partno" onchange="this.form.submit()">
                         <option value="">Select Part No </option>
@@ -167,8 +167,9 @@
                 </div>
 
             </div>
-            <div class="w-100 row mx-0 mt-2 padding_10" id="inputSearch" @if ($filterBy=='Name' || $filterBy=='House'
+            <div class="w-100" id="inputSearch" @if ($filterBy=='Name' || $filterBy=='House'
                 ||$filterBy=='Mobile' ) style="display: block;" @else style="display: none;" @endif>
+                 <div class="w-100 row mx-0 mt-2 padding_10" >
                 <div class="width-80">
                     <div class="form-row mb-2" data-validate="Name required">
 
@@ -182,9 +183,11 @@
                 </div>
 
             </div>
+            </div>
 
-            <div class="w-100 row mx-0 mt-2" id="categorySearch" @if ($filterBy=='Category' ) style="display: block;"
+<div id="categorySearch" @if ($filterBy=='Category' ) style="display: block;"
                 @else style="display: none;" @endif>
+ <div class="w-100 row mx-0 mt-2" >
                 <div class="width-80">
                     <select class="form-control selectinput validate_this" name="categorySearch">
                         <option value="">All</option>
@@ -212,8 +215,11 @@
                 </div>
 
             </div>
-            <div class="w-100 row mx-0 mt-2" id="colorSearch" @if ($filterBy=='Color' ) style="display: block;" @else
+</div>
+
+            <div id="colorSearch" @if ($filterBy=='Color' ) style="display: block;" @else
                 style="display: none;" @endif>
+             <div class="w-100 row mx-0 mt-2" >
                 <div class="width-80">
                     <select class="form-control selectinput validate_this" name="colorSearch">
                         <option value="">All</option>
@@ -232,6 +238,8 @@
                 </div>
 
             </div>
+            </div>
+
         </form>
     </div>
     <div class="table-responsive" id="refreshList">
