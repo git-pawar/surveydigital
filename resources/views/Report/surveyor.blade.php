@@ -9,21 +9,22 @@
     <div class="w-100 mb-2 row mx-0">
         <div class="width-60 mb-2">
             <label for="ward_no" class="labelinput">Ward No -<span
-                    class="mx-1">{{$user->parshads->wards->ward_no??''}}</span></label>
-            <span class="mx-1">,</span>
+                    class="mx-0">{{$user->parshads->wards->ward_no??''}}</span></label>
+            <span class="mx-0">,</span>
             <label for="part_no" class="labelinput">Part No -<span
-                    class="mx-1">{{$user->part_nos->part_no??''}}</span></label>
+                    class="mx-0">{{$user->part_nos->part_no??''}}</span></label>
         </div>
-
-        <form method="get" action="{{route('surveyor.report')}}">
-            <select class="form-control selectinput" name="filterBy" onchange="this.form.submit()">
-                <option value="all" @if (isset($filterBy)) @if ($filterBy=='all' ) selected @endif @endif>All
-                <option value="done" @if (isset($filterBy)) @if ($filterBy=='done' ) selected @endif @endif>Done
-                <option value="pending" @if (isset($filterBy)) @if ($filterBy=='pending' ) selected @endif @endif>
-                    Pending
-                </option>
-            </select>
-        </form>
+        <div class="width-40 mb-2">
+            <form method="get" action="{{route('surveyor.report')}}">
+                <select class="form-control selectinput" name="filterBy" onchange="this.form.submit()">
+                    <option value="all" @if (isset($filterBy)) @if ($filterBy=='all' ) selected @endif @endif>All
+                    <option value="done" @if (isset($filterBy)) @if ($filterBy=='done' ) selected @endif @endif>Done
+                    <option value="pending" @if (isset($filterBy)) @if ($filterBy=='pending' ) selected @endif @endif>
+                        Pending
+                    </option>
+                </select>
+            </form>
+        </div>
     </div>
     <div class="table-responsive" id="surveyorList">
         <table class="table table-bordered">
@@ -67,7 +68,8 @@
                         <div class="" style="width:30px; height:15px; background-color:#ccc"></div>
                         @endif</td>
                     <td class="text-center">
-                        {{isset($surveyData->voter_count)?str_pad($surveyData->voter_count,2,0,STR_PAD_LEFT):'-'}}</td>
+                        {{isset($surveyData->voter_count)?str_pad($surveyData->voter_count,2,0,STR_PAD_LEFT):'-'}}
+                    </td>
                     <td class="text-center">{{$surveyData->mobile??'-'}}</td>
                     <td class="text-center">{{$surveyData->remark??'-'}}</td>
                 </tr>
