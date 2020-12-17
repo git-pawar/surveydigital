@@ -715,10 +715,18 @@ li>a:only-child:after {
     }
 }
 
-@media screen and (min-width: 525px) and (max-width: 2200px) {
-    /* body {
-        display: none;
-    } */
+@media screen and (min-width: 1024px) and (max-width: 2200px) {
+ .openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #012954;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    position: absolute;
+    top: 13px !important;
+    right: 0px;
+}
 }
 
 .btn_search {
