@@ -22,6 +22,7 @@ $(`.submit_button`).on("click", (function(e) {
     if (check) {
         $(`#${idName}`).submit();
         $(dis).attr('disabled', true);
+        Notiflix.Loading.Circle();
     } else {
         $(dis).html(thisHtml);
         $(dis).attr('disabled', false);
@@ -50,6 +51,7 @@ $(`.submit_btn2`).on("click", (function(e) {
     if (check) {
         $(`#${idName}`).submit();
         $(dis).attr('disabled', true);
+        Notiflix.Loading.Circle();
     } else {
         debugger
         $(dis).html(thisHtml);
@@ -176,6 +178,7 @@ function otherCheck(dis, idName, thisHtml) {
         if (voter_count == voter_length) {
             $(`#${idName}`).submit();
             $(dis).attr('disabled', true);
+            Notiflix.Loading.Circle();
         } else {
             $(dis).html(thisHtml);
             $(dis).attr('disabled', false);
@@ -184,6 +187,7 @@ function otherCheck(dis, idName, thisHtml) {
     } else {
         $(`#${idName}`).submit();
         $(dis).attr('disabled', true);
+        Notiflix.Loading.Circle();
     }
 
 }

@@ -232,10 +232,12 @@
         <a href="{{route('surveyor.store.data')}}"><i class="fas fa-plus"></i> Detail Survey </a>
         <a href="{{route('surveyor.short.survey')}}"><i class="fas fa-poll"></i> Short Survey </a>
         <a href="{{route('surveyor.report')}}"> <i class="far fa-file-alt"></i> Report </a>
-        <a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Log out</a>
+        <a href="javascript:void(0);" onclick="logout(this,'{{route('logout')}}')"><i class="fas fa-sign-out-alt"></i>
+            Log out</a>
         @elseif(Auth::check() && Auth::user()->type == 'agent' )
         <a href="{{route('agent.store.data')}}"><i class="fas fa-plus"></i>Booth Data</a>
-        <a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Log out</a>
+        <a href="javascript:void(0);" onclick="logout(this,'{{route('logout')}}')"><i class="fas fa-sign-out-alt"></i>
+            Log out</a>
         @elseif(Auth::check() && Auth::user()->type == 'parshad' )
         <a href="{{route('dashboard')}}"><i class="fas fa-home"></i> Dashboard</a>
         <details class="menulist">
@@ -252,13 +254,14 @@
             <summary class="submenutitle"> <i class="fas fa-school mr-3"></i> Poling Booth</summary>
             <div class="faq__content">
                 <div class="side_menu">
-                    <a href="{{route('parshad.list.booth.agent')}}">Create Agent </a>
+                    <a href="{{route('parshad.create.booth.agent')}}">Create Agent </a>
                     <a href="{{route('parshad.list.booth.agent')}}">Agent List </a>
                     <a href="{{route('report.polingbooth')}}">Report</a>
                 </div>
             </div>
         </details>
-        <a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Log out</a>
+        <a href="javascript:void(0);" onclick="logout(this,'{{route('logout')}}')"><i class="fas fa-sign-out-alt"></i>
+            Log out</a>
         @endif
         <!-- </ul> -->
     </div>
@@ -268,12 +271,13 @@
     </section>
     <script>
         Notiflix.Loading.Circle();
-        $(document).ready(function(){
-            Notiflix.Loading.Remove();
-        });
-        function openNav() {
-  document.getElementById("mySidepanel").style.width = "250px";
-}
+    $(document).ready(function(){
+        Notiflix.Loading.Remove();
+    });
+    function openNav() {
+        document.getElementById("mySidepanel").style.width = "250px";
+    }
+
 
 /* Set the width of the sidebar to 0 (hide it) */
 function closeNav() {

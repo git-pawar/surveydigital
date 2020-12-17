@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\UserLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::namespace('Api')->group(function () {
+    Route::post('login-process', [UserLoginController::class, 'loginUser']);
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::post('logout-process', [UserLoginController::class, 'logoutUser']);
+    });
 });

@@ -231,6 +231,29 @@ function getPolling(dis, url, elm, oldId) {
     });
 }
 
+function logout(dis, url) {
+    $.ajax({
+        url: url,
+        type: 'get',
+        data: {},
+        beforeSend: function() {
+            Notiflix.Loading.Circle();
+        },
+        success: function(response) {
+            if (response.success === true) {
+                window.location.replace(response.url);
+            } else {
+                Notiflix.Notify.Failure(response.message);
+                Notiflix.Loading.Remove();
+            }
+        },
+        error: function(xhr) {
+            Notiflix.Loading.Remove();
+            Notiflix.Report.Failure('Server error', `Code: ${xhr.status}, Exception: ${xhr.statusText}`, 'OK');
+        }
+    });
+}
+
 function changeColor(dis, url, elm, oldId) {
     const id = $(dis).val();
     $.ajax({

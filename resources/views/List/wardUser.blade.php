@@ -33,7 +33,7 @@
                                 href="{{route('admin.edit.warduser',base64_encode($item->id))}}"><i class="fas fa-edit"
                                     aria-hidden="true"></i></a>
                             <a class="btn-danger btns" href="javascript:void(0);"
-                                onclick="confirm(this,'{{route('admin.delete.warduser',base64_encode($item->id))}}','post','Are you sure?','Yes! delete it','No! keep it','parshadList');"><i
+                                onclick="confirm(this,'{{route('admin.delete.warduser',base64_encode($item->id))}}','get','Are you sure?','Yes! delete it','No! keep it','parshadList');"><i
                                     class="fas fa-trash" aria-hidden="true"></i></a>
                         </div>
                     </td>

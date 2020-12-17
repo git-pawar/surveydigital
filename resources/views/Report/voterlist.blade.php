@@ -202,9 +202,9 @@
                         data-partid="{{$item->part_id}}" data-sno="{{$item->s_no}}" data-parshad="{{$user->id}}"
                         data-url="{{route('parshad.update.color')}}" data-color="red"></div>
                     @else
-                    <a class="border_box" href="javascriptvoid:(0);" onclick="toggleColorModal(this);"
-                        data-wardid="{{$item->ward_id}}" data-partid="{{$item->part_id}}" data-sno="{{$item->s_no}}"
-                        data-parshad="{{$user->id}}" data-url="{{route('parshad.update.color')}}" data-color="grey"></a>
+                    <div class="border_box" data-wardid="{{$item->ward_id}}" data-partid="{{$item->part_id}}"
+                        data-sno="{{$item->s_no}}" data-parshad="{{$user->id}}"
+                        data-url="{{route('parshad.update.color')}}" data-color="grey"></div>
                     @endif
                 </div>
             </div>

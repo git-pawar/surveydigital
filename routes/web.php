@@ -40,8 +40,8 @@ Route::group(['middleware' => 'auth.admin'], function () {
     Route::get('admin/edit-parshad/{id}', [MasterController::class, 'parshadEdit'])->name('admin.edit.parshad');
     Route::get('admin/image/upload', [MasterController::class, 'uploadImageIndex'])->name('admin.image.upload.index');
     Route::post('admin/image/upload', [MasterController::class, 'uploadImage'])->name('admin.image.upload');
-    Route::post('admin/delete-parshad/{id}', [MasterController::class, 'parshadDelete'])->name('admin.delete.parshad');
-    Route::post('admin/delete-warduser/{id}', [MasterController::class, 'wardUserDelete'])->name('admin.delete.warduser');
+    Route::get('admin/delete-parshad/{id}', [MasterController::class, 'parshadDelete'])->name('admin.delete.parshad');
+    Route::get('admin/delete-warduser/{id}', [MasterController::class, 'wardUserDelete'])->name('admin.delete.warduser');
     Route::get('admin/logout', [MasterController::class, 'adminLogout'])->name('admin.logout');
 });
 

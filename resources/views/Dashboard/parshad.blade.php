@@ -32,6 +32,8 @@
     <form class="text-center" action="#!">
         <p class="h5 mb-3">Ward No -
             {{str_pad(Auth::user()->wards->ward_no,2,0,STR_PAD_LEFT)??'N/A'}}
+        </p>
+        <p class="h5 mb-3">
             ({{Auth::user()->wards->ward_name??'N/A'}})
         </p>
 
@@ -52,7 +54,7 @@
                     <i class="fas fa-vote-yea mr-3"></i> Poling Booth</summary>
                 <div class="faq__content">
                     <div class="submenu">
-                        <a href="{{route('parshad.list.booth.agent')}}">Create Agent </a>
+                        <a href="{{route('parshad.create.booth.agent')}}">Create Agent </a>
                         <a href="{{route('parshad.list.booth.agent')}}">Agent List </a>
                         <a href="{{route('report.polingbooth')}}">Report</a>
 

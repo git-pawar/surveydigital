@@ -297,10 +297,11 @@ class UserController extends Controller
     {
         try {
             Auth::logout();
-            return redirect()->route('login')->with('success', 'You have successfully loged out');
+            $url = route('login');
+            return ['success' => true, 'url' => $url];
         } catch (\Exception $exception) {
-            // return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
-            return back()->with('error', 'Something went wrong');
+            return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
+            // return back()->with('error', 'Something went wrong');
         }
     }
     function shortSurveyStor(Request $request)

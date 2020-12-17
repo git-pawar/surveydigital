@@ -33,10 +33,11 @@
             </select>
         </div>
         <div class="form-row mb-2" data-validate="Polling is required">
-            <label for="polling_id" class="labelinput">polling</label>
+            <label for="polling_id" class="labelinput">Polling Booth</label>
             <select class="browser-default custom-select input_section selet validate_this" id="polling_id"
-                name="polling_id" {{-- onchange="getPollingData(this,'{{route('getPollingData')}}','pollingData','');"
-                --}}>
+                name="polling_id"
+                 onchange="getPollingData(this,'{{route('getPollingData')}}','pollingData','');"
+                >
                 <option value="" selected>Select</option>
             </select>
         </div>
