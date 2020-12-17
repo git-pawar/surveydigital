@@ -3,21 +3,7 @@
 @section('content')
 
 <style>
-.pending
-{
 
-    background-color: white;
-    -ms-transform: rotate(20deg);
-    transform: rotate(20deg);
-    position: absolute;
-    border: 1px solid #ccc;
-    padding: 0px 7px;
-    font-size: 10px;
-    font-weight: 600;
-    right: 9px;
-
-    top: 6px;
-}
 
 </style>
 <div class="maininnersection px-2 position-relative">

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BoothData;
+use App\Models\PartNo;
 use App\Models\EROData;
 use App\Models\SurveyData;
 use Illuminate\Http\Request;
@@ -124,18 +126,44 @@ class ReportController extends Controller
             return $exception->getMessage();
         }
     }
-    public function reportvoterlistdone(Request $request)
+    public function boothvoterlist(Request $request)
     {
         try {
-            return view('Report.done');
+            // return $request->all();
+            $user = Auth::user();
+            $parts = $user->wards->part_nos;
+            $part_id = $request->part_id ?? $parts[0]->id ?? '';
+            $ward_no = $user->wards->ward_no;
+            $mainTitle = 'Booth Report W-' . str_pad($ward_no, 2, 0, STR_PAD_LEFT);
+            $filterBy = $request->filterBy ?? 'all';
+            // $inputSearch = $request->inputSearch ?? '';
+            // $categorySearch = $request->categorySearch ?? '';
+            // $colorSearch = $request->colorSearch ?? '';
+            $boothDataAll = [];
+            $boothDataDone = [];
+            $boothDataPending = [];
+
+            if ($filterBy == 'all') {
+                $boothDataAll = EROData::where(['ward_id' => $user->ward_id, 'part_id' => $part_id])->orderBy('s_no', 'asc')->get();
+            } elseif ($filterBy == 'done') {
+                $boothDataDone = BoothData::where(['parshad_id' => $user->id, 'ward_id' => $user->ward_id, 'part_id' => $part_id])->orderBy('s_no', 'asc')->get();
+            } elseif ($filterBy == 'pending') {
+                $doneId = BoothData::where(['parshad_id' => $user->id, 'ward_id' => $user->ward_id, 'part_id' => $part_id])->pluck('ero_id');
+                $boothDataPending = EROData::where(['ward_id' => $user->ward_id, 'part_id' => $part_id])->whereNotIn('id', $doneId)->orderBy('s_no', 'asc')->get();
+            }
+            return view('Report.pollingBooth', compact('boothDataAll', 'boothDataDone', 'boothDataPending', 'filterBy', 'mainTitle', 'user', 'part_id', 'parts'));
         } catch (\Exception $exception) {
             return $exception->getMessage();
         }
     }
-    public function reportvoterlistpending(Request $request)
+    public function analysisReport(Request $request)
     {
         try {
-            return view('Report.voterlistpending');
+            $user = Auth::user();
+            $ward_no = $user->wards->ward_no;
+            $mainTitle = 'Analysis Report W-' . str_pad($ward_no, 2, 0, STR_PAD_LEFT);
+            $partData = PartNo::where('ward_id', $ward_no)->orderBy('part_no', 'asc')->get();
+            return view('Report.analysis', compact('partData','user','mainTitle'));
         } catch (\Exception $exception) {
             return $exception->getMessage();
         }

@@ -38,7 +38,7 @@ class UserController extends Controller
             }
             $mobile = $request->mobile;
             $password = $request->password;
-            $user = User::where('mobile', $mobile)->first();
+            $user = User::where(['mobile' => $mobile, 'is_active' => 1])->whereNull('deleted_at')->first();
             if ($user) {
                 if (Hash::check($password, $user->password)) {
                     Auth::loginUsingId($user->id, 1);

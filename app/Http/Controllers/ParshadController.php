@@ -93,7 +93,8 @@ class ParshadController extends Controller
     function surveyorDelete(Request $request, $id)
     {
         try {
-            User::find(base64_decode($id))->update(['deleted_at' => Carbon::now()]);
+            User::find(base64_decode($id))->delete();
+            // User::find(base64_decode($id))->update(['deleted_at' => Carbon::now()]);
             return ['success' => true, 'message' => "Deleted successfully"];
         } catch (\Exception $exception) {
             return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
@@ -133,12 +134,21 @@ class ParshadController extends Controller
             if ($ifExistMobile) {
                 return back()->with('error', 'Mobile number allready exist')->withInput();
             }
-
+            $part_id = explode(",", $request->part_id)[0];
+            $part_no = explode(",", $request->part_id)[1];
+            $input['part_id'] = $part_id;
+            if (!$request->password) {
+                $input['password'] = Hash::make('123456789');
+                $input['password2'] = '123456789';
+            } else {
+                $input['password'] = Hash::make($request->password);
+                $input['password2'] = $request->password;
+            }
             if ($input['id']) {
                 User::find($input['id'])->update($input);
                 return redirect()->route('parshad.list.booth.agent')->with('success', 'Update successfully');
             } else {
-                $input['password'] = '123456789';
+
                 $input['parshad_id'] = Auth::id();
                 $input['type'] = 'agent';
                 // return $input;
@@ -146,7 +156,7 @@ class ParshadController extends Controller
                 return back()->with('success', 'Saved successfully');
             }
         } catch (\Exception $exception) {
-            return $exception->getMessage();
+            // return $exception->getMessage();
             return back()->with('error', 'Something went wrong')->withInput();
         }
     }
@@ -166,11 +176,13 @@ class ParshadController extends Controller
     function boothAgentEdit(Request $request, $id)
     {
         try {
-
+            $user = Auth::user();
+            $ward_id  = $user->ward_id;
+            $part_no = PartNo::where('ward_id', $ward_id)->orderBy('part_no', 'asc')->get();
             $editBoothAgent = User::find(base64_decode($id));
-            return view('Edit.boothAgent', compact('editBoothAgent'));
+            return view('Edit.boothAgent', compact('editBoothAgent', 'part_no'));
         } catch (\Exception $exception) {
-            return back()->with('error', 'Something went wrong');
+            // return back()->with('error', 'Something went wrong');
             return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
         }
     }
@@ -178,7 +190,8 @@ class ParshadController extends Controller
     function boothAgentDelete(Request $request, $id)
     {
         try {
-            User::find(base64_decode($id))->update(['deleted_at' => Carbon::now()]);
+            // User::find(base64_decode($id))->update(['deleted_at' => Carbon::now()]);
+            User::find(base64_decode($id))->delete();
             return ['success' => true, 'message' => "Deleted successfully"];
         } catch (\Exception $exception) {
             return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];

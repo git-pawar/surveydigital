@@ -531,9 +531,12 @@ class MasterController extends Controller
     function getPolling(Request $request)
     {
         try {
-            $id = $request->id;
+            $user = Auth::user();
+            $ward = $user->wards->ward_no;
+            $part_id = explode(",", $request->id)[0];
+            $part_no = explode(",", $request->id)[1];
             $oldId = $request->oldId;
-            $pollings = Polling::where('part_id', $id)->orderBy('polling_no', 'asc')->get();
+            $pollings = Polling::where(['ward_id' => $ward, 'part_id' => $part_no])->orderBy('polling_no', 'asc')->get();
             $view = view('Component.pollings', compact('pollings', 'oldId'))->render();
             return ['success' => true, 'view' => $view];
         } catch (\Exception $exception) {

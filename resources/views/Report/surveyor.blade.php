@@ -45,8 +45,8 @@
                 @if (count($surveyDataAll))
                 @foreach ($surveyDataAll as $index => $item)
                 <?php
-$surveyData = App\Models\SurveyData::where(['parshad_id' => $user->parshad_id, 'surveyor_id' => $user->id, 'ward_id' => $user->parshads->ward_id, 'part_id' => $user->part_id, 's_no' => $item->s_no])->first();
-?>
+                $surveyData = App\Models\SurveyData::where(['parshad_id' => $user->parshad_id, 'surveyor_id' => $user->id, 'ward_id' => $user->parshads->ward_id, 'part_id' => $user->part_id, 's_no' => $item->s_no])->first();
+                ?>
                 <tr>
                     {{-- <td class="text-center">{{str_pad($index+1,2,0,STR_PAD_LEFT)}}</td> --}}
                     {{-- <td class="text-center">1</td> --}}

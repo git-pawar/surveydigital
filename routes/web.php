@@ -61,7 +61,7 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::post('parshad/store-agent', [ParshadController::class, 'boothAgentStore'])->name('parshad.store.booth.agent');
     Route::get('parshad/list-agent', [ParshadController::class, 'boothAgentList'])->name('parshad.list.booth.agent');
     Route::get('parshad/edit-agent/{id}', [ParshadController::class, 'boothAgentEdit'])->name('parshad.edit.booth.agent');
-    Route::post('parshad/delete-agent/{id}', [ParshadController::class, 'boothAgentDelete'])->name('parshad.delete.booth.agent');
+    Route::get('parshad/delete-agent/{id}', [ParshadController::class, 'boothAgentDelete'])->name('parshad.delete.booth.agent');
 
     Route::get('dashboard', [UserController::class, 'surveyorAgentDashboard'])->name('dashboard');
     Route::get('survey-image', [UserController::class, 'surveyImageGet'])->name('survey.image.get');
@@ -80,7 +80,8 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('report/namewise', [ReportController::class, 'reportnameview'])->name('report.report.namewise');
     Route::get('report/voter/list', [ReportController::class, 'reportvoterlist'])->name('report.voterlist');
     Route::get('parshad/update/color', [UserController::class, 'updateColor'])->name('parshad.update.color');
-    Route::get('report/voterlist/done', [ReportController::class, 'reportvoterlistdone'])->name('report.voterlist.done');
+    Route::get('report/booth/voterlist', [ReportController::class, 'boothvoterlist'])->name('report.booth.voterlist');
+    Route::get('report/booth/analysis', [ReportController::class, 'analysisReport'])->name('report.booth.analysis');
     Route::get('report/voterlist/pending', [ReportController::class, 'reportvoterlistpending'])->name('report.voterlist.pending');
     Route::get('report/voterlist/all', [ReportController::class, 'reportvoterlistall'])->name('report.voterlist.all');
     Route::get('report/partwise/list', [ReportController::class, 'reportpartwiselist'])->name('report.partwise.list');

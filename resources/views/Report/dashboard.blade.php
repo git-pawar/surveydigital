@@ -92,7 +92,7 @@
 </details> --}}
 
 {{-- <details> --}}
-    {{-- <summary>Report</summary>
+{{-- <summary>Report</summary>
     <div class="faq__content">
         <div class="faq__content">
 
@@ -100,9 +100,9 @@
     </div>
 </details> --}}
 <div class="submenu">
-                <a href="">View voter list </a>
-                <a href="">Analysis </a>
+    <a href="{{route('report.booth.voterlist')}}">View voter list </a>
+    <a href="{{route('report.booth.analysis')}}">Analysis </a>
 
-            </div>
+</div>
 </div>
 @endsection
