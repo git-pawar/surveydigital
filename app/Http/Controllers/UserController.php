@@ -269,8 +269,8 @@ class UserController extends Controller
         try {
             // return $request->all();
             $validation = Validator::make($request->all(), [
-                'ward_id' => ['required'],
-                'part_id' => ['required'],
+                // 'ward_id' => ['required'],
+                // 'part_id' => ['required'],
                 's_no' => ['required'],
             ]);
 
@@ -278,16 +278,32 @@ class UserController extends Controller
                 return back()->withErrors($validation)->withInput();
             }
             $user = Auth::user();
-            $if_exist = BoothData::where(['agent_id' => $user->id, 'ward_id' => $request->ward_id, 'part_id' => $request->part_id, 's_no' => $request->s_no])->first();
+            $ward_id = $user->parshads->ward_id;
+            $part_id = $user->part_id;
+            $parshad_id = $user->parshad_id;
+            // $if_exist = BoothData::where(['agent_id' => $user->id, 'ward_id' => $request->ward_id, 'part_id' => $request->part_id, 's_no' => $request->s_no])->first();
+            $if_exist = SurveyData::where(['parshad_id' => $parshad_id, 'ward_id' => $ward_id, 'part_id' => $part_id, 's_no' => $request->s_no])->first();
             if ($if_exist) {
-                return back()->with('error', 'Booth data allready exist.')->withInput();
-            }
-            $input = $request->all();
+                // return back()->with('error', 'Booth data allready exist.')->withInput();
+                $if_exist->agent_id = $user->id;
+                $if_exist->attend_booth = 1;
+                $if_exist->save();
+                return back()->with('success', 'Booth data saved successfully');
+            } else {
+                $eroData = EROData::where(['ward_id' => $request->ward_id, 'part_id' => $request->part_id, 's_no' => $request->s_no])->first();
+                $createBoothData = new SurveyData();
+                $createBoothData->parshad_id = $user->parshad_id;
+                $createBoothData->agent_id = $user->id;
+                $createBoothData->ward_id = $ward_id;
+                $createBoothData->part_id = $part_id;
+                $createBoothData->s_no = $request->s_no;
+                $createBoothData->ero_id = $eroData->id ?? null;
+                $createBoothData->attend_booth = 1;
+                $createBoothData->save();
+                // BoothData::create($input);
 
-            $input['parshad_id'] = $user->parshad_id;
-            $input['agent_id'] = $user->id;
-            BoothData::create($input);
-            return back()->with('success', 'Booth data saved successfully');
+                return back()->with('success', 'Booth data saved successfully');
+            }
         } catch (\Exception $exception) {
             return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
         }

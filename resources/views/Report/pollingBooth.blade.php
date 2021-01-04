@@ -45,13 +45,17 @@
             @if (count($boothDataAll))
             @foreach ($boothDataAll as $index => $item)
             <?php
-            $boothData = App\Models\BoothData::where(['parshad_id' => $user->id, 'ward_id' => $user->ward_id, 'part_id' => $part_id, 's_no' => $item->s_no])->first();
+            // $boothData = App\Models\BoothData::where(['parshad_id' => $user->id, 'ward_id' => $user->ward_id, 'part_id' => $part_id, 's_no' => $item->s_no])->first();
             $colorGet = App\Models\SurveyData::where(['parshad_id' => $user->id, 'ward_id' => $user->ward_id, 'part_id' => $part_id, 's_no' => $item->s_no])->first();
             ?>
             {{-- {{$colorGet->red_green_blue??''}} --}}
             <div class="width-33">
                 <div class="listimg">
                     <img src="{{$item->url}}" class="w-100 h-100" />
+                    @if(isset($item->mobile))
+                    <a href="tel:{{$item->mobile??''}}"><img class="calling-user"
+                            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPgo8cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSIiIGQ9Ik0yNTYsMEMxMTQuNjE3LDAsMCwxMTQuNjE3LDAsMjU2YzAsNTIuMDMsMTUuNTYzLDEwMC40MTQsNDIuMjMxLDE0MC44MThMMCw1MTJsMTE5LjEyOC0zOS43MDYgIEMxNTguNzIsNDk3LjM5OSwyMDUuNjM5LDUxMiwyNTYsNTEyYzE0MS4zODMsMCwyNTYtMTE0LjYxNywyNTYtMjU2UzM5Ny4zODMsMCwyNTYsMHoiIGZpbGw9IiMwMTI5NTQiIGRhdGEtb3JpZ2luYWw9IiMyNWFlODgiIGNsYXNzPSIiPjwvcGF0aD4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBzdHlsZT0iIiBkPSJNMzk3LjIzMywzMzUuMDc4VjM3Ny42YzAuMDYyLDE1LjY2LTEyLjYwNiwyOC4zOTgtMjguMjkyLDI4LjQ2OWMtMC44OTIsMC0xLjc4My0wLjAzNS0yLjY3NS0wLjExNSAgYy00My43MDUtNC43NC04NS42ODktMTkuNjQxLTEyMi41NzEtNDMuNTJjLTM0LjMxMy0yMS43Ni02My40MDktNTAuODAzLTg1LjIyMi04NS4wNTRjLTI0LjAwMi0zNi45NzktMzguOTM4LTc5LjA4Ni00My41OTktMTIyLjg5OCAgYy0xLjQxMi0xNS41OSwxMC4xMDgtMjkuMzc4LDI1LjczMi0zMC43OTFjMC44NDctMC4wNjIsMS42ODYtMC4xMDYsMi41MzQtMC4xMDZoNDIuNjExYzE0LjI1Ny0wLjE0MSwyNi40MTIsMTAuMjkzLDI4LjQwNywyNC4zODIgIGMxLjgwMSwxMy42MTIsNS4xMzgsMjYuOTY4LDkuOTQsMzkuODNjMy45MDIsMTAuMzY0LDEuNDA0LDIyLjA0Mi02LjM5MSwyOS45MDhsLTE4LjAzNSwxNy45OTkgIGMyMC4yMTUsMzUuNDg3LDQ5LjY2NCw2NC44NzQsODUuMjIxLDg1LjA1NGwxOC4wMzUtMTcuOTk5YzcuODgzLTcuNzg2LDE5LjU4OC0xMC4yNzUsMjkuOTctNi4zODIgIGMxMi44ODgsNC44MDIsMjYuMjcxLDguMTMsMzkuOTEsOS45MjJDMzg3LjA5LDMwOC4zMTIsMzk3LjU5NCwzMjAuNjg5LDM5Ny4yMzMsMzM1LjA3OHoiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiNmZmZmZmYiIGNsYXNzPSIiPjwvcGF0aD4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPC9nPjwvc3ZnPg==" /></a>
+                    @endif
                     @if (isset($colorGet) && $colorGet->red_green_blue == 'green')
                     <div class="green_box" data-partid="{{$item->part_id}}" data-sno="{{$item->s_no}}"
                         data-parshad="{{$user->id}}" data-url="{{route('parshad.update.color')}}" data-color="green">
@@ -69,8 +73,12 @@
                         data-sno="{{$item->s_no}}" data-parshad="{{$user->id}}"
                         data-url="{{route('parshad.update.color')}}" data-color="grey"></div>
                     @endif
-                    @if (isset($boothData))
+                    @if (isset($colorGet->attend_booth))
+                    @if($colorGet->attend_booth == 1)
                     <span class="done">Done</span>
+                    @else
+                    <span class="pending">Pending</span>
+                    @endif
                     @else
                     <span class="pending">Pending</span>
                     @endif
@@ -82,20 +90,24 @@
             <?php
             $eroData = App\Models\EROData::where(['ward_id' => $user->ward_id, 'part_id' => $part_id,'s_no' => $item->s_no])->first();
             // $boothData = App\Models\BoothData::where(['parshad_id' => $user->parshad_id, 'agent_id' => $user->id, 'ward_id' => $user->parshads->ward_id, 'part_id' => $part_id, 's_no' => $item->s_no])->first();
-            $colorGet = App\Models\SurveyData::where(['parshad_id' => $user->id, 'ward_id' => $user->ward_id, 'part_id' => $part_id, 's_no' => $item->s_no])->first();
+            // $colorGet = App\Models\SurveyData::where(['parshad_id' => $user->id, 'ward_id' => $user->ward_id, 'part_id' => $part_id, 's_no' => $item->s_no])->first();
             ?>
             <div class="width-33">
                 <div class="listimg">
                     <img src="{{$eroData->url??''}}" class="w-100 h-100" />
-                    @if (isset($colorGet) && $colorGet->red_green_blue == 'green')
+                    @if(isset($eroData->mobile))
+                    <a href="tel:{{$eroData->mobile??''}}"><img class="calling-user"
+                            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPgo8cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSIiIGQ9Ik0yNTYsMEMxMTQuNjE3LDAsMCwxMTQuNjE3LDAsMjU2YzAsNTIuMDMsMTUuNTYzLDEwMC40MTQsNDIuMjMxLDE0MC44MThMMCw1MTJsMTE5LjEyOC0zOS43MDYgIEMxNTguNzIsNDk3LjM5OSwyMDUuNjM5LDUxMiwyNTYsNTEyYzE0MS4zODMsMCwyNTYtMTE0LjYxNywyNTYtMjU2UzM5Ny4zODMsMCwyNTYsMHoiIGZpbGw9IiMwMTI5NTQiIGRhdGEtb3JpZ2luYWw9IiMyNWFlODgiIGNsYXNzPSIiPjwvcGF0aD4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBzdHlsZT0iIiBkPSJNMzk3LjIzMywzMzUuMDc4VjM3Ny42YzAuMDYyLDE1LjY2LTEyLjYwNiwyOC4zOTgtMjguMjkyLDI4LjQ2OWMtMC44OTIsMC0xLjc4My0wLjAzNS0yLjY3NS0wLjExNSAgYy00My43MDUtNC43NC04NS42ODktMTkuNjQxLTEyMi41NzEtNDMuNTJjLTM0LjMxMy0yMS43Ni02My40MDktNTAuODAzLTg1LjIyMi04NS4wNTRjLTI0LjAwMi0zNi45NzktMzguOTM4LTc5LjA4Ni00My41OTktMTIyLjg5OCAgYy0xLjQxMi0xNS41OSwxMC4xMDgtMjkuMzc4LDI1LjczMi0zMC43OTFjMC44NDctMC4wNjIsMS42ODYtMC4xMDYsMi41MzQtMC4xMDZoNDIuNjExYzE0LjI1Ny0wLjE0MSwyNi40MTIsMTAuMjkzLDI4LjQwNywyNC4zODIgIGMxLjgwMSwxMy42MTIsNS4xMzgsMjYuOTY4LDkuOTQsMzkuODNjMy45MDIsMTAuMzY0LDEuNDA0LDIyLjA0Mi02LjM5MSwyOS45MDhsLTE4LjAzNSwxNy45OTkgIGMyMC4yMTUsMzUuNDg3LDQ5LjY2NCw2NC44NzQsODUuMjIxLDg1LjA1NGwxOC4wMzUtMTcuOTk5YzcuODgzLTcuNzg2LDE5LjU4OC0xMC4yNzUsMjkuOTctNi4zODIgIGMxMi44ODgsNC44MDIsMjYuMjcxLDguMTMsMzkuOTEsOS45MjJDMzg3LjA5LDMwOC4zMTIsMzk3LjU5NCwzMjAuNjg5LDM5Ny4yMzMsMzM1LjA3OHoiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiNmZmZmZmYiIGNsYXNzPSIiPjwvcGF0aD4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPC9nPjwvc3ZnPg==" /></a>
+                    @endif
+                    @if (isset($item->red_green_blue) && $item->red_green_blue == 'green')
                     <div class="green_box" data-partid="{{$item->part_id}}" data-sno="{{$item->s_no}}"
                         data-parshad="{{$user->id}}" data-color="green">
                     </div>
-                    @elseif (isset($colorGet) && $colorGet->red_green_blue == 'blue')
+                    @elseif (isset($item->red_green_blue) && $item->red_green_blue == 'blue')
                     <div class="yellow_box" data-partid="{{$item->part_id}}" data-sno="{{$item->s_no}}"
                         data-parshad="{{$user->id}}" data-color="blue">
                     </div>
-                    @elseif (isset($colorGet) && $colorGet->red_green_blue == 'red')
+                    @elseif (isset($item->red_green_blue) && $item->red_green_blue == 'red')
                     <div class="red_box" data-wardid="{{$item->ward_id}}" data-partid="{{$item->part_id}}"
                         data-sno="{{$item->s_no}}" data-parshad="{{$user->id}}" data-color="red"></div>
                     @else
@@ -115,6 +127,10 @@
             <div class="width-33">
                 <div class="listimg">
                     <img src="{{$item->url}}" class="w-100 h-100" />
+                    @if(isset($item->mobile))
+                    <a href="tel:{{$item->mobile??''}}"><img class="calling-user"
+                            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPgo8cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSIiIGQ9Ik0yNTYsMEMxMTQuNjE3LDAsMCwxMTQuNjE3LDAsMjU2YzAsNTIuMDMsMTUuNTYzLDEwMC40MTQsNDIuMjMxLDE0MC44MThMMCw1MTJsMTE5LjEyOC0zOS43MDYgIEMxNTguNzIsNDk3LjM5OSwyMDUuNjM5LDUxMiwyNTYsNTEyYzE0MS4zODMsMCwyNTYtMTE0LjYxNywyNTYtMjU2UzM5Ny4zODMsMCwyNTYsMHoiIGZpbGw9IiMwMTI5NTQiIGRhdGEtb3JpZ2luYWw9IiMyNWFlODgiIGNsYXNzPSIiPjwvcGF0aD4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBzdHlsZT0iIiBkPSJNMzk3LjIzMywzMzUuMDc4VjM3Ny42YzAuMDYyLDE1LjY2LTEyLjYwNiwyOC4zOTgtMjguMjkyLDI4LjQ2OWMtMC44OTIsMC0xLjc4My0wLjAzNS0yLjY3NS0wLjExNSAgYy00My43MDUtNC43NC04NS42ODktMTkuNjQxLTEyMi41NzEtNDMuNTJjLTM0LjMxMy0yMS43Ni02My40MDktNTAuODAzLTg1LjIyMi04NS4wNTRjLTI0LjAwMi0zNi45NzktMzguOTM4LTc5LjA4Ni00My41OTktMTIyLjg5OCAgYy0xLjQxMi0xNS41OSwxMC4xMDgtMjkuMzc4LDI1LjczMi0zMC43OTFjMC44NDctMC4wNjIsMS42ODYtMC4xMDYsMi41MzQtMC4xMDZoNDIuNjExYzE0LjI1Ny0wLjE0MSwyNi40MTIsMTAuMjkzLDI4LjQwNywyNC4zODIgIGMxLjgwMSwxMy42MTIsNS4xMzgsMjYuOTY4LDkuOTQsMzkuODNjMy45MDIsMTAuMzY0LDEuNDA0LDIyLjA0Mi02LjM5MSwyOS45MDhsLTE4LjAzNSwxNy45OTkgIGMyMC4yMTUsMzUuNDg3LDQ5LjY2NCw2NC44NzQsODUuMjIxLDg1LjA1NGwxOC4wMzUtMTcuOTk5YzcuODgzLTcuNzg2LDE5LjU4OC0xMC4yNzUsMjkuOTctNi4zODIgIGMxMi44ODgsNC44MDIsMjYuMjcxLDguMTMsMzkuOTEsOS45MjJDMzg3LjA5LDMwOC4zMTIsMzk3LjU5NCwzMjAuNjg5LDM5Ny4yMzMsMzM1LjA3OHoiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiNmZmZmZmYiIGNsYXNzPSIiPjwvcGF0aD4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9nPgo8ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8L2c+CjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwvZz4KPC9nPjwvc3ZnPg==" /></a>
+                    @endif
                     @if (isset($colorGet) && $colorGet->red_green_blue == 'green')
                     <div class="green_box" data-partid="{{$item->part_id}}" data-sno="{{$item->s_no}}"
                         data-parshad="{{$user->id}}" data-color="green">

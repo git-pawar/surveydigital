@@ -39,6 +39,9 @@ Route::group(['middleware' => 'auth.admin'], function () {
     Route::get('admin/edit-warduser/{id}', [MasterController::class, 'wardUserEdit'])->name('admin.edit.warduser');
     Route::get('admin/edit-parshad/{id}', [MasterController::class, 'parshadEdit'])->name('admin.edit.parshad');
     Route::get('admin/image/upload', [MasterController::class, 'uploadImageIndex'])->name('admin.image.upload.index');
+
+    Route::get('admin/parshad/{id}-voter-list', [MasterController::class, 'parshadReportVoterList'])->name('admin.parshad.voter.list');
+    Route::post('admin/download/voterlist', [MasterController::class, 'reportVoterlist'])->name('admin.report.voterlist');
     Route::post('admin/image/upload', [MasterController::class, 'uploadImage'])->name('admin.image.upload');
     Route::get('admin/delete-parshad/{id}', [MasterController::class, 'parshadDelete'])->name('admin.delete.parshad');
     Route::get('admin/delete-warduser/{id}', [MasterController::class, 'wardUserDelete'])->name('admin.delete.warduser');
@@ -85,7 +88,10 @@ Route::group(['middleware' => 'auth.user'], function () {
     Route::get('report/voterlist/pending', [ReportController::class, 'reportvoterlistpending'])->name('report.voterlist.pending');
     Route::get('report/voterlist/all', [ReportController::class, 'reportvoterlistall'])->name('report.voterlist.all');
     Route::get('report/partwise/list', [ReportController::class, 'reportpartwiselist'])->name('report.partwise.list');
+    Route::get('send-sms', [ParshadController::class, 'sendSms'])->name('sendsms');
+    Route::get('send-sms-process', [ParshadController::class, 'sendSmsProcess'])->name('sendsms.process');
 });
+Route::get('download-pdf',[ReportController::class,'printPDF']);
 Route::get('/route-cache', function () {
     $exitCode = Artisan::call('route:cache');
     return 'Routes cache cleared';

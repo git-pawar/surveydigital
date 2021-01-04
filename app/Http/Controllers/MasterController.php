@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Image;
 use thiagoalessio\TesseractOCR\TesseractOCR;
+use PDF;
+use Illuminate\Support\Facades\Response;
 
 class MasterController extends Controller
 {
@@ -239,6 +241,94 @@ class MasterController extends Controller
         try {
             User::find(base64_decode($id))->update(['deleted_at' => Carbon::now()]);
             return ['success' => true, 'message' => "Deleted successfully"];
+        } catch (\Exception $exception) {
+            return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
+        }
+    }
+    function parshadReportVoterList(Request $request, $id)
+    {
+        try {
+            $user = User::find(base64_decode($id));
+            $ward_id = $user->ward_id;
+            $parts = $user->wards->part_nos;
+            return view('Report.Admin.voterlist', compact('user', 'ward_id', 'parts'));
+            return ['success' => true, 'message' => "Deleted successfully"];
+        } catch (\Exception $exception) {
+            return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
+        }
+    }
+
+    function reportVoterlist(Request $request)
+    {
+        try {
+            //  return $request->all();
+            $id = base64_decode($request->parshad_id);
+            $user = User::find($id);
+            $ward_id = $user->ward_id;
+            $part_id = $request->part_id;
+            $color = $request->color;
+            $parts = $user->wards->part_nos;
+            $eroDataWithC = [];
+            $eroDataWithoutC = [];
+            if ($part_id && !$color) {
+                $eroDataWithoutC = EROData::where(['ward_id' => $ward_id, 'part_id' => $part_id])->orderBy('s_no', 'asc')->get();
+            } else {
+                $eroDataWithC = EROData::join('survey_data', 'e_r_o_data.id', '=', 'survey_data.ero_id')
+                    ->where(['e_r_o_data.ward_id' => $ward_id, 'e_r_o_data.part_id' => $part_id])
+                    ->when(request('color'), function ($q) use ($user) {
+                        return $q->where(['parshad_id' => $user->id, 'survey_data.red_green_blue' => request('color')]);
+                    })
+                    ->select('e_r_o_data.*', 'survey_data.red_green_blue as color')
+                    ->orderBy('e_r_o_data.s_no', 'asc')->get();
+            }
+            $data = [
+                'user' => $user,
+                'eroDataWithC' => $eroDataWithoutC,
+                'eroDataWithoutC' => $eroDataWithC,
+                'part_id' => $part_id,
+                'color' => $color
+            ];
+            // return view('Report.Admin.voterlistPDF', compact('user', 'eroDataWithC', 'eroDataWithoutC', 'part_id', 'color'));
+
+            $veiw = view('Report.Admin.voterlistPDF', compact('user', 'eroDataWithC', 'eroDataWithoutC', 'part_id', 'color'))->render();
+            // $pdf = PDF::loadView('Report.Admin.voterlistPDF',$data);
+            // return $pdf->download('medium.pdf');
+
+            $apikey = '32182451-d37f-4a50-a14a-23b26ca1cd1c';
+            $value = $veiw;
+
+            $postdata = http_build_query(
+                array(
+                    'apikey' => $apikey,
+                    'value' => $value,
+                    'MarginBottom' => '30',
+                    'MarginTop' => '20'
+                )
+            );
+
+            $opts = array('http' =>
+            array(
+                'method'  => 'POST',
+                'header'  => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $postdata
+            ));
+
+            $context  = stream_context_create($opts);
+
+            // Convert the HTML string to a PDF using those parameters
+            $result = file_get_contents('http://api.html2pdfrocket.com/pdf', false, $context);
+
+            // Save to root folder in website
+            return file_put_contents('mypdf-1.pdf', $result);
+
+            $headers = array(
+                'Content-Type: application/pdf',
+            );
+            // $file = file_get_contents(url('mypdf-1.pdf'));
+            // return Response::download($_SERVER['DOCUMENT_ROOT'] . '/' . 'election_survey/' . 'mypdf-1.pdf', 'filename.pdf', $headers);
+            return Response::download($result, 'filename.pdf', $headers);
+
+            return view('Report.Admin.voterlistPDF', compact('user', 'eroDataWithC', 'eroDataWithoutC', 'part_id', 'color'));
         } catch (\Exception $exception) {
             return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
         }

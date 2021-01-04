@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EROData;
 use App\Models\PartNo;
 use App\Models\User;
 use Carbon\Carbon;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class ParshadController extends Controller
 {
@@ -193,6 +195,42 @@ class ParshadController extends Controller
             // User::find(base64_decode($id))->update(['deleted_at' => Carbon::now()]);
             User::find(base64_decode($id))->delete();
             return ['success' => true, 'message' => "Deleted successfully"];
+        } catch (\Exception $exception) {
+            return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
+        }
+    }
+    /**Delete boothAgent */
+    function sendSms(Request $request)
+    {
+        try {
+
+            $mainTitle = 'Send SMS';
+            $user = Auth::user();
+            $parts = $user->wards->part_nos;
+            $ward_id = $user->ward_id;
+            return view('Data.sendSms', compact('user', 'parts', 'mainTitle'));
+            return ['success' => true, 'message' => "Deleted successfully"];
+        } catch (\Exception $exception) {
+            return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
+        }
+    }
+    function sendSmsProcess(Request $request)
+    {
+        try {
+            $user = Auth::user();
+            $part_id = $request->part_id;
+            // $part_id = 718;
+            $ward_id = $user->ward_id;
+            $message = urlencode($request->textMessage);
+            // $users = EROData::where(['ward_id' => $ward_id, 'part_id' => $part_id])->whereNotNull('mobile')->pluck('mobile');
+            $mobile = DB::selectOne("SELECT GROUP_CONCAT(CONCAT('+91',mobile)) as 'mobile'
+            FROM e_r_o_data WHERE ward_id = $ward_id AND part_id = $part_id AND mobile IS NOT NULL GROUP BY part_id");
+            if ($mobile) {
+                file_get_contents("http://login.heightsconsultancy.com/API/WebSMS/Http/v1.0a/index.php?username=mitradata&password=password&sender=ELECTN&to=$mobile->mobile&message=$message&reqid=1&format={json|text}&route_id=113");
+                return ['success' => true, 'message' => "SMS sent"];
+            } else {
+                return ['success' => false, 'message' => 'No user available with mobile number for sending message'];
+            }
         } catch (\Exception $exception) {
             return ['success' => false, 'message' => 'Server error', 'exception' => $exception->getMessage()];
         }

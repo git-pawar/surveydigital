@@ -26,15 +26,18 @@
                     <td>{{$item->ward_name}}</td>
                     <td>{{$item->mobile}}</td>
                     <td>{{$item->email}}</td>
-                    <td>{{$item->cities->city_name}}</td>
+                    <td>{{$item->cities->city_name??'N/A'}}</td>
                     <td>
                         <div class="row mx-0">
-                            <a class="btn-primary  btns"
+                            <a class="btn-primary btns"
                                 href="{{route('admin.edit.parshad',base64_encode($item->id))}}"><i class="fas fa-edit"
                                     aria-hidden="true"></i></a>
                             <a class="btn-danger btns" href="javascript:void(0);"
                                 onclick="confirm(this,'{{route('admin.delete.parshad',base64_encode($item->id))}}','get','Are you sure?','Yes! delete it','No! keep it','parshadList');"><i
                                     class="fas fa-trash" aria-hidden="true"></i></a>
+                            <a class="btn-info btns"
+                                href="{{route('admin.parshad.voter.list',base64_encode($item->id))}}"><i class="fas fa-file"
+                                    aria-hidden="true"></i></a>
                         </div>
                     </td>
                 </tr>

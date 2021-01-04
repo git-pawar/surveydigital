@@ -33,41 +33,58 @@
                 <tr>
                     {{-- <th>S.no</th> --}}
                     {{-- <th>Ward No</th> --}}
-                    <th rowspan="2">Part no</th>
-                    <th rowspan="2">Total Voters</th>
-                    <th rowspan="1" colspan="3">Voting Done</th>
-                    <th rowspan="1" colspan="3">Voting Pending</th>
-                    <th rowspan="2">Done Per </th>
-                    <th rowspan="2">Pending Per </th>
+                    <th class="text-center" rowspan="2">Part no</th>
+                    <th class="text-center" rowspan="2">Total Voters</th>
+                    <th class="text-center" rowspan="1" colspan="3">Voting Done</th>
+                    <th class="text-center" rowspan="1" colspan="3">Voting Pending</th>
+                    <th class="text-center" rowspan="2">Done Per </th>
+                    <th class="text-center" rowspan="2">Pending Per </th>
                 </tr>
                 <tr>
-                    <td rowspan="1">Green</td>
-                    <td rowspan="1">Yellow</td>
-                    <td rowspan="1">Red</td>
-                    <td rowspan="1">Green</td>
-                    <td rowspan="1">Yellow</td>
-                    <td rowspan="1">Red</td>
+                    <td class="text-center" rowspan="1">Green</td>
+                    <td class="text-center" rowspan="1">Yellow</td>
+                    <td class="text-center" rowspan="1">Red</td>
+                    <td class="text-center" rowspan="1">Green</td>
+                    <td class="text-center" rowspan="1">Yellow</td>
+                    <td class="text-center" rowspan="1">Red</td>
                 </tr>
             </thead>
             <tbody>
                 @if (count($partData))
                 @foreach ($partData as $index => $item)
                 <?php
-                    $totalVoter = App\Models\PartNo::find($item->id)->total_voter;
+                    $greenAttend = App\Models\SurveyData::where(['parshad_id' => $user->id, 'ward_id' => $user->ward_id, 'part_id' => $item->id,'red_green_blue'=>'green','attend_booth'=>1])->count('id');
+                    $greenPending = App\Models\SurveyData::where(['parshad_id' => $user->id, 'ward_id' => $user->ward_id, 'part_id' => $item->id,'red_green_blue'=>'green','attend_booth'=>0])->count('id');
+                    $yellowAttend = App\Models\SurveyData::where(['parshad_id' => $user->id, 'ward_id' => $user->ward_id, 'part_id' => $item->id,'red_green_blue'=>'blue','attend_booth'=>1])->count('id');
+                    $yellowPending = App\Models\SurveyData::where(['parshad_id' => $user->id, 'ward_id' => $user->ward_id, 'part_id' => $item->id,'red_green_blue'=>'blue','attend_booth'=>0])->count('id');
+                    $redAttend = App\Models\SurveyData::where(['parshad_id' => $user->id, 'ward_id' => $user->ward_id, 'part_id' => $item->id,'red_green_blue'=>'red','attend_booth'=>1])->count('id');
+                    $redPending = App\Models\SurveyData::where(['parshad_id' => $user->id, 'ward_id' => $user->ward_id, 'part_id' => $item->id,'red_green_blue'=>'red','attend_booth'=>0])->count('id');
+                    $doneTotal = $greenAttend + $yellowAttend + $redAttend;
+                    $donePer = 0;
+                    if($doneTotal>0){
+                        $donePer =  $doneTotal * 100 /$item->total_voter;
+                    }
+                    $pendigTotal = $greenPending + $yellowPending + $redPending;
+                    $pendigPer = 0;
+                    if($pendigTotal>0){
+                        $pendigPer =  $pendigTotal * 100 /$item->total_voter;
+                    }
                 ?>
                 <tr>
                     {{-- <td class="text-center">{{str_pad($index+1,2,0,STR_PAD_LEFT)}}</td> --}}
                     {{-- <td class="text-center">1</td> --}}
                     <td class="text-center">{{str_pad($item->part_no,2,0,STR_PAD_LEFT)??''}}</td>
                     <td class="text-center">{{$item->total_voter??0}}</td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
+                    <td class="text-center">{{$greenAttend}}</td>
+                    <td class="text-center">{{$yellowAttend}}</td>
+                    <td class="text-center">{{$redAttend}}</td>
+                    <td class="text-center">{{$greenPending}}</td>
+                    <td class="text-center">{{$yellowPending}}</td>
+                    <td class="text-center">{{$redPending}}</td>
+                    <td class="text-center">{{round($donePer,2)}}%
+                    </td>
+                    <td class="text-center">{{round($pendigPer,2)}}%
+                    </td>
                 </tr>
                 @endforeach
                 @else

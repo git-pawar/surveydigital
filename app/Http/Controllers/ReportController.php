@@ -8,6 +8,7 @@ use App\Models\EROData;
 use App\Models\SurveyData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class ReportController extends Controller
 {
@@ -146,9 +147,9 @@ class ReportController extends Controller
             if ($filterBy == 'all') {
                 $boothDataAll = EROData::where(['ward_id' => $user->ward_id, 'part_id' => $part_id])->orderBy('s_no', 'asc')->get();
             } elseif ($filterBy == 'done') {
-                $boothDataDone = BoothData::where(['parshad_id' => $user->id, 'ward_id' => $user->ward_id, 'part_id' => $part_id])->orderBy('s_no', 'asc')->get();
+                $boothDataDone = SurveyData::where(['parshad_id' => $user->id, 'ward_id' => $user->ward_id, 'part_id' => $part_id, 'attend_booth' => 1])->orderBy('s_no', 'asc')->get();
             } elseif ($filterBy == 'pending') {
-                $doneId = BoothData::where(['parshad_id' => $user->id, 'ward_id' => $user->ward_id, 'part_id' => $part_id])->pluck('ero_id');
+                $doneId = SurveyData::where(['parshad_id' => $user->id, 'ward_id' => $user->ward_id, 'part_id' => $part_id, 'attend_booth' => 1])->whereNotNull('ero_id')->pluck('ero_id');
                 $boothDataPending = EROData::where(['ward_id' => $user->ward_id, 'part_id' => $part_id])->whereNotIn('id', $doneId)->orderBy('s_no', 'asc')->get();
             }
             return view('Report.pollingBooth', compact('boothDataAll', 'boothDataDone', 'boothDataPending', 'filterBy', 'mainTitle', 'user', 'part_id', 'parts'));
@@ -163,7 +164,7 @@ class ReportController extends Controller
             $ward_no = $user->wards->ward_no;
             $mainTitle = 'Analysis Report W-' . str_pad($ward_no, 2, 0, STR_PAD_LEFT);
             $partData = PartNo::where('ward_id', $ward_no)->orderBy('part_no', 'asc')->get();
-            return view('Report.analysis', compact('partData','user','mainTitle'));
+            return view('Report.analysis', compact('partData', 'user', 'mainTitle'));
         } catch (\Exception $exception) {
             return $exception->getMessage();
         }
@@ -183,5 +184,17 @@ class ReportController extends Controller
         } catch (\Exception $exception) {
             return $exception->getMessage();
         }
+    }
+     public function printPDF()
+    {
+       // This  $data array will be passed to our PDF blade
+       $data = [
+          'title' => 'First PDF for Medium',
+          'heading' => 'Hello from 99Points.info',
+          'content' => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
+            ];
+
+        $pdf = PDF::loadView('Report.pdf_view', $data);
+        return $pdf->download('medium.pdf');
     }
 }

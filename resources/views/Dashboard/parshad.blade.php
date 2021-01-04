@@ -26,6 +26,24 @@
         border: 1px dashed #ccc;
         margin: 8px auto 0px !important;
     }
+
+    .summary {
+        font-size: 15px;
+        font-weight: 600;
+        background-color: #fff;
+        color: #fff;
+        padding: 7px 13px;
+        margin-top: 20px;
+        outline: none;
+        border: 1px solid #012954;
+        border-radius: 0.25rem;
+        text-align: left;
+        cursor: pointer;
+        margin-top: 0px;
+        position: relative;
+        background: #012954;
+        width: 100%;
+    }
 </style>
 <div class="maindiv">
     <!-- Default form register -->
@@ -50,7 +68,6 @@
             </details>
             <details>
                 <summary>
-
                     <i class="fas fa-vote-yea mr-3"></i> Poling Booth</summary>
                 <div class="faq__content">
                     <div class="submenu">
@@ -61,6 +78,8 @@
                     </div>
                 </div>
             </details>
+                <a href="{{route('sendsms')}}" class="summary">
+                    <i class="fas fa-sms mr-3"></i> Send SMS</a>
 
             <!-- <a href="{{route('parshad.create.surveyor')}}" class="w-100 serverdashboard"  class="">
 
